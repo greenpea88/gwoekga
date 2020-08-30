@@ -10,10 +10,7 @@
 		<setting name="defaultExecutorType" value="REUSE" />
 		<setting name="defaultStatementTimeout" value="3000" />
 	</settings>
-	<typeAliases>
-		<package name="goni9071.plugin.member.entity" />
-		<package name="goni9071.core.entity" />
-	</typeAliases>
+
 	<mappers>
 		<mapper resource="sqlmap/user.xml" />
 	</mappers>

@@ -5,10 +5,9 @@
 
 <mapper namespace="user">
 
-	<insert id="insertUser" parameterType="User">
+	<insert id="insertUser" parameterType="hashmap">
         INSERT INTO User(`id`, `pw`, `email`) VALUES (#{id}, #{pw}, #{email})
     </insert>
-
 	<!--
 	<update id="updateUser" parameterType="String">
         UPDATE user
@@ -20,13 +19,27 @@
         DELETE FROM user WHERE userId = #{userId}
     </delete>
 	-->
-	<select id="selectUser" parameterType="string" resultType="hashmap">
+
+	<select id="selectUser" parameterType="String" resultType="map">
         SELECT
         	U.id as id,
         	U.pw as pw,
         	U.email as email
-         FROM user U
-         WHERE userId = #{userId}
+         FROM User U
+         <where>
+	         <if test="id != null">
+		         AND U.id = #{id}
+	         </if>
+         </where>
     </select>
+
+	<select id="selectUsers" resultType="map">
+		 SELECT
+        	U.id as id,
+        	U.pw as pw,
+        	U.email as email
+         FROM User U
+	</select>
+
 
 </mapper>
