@@ -1,10 +1,19 @@
 package com.gwoekga.server.datatype;
 
-public class User {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
+public class User {
+    public static Logger logger = LoggerFactory.getLogger(User.class);
     private String id;
     private String pw;
     private String email;
+
+    private User() {
+
+    }
 
     public User(String id, String pw, String email) {
         this.id = id;
@@ -43,5 +52,15 @@ public class User {
                 ", pw='" + pw + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public static User fromMap(Map<String, Object> map) {
+        if (map == null) {
+            return null;
+        }
+        String id = (String) map.get("id");
+        String pw = (String) map.get("pw");
+        String email = (String) map.get("email");
+        return new User(id, pw, email);
     }
 }
