@@ -10,7 +10,7 @@ import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
 
 class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
-    //TODO: 정보 입력안하면 toast 띄우기
+    //TODO: 로그인 입력 정보 맞는지 확인하기
     
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginInfoField: UIStackView!
@@ -51,9 +51,28 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    //MARK: - IBAction Methods
+    //MARK: - IBAction Method
     @IBAction func onLoginBtnClicked(_ sender: UIButton) {
         print("LoginVC -> onLoginBtnClicked()")
+        
+        guard let id = idTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        
+        if (id.isEmpty || password.isEmpty){
+            self.view.makeToast("ID,password를 모두 입력해주세요.",duration: 1.0,position: .center)
+        }
+        //TODO: 로그인시 홈 화면으로 넘어가기
+        else{
+            //스토리보드 가져오기
+            let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+            //스토리보드를 통해 view controller 가져오기
+            let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
+            //전환 타입
+            homeVC.modalPresentationStyle = .overCurrentContext
+            homeVC.modalTransitionStyle = .crossDissolve
+
+            self.present(homeVC,animated: true,completion: nil)
+        }
 
     }
 
@@ -101,12 +120,23 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
         }
     }
     
-    //MARK: - UITextFieldDelegate
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        //텍스트 필드에서 유저가 return키를 눌렀을 때
-//        print("LoginVC -> textField returnClicked()")
-//
-//
-//    }
+    //MARK: - UITextFieldDelegate Method
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //텍스트 필드에서 유저가 return키를 눌렀을 때
+        print("LoginVC -> textField returnClicked()")
+        
+        guard let id = idTextField.text else {return false}
+        guard let password = passwordTextField.text else {return false}
+        
+        if (id.isEmpty || password.isEmpty){
+            self.view.makeToast("ID,password를 모두 입력해주세요.",duration: 1.0,position: .center)
+            return false
+        }
+        else{
+            textField.resignFirstResponder()
+            return true
+        }
+
+    }
 
 }

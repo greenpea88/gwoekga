@@ -29,7 +29,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kXZ-Pg-SET">
                                                 <rect key="frame" x="0.0" y="44" width="294" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -56,7 +56,7 @@
                                 <rect key="frame" x="100" y="523" width="214" height="34"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="214" id="ocn-R1-T3A"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="214" id="ocn-R1-T3A"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
@@ -137,11 +137,14 @@
                                 <rect key="frame" x="100" y="523" width="214" height="34"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="214" id="pmI-U5-pMJ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="214" id="pmI-U5-pMJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <state key="normal" title="Join"/>
+                                <connections>
+                                    <action selector="onJoinBtnClicked:" destination="TAy-wE-anz" eventType="touchUpInside" id="SNq-Ou-dce"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cuP-UX-Icz" userLabel="Registered Btn">
                                 <rect key="frame" x="134" y="812" width="146" height="30"/>
@@ -151,24 +154,48 @@
                                     <action selector="onRegisteredBtnClicked:" destination="TAy-wE-anz" eventType="touchUpInside" id="gb1-K7-q2U"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I93-MK-8Lf" userLabel="Welcome">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6f1-e3-Q0p">
+                                        <rect key="frame" x="100" y="418" width="214.5" height="60"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                        <color key="textColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="6f1-e3-Q0p" firstAttribute="centerX" secondItem="I93-MK-8Lf" secondAttribute="centerX" id="4eT-qc-ESG"/>
+                                    <constraint firstItem="6f1-e3-Q0p" firstAttribute="centerY" secondItem="I93-MK-8Lf" secondAttribute="centerY" id="MbQ-hk-M0a"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="YIB-td-soE" firstAttribute="trailing" secondItem="I93-MK-8Lf" secondAttribute="trailing" id="4tU-35-6e5"/>
+                            <constraint firstItem="I93-MK-8Lf" firstAttribute="top" secondItem="tAz-Ln-CaY" secondAttribute="top" id="8VB-ci-LrH"/>
+                            <constraint firstAttribute="bottom" secondItem="I93-MK-8Lf" secondAttribute="bottom" id="E1H-nj-Vso"/>
                             <constraint firstItem="cuP-UX-Icz" firstAttribute="centerX" secondItem="tAz-Ln-CaY" secondAttribute="centerX" id="KrF-EC-TCH"/>
                             <constraint firstItem="YIB-td-soE" firstAttribute="bottom" secondItem="cuP-UX-Icz" secondAttribute="bottom" constant="20" id="MvS-vm-R0a"/>
                             <constraint firstItem="gaZ-2X-IC4" firstAttribute="top" secondItem="6YA-EB-zD8" secondAttribute="bottom" id="Ojw-lQ-PEx"/>
                             <constraint firstItem="gaZ-2X-IC4" firstAttribute="centerX" secondItem="tAz-Ln-CaY" secondAttribute="centerX" id="eFF-4U-q5q"/>
                             <constraint firstItem="6YA-EB-zD8" firstAttribute="centerY" secondItem="tAz-Ln-CaY" secondAttribute="centerY" id="eN7-1p-jDR"/>
                             <constraint firstItem="6YA-EB-zD8" firstAttribute="trailing" secondItem="YIB-td-soE" secondAttribute="trailing" id="ib9-B5-khW"/>
+                            <constraint firstItem="I93-MK-8Lf" firstAttribute="leading" secondItem="YIB-td-soE" secondAttribute="leading" id="mYT-0W-JUb"/>
                             <constraint firstItem="6YA-EB-zD8" firstAttribute="leading" secondItem="YIB-td-soE" secondAttribute="leading" id="uOe-U1-KNT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YIB-td-soE"/>
                     </view>
                     <navigationItem key="navigationItem" id="xgW-3O-qI6"/>
                     <connections>
+                        <outlet property="idTextField" destination="Qil-4A-bMj" id="BMx-Gi-y90"/>
                         <outlet property="joinBtn" destination="gaZ-2X-IC4" id="zyn-KS-thr"/>
                         <outlet property="joinInfoField" destination="vb9-IH-ZRm" id="CRe-gF-1bE"/>
+                        <outlet property="passwordTextField" destination="Cmo-aB-GgU" id="6EB-9O-mtV"/>
                         <outlet property="registeredBtn" destination="cuP-UX-Icz" id="R9Y-oE-wR2"/>
+                        <outlet property="usernameTextField" destination="yco-YA-5C2" id="YZa-Fh-27f"/>
+                        <outlet property="welcomeView" destination="I93-MK-8Lf" id="Q9I-9K-WgM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z3m-aY-d0P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

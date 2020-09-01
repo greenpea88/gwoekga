@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		94150BA2549ED2C91D79DE10 /* Pods_Gwoekga_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2849F446D7E59D70975D6983 /* Pods_Gwoekga_ios.framework */; };
+		F96C904124FE1B8000DECD1D /* ControlVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C904024FE1B8000DECD1D /* ControlVC.swift */; };
+		F96C904324FE532700DECD1D /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C904224FE532700DECD1D /* MyProfileVC.swift */; };
 		F9705B8624FCC0B5000B771A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705B8524FCC0B5000B771A /* AppDelegate.swift */; };
 		F9705B8824FCC0B5000B771A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705B8724FCC0B5000B771A /* SceneDelegate.swift */; };
 		F9705B8A24FCC0B5000B771A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705B8924FCC0B5000B771A /* HomeVC.swift */; };
@@ -24,6 +26,8 @@
 		0E759079DED4BD7425C3D13C /* Pods-Gwoekga-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gwoekga-ios.release.xcconfig"; path = "Target Support Files/Pods-Gwoekga-ios/Pods-Gwoekga-ios.release.xcconfig"; sourceTree = "<group>"; };
 		257F259421ECA87F3850CB7E /* Pods-Gwoekga-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gwoekga-ios.debug.xcconfig"; path = "Target Support Files/Pods-Gwoekga-ios/Pods-Gwoekga-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		2849F446D7E59D70975D6983 /* Pods_Gwoekga_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gwoekga_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F96C904024FE1B8000DECD1D /* ControlVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlVC.swift; sourceTree = "<group>"; };
+		F96C904224FE532700DECD1D /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		F9705B8224FCC0B5000B771A /* Gwoekga-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gwoekga-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9705B8524FCC0B5000B771A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9705B8724FCC0B5000B771A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,7 +60,6 @@
 				257F259421ECA87F3850CB7E /* Pods-Gwoekga-ios.debug.xcconfig */,
 				0E759079DED4BD7425C3D13C /* Pods-Gwoekga-ios.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -106,6 +109,8 @@
 				F9705B9B24FCC0F1000B771A /* LoginVC.swift */,
 				F9705B9F24FCC367000B771A /* PostVC.swift */,
 				F9705BA124FCC6BA000B771A /* JoinVC.swift */,
+				F96C904024FE1B8000DECD1D /* ControlVC.swift */,
+				F96C904224FE532700DECD1D /* MyProfileVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -239,6 +244,8 @@
 				F9705B8A24FCC0B5000B771A /* HomeVC.swift in Sources */,
 				F9705B8624FCC0B5000B771A /* AppDelegate.swift in Sources */,
 				F9705BA224FCC6BA000B771A /* JoinVC.swift in Sources */,
+				F96C904124FE1B8000DECD1D /* ControlVC.swift in Sources */,
+				F96C904324FE532700DECD1D /* MyProfileVC.swift in Sources */,
 				F9705B9C24FCC0F1000B771A /* LoginVC.swift in Sources */,
 				F9705B8824FCC0B5000B771A /* SceneDelegate.swift in Sources */,
 				F9705BA024FCC367000B771A /* PostVC.swift in Sources */,

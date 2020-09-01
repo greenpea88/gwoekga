@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
 
-class JoinVC: UIViewController, UIGestureRecognizerDelegate {
+class JoinVC: UIViewController, UIGestureRecognizerDelegate,UITextFieldDelegate {
+    
+    //TODO: 입력된 정보가 이미 가입된 회원인지 확인(id값으로 확인/username은 중복 사용 가능)
     
     @IBOutlet weak var joinBtn: UIButton!
     @IBOutlet weak var joinInfoField: UIStackView!
     @IBOutlet weak var registeredBtn: UIButton!
-    
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var idTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var welcomeView: UIView!
     
     
     var keyboardDissmissTabGesture: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
@@ -27,6 +33,10 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate {
         joinBtn.layer.cornerRadius = joinBtn.frame.height / 2
         
         self.keyboardDissmissTabGesture.delegate = self
+        self.usernameTextField.delegate = self
+        self.idTextField.delegate = self
+        self.passwordTextField.delegate = self
+        
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
     }
     
@@ -49,6 +59,41 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate {
         
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func onJoinBtnClicked(_ sender: UIButton) {
+        
+        guard let username = usernameTextField.text else {return}
+        guard let id = idTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        
+        if (username.isEmpty || id.isEmpty || password.isEmpty){
+            self.view.makeToast("회원 정보를 모두 입력해주세요.",duration: 1.0,position: .center)
+        }
+        //TODO: 회원 가입 시 홈 화면으로 넘어가기 + welcome 화면 띄우기
+        else{
+            //키보드 내리기
+            self.view.endEditing(true)
+            
+            //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.welcomeView.isHidden = false
+            })
+            
+            //view 전환
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                //스토리보드 가져오기
+                let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+                //스토리보드를 통해 view controller 가져오기
+                let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
+                            //전환 타입
+                homeVC.modalPresentationStyle = .overCurrentContext
+                homeVC.modalTransitionStyle = .crossDissolve
+                
+                self.present(homeVC,animated: true,completion: nil)
+            })
+        }
+    }
+    
     
     //MARK: - @objc
     @objc func keyboardWillShow(notification: NSNotification){
@@ -93,5 +138,43 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate {
             view.endEditing(true)
             return true
         }
+    }
+    
+    //MARK: - UITextFieldDelegate Method
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //텍스트 필드에서 유저가 return키를 눌렀을 때
+        print("LoginVC -> textField returnClicked()")
+        
+        guard let username = usernameTextField.text else {return false}
+        guard let id = idTextField.text else {return false}
+        guard let password = passwordTextField.text else {return false}
+        
+        if (username.isEmpty || id.isEmpty || password.isEmpty){
+            self.view.makeToast("회원 정보를 모두 입력해주세요.",duration: 1.0,position: .center)
+            return false
+        }
+        else{
+            textField.resignFirstResponder()
+            
+            //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.welcomeView.isHidden = false
+            })
+            
+            //view 전환
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                //스토리보드 가져오기
+                let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+                //스토리보드를 통해 view controller 가져오기
+                let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
+                            //전환 타입
+                homeVC.modalPresentationStyle = .overCurrentContext
+                homeVC.modalTransitionStyle = .crossDissolve
+                
+                self.present(homeVC,animated: true,completion: nil)
+            })
+            return true
+        }
+
     }
 }

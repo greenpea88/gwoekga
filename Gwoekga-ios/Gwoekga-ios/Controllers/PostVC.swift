@@ -21,6 +21,8 @@ class PostVC: UIViewController {
     //MARK: - IBAction Methods
     @IBAction func onSubmitBtnClicked(_ sender: UIButton) {
         print("AddVC -> onSubmitBtnClicked()")
+        //TODO: 작성한 내용 서버 전송
+        
         
         //submit 누를 시 이전 view로 되돌아감
         self.dismiss(animated: true, completion: nil)
