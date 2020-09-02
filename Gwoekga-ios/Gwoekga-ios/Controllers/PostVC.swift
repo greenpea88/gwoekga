@@ -12,6 +12,11 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
     
     @IBOutlet weak var underStackView: UIStackView!
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var submitBtn: UIButton!
+    @IBOutlet weak var bookBtn: UIButton!
+    @IBOutlet weak var movieBtn: UIButton!
+    @IBOutlet weak var musicalBtn: UIButton!
+    @IBOutlet weak var playBtn: UIButton!
     
     
     override func viewDidLoad() {
@@ -21,6 +26,11 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
         
         //title 입력 textfield에 포커스 주기
         self.titleTextField.becomeFirstResponder()
+        
+        //입력값 없을 때 버튼 비활성화
+        submitBtn.isUserInteractionEnabled = false
+        //Color Literal 사용해서 custom색 지정
+        submitBtn.setTitleColor(#colorLiteral(red: 1, green: 0.8960878849, blue: 0.6251387, alpha: 1), for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +53,38 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
         //이전 view로 되돌아감
         self.dismiss(animated: true, completion: nil)
     }
-    
+    @IBAction func onCategoryRadio(_ sender: UIButton) {
+        //카테고리(책,영화,뮤지컬,연극) 선택 - radio button type으로
+        
+        if (sender.tag == 1){
+            bookBtn.isSelected = true
+            movieBtn.isSelected = false
+            musicalBtn.isSelected = false
+            playBtn.isSelected = false
+        }
+        else if (sender.tag == 2){
+            bookBtn.isSelected = false
+            movieBtn.isSelected = true
+            musicalBtn.isSelected = false
+            playBtn.isSelected = false
+        }
+        else if (sender.tag == 3){
+            bookBtn.isSelected = false
+            movieBtn.isSelected = false
+            musicalBtn.isSelected = true
+            playBtn.isSelected = false
+        }
+        else if (sender.tag == 4){
+            bookBtn.isSelected = false
+            movieBtn.isSelected = false
+            musicalBtn.isSelected = false
+            playBtn.isSelected = true
+        }
+    }
     
     //MARK: - @objc
     @objc func keyboardWillShow(notification: NSNotification){
+        print("PostVC -> keyboardWillShow()")
         //키보드 올라오는만큼 아래바 올리기
        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
 //        self.underStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
