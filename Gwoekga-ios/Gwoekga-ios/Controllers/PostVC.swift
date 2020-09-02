@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostVC: UIViewController,UIGestureRecognizerDelegate {
+class PostVC: UIViewController, UITextViewDelegate{
     
     @IBOutlet weak var underStackView: UIStackView!
     @IBOutlet weak var titleTextField: UITextField!
@@ -17,6 +17,9 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var movieBtn: UIButton!
     @IBOutlet weak var musicalBtn: UIButton!
     @IBOutlet weak var playBtn: UIButton!
+    @IBOutlet weak var reviewTextField: UITextView!
+    @IBOutlet weak var reviewTextFieldHC: NSLayoutConstraint!
+    @IBOutlet weak var reviewPlaceHold: UILabel!
     
     
     override func viewDidLoad() {
@@ -27,6 +30,9 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
         //title 입력 textfield에 포커스 주기
         self.titleTextField.becomeFirstResponder()
         
+        self.reviewTextField.delegate = self
+        self.reviewTextField.isEditable = true
+        
         //입력값 없을 때 버튼 비활성화
         submitBtn.isUserInteractionEnabled = false
         //Color Literal 사용해서 custom색 지정
@@ -35,16 +41,17 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        //키보드가 올라가고 내려가고는 iphone에서 defualt로 notification을 보내줌
+        print("PostVC  -> viewWillAppear()")
+        //키보드가 올라가고 내려가고는 iphone에서 default로 notification을 보내줌
         //notification center 설치
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        print("PostVC -> viewWillDisappear()")
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 
     //MARK: - IBAction Methods
@@ -53,6 +60,7 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
         //이전 view로 되돌아감
         self.dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func onCategoryRadio(_ sender: UIButton) {
         //카테고리(책,영화,뮤지컬,연극) 선택 - radio button type으로
         
@@ -87,17 +95,36 @@ class PostVC: UIViewController,UIGestureRecognizerDelegate {
         print("PostVC -> keyboardWillShow()")
         //키보드 올라오는만큼 아래바 올리기
        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-//        self.underStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
-        self.underStackView.frame.origin.y = self.underStackView.frame.origin.y - keyboardSize.height
+        self.underStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
         }
         
     }
 
     @objc func keyboardWillHide(notification: NSNotification){
         //키보드 내려가면 원상복구
+        //TODO: - 키보드 사라질 때 notification 감지 왜 못하는지?
         print("PostVC -> keyboardWillHide()")
-        self.underStackView.frame.origin.y = 0
+        self.underStackView.transform = .identity
 
+    }
+    
+    //MARK: - UITextViewDelegate Method
+    func textViewDidChange(_ textView: UITextView) {
+        //textfield의 placeholder로 label을 대신 사용 -> 값이 입력되면 hidden 값 이용해 없애기
+        if (textView.text == ""){
+            self.reviewPlaceHold.isHidden = false
+        }
+        else{
+            self.reviewPlaceHold.isHidden = true
+        
+            //입력 값에 따라 textView 크기 동적 변경
+            let size = CGSize(width: textView.frame.width, height: .infinity)
+            //textView안에 텍스트들을 가지고 맞는 크기를 계산함
+            let estimatedSize = textView.sizeThatFits(size)
+            //textView 높이 변경
+            self.reviewTextFieldHC.constant = estimatedSize.height
+           
+        }
     }
     
 }
