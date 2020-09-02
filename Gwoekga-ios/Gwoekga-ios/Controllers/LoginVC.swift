@@ -10,7 +10,7 @@ import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
 
 class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
-    //TODO: 로그인 입력 정보 맞는지 확인하기
+    //TODO: 로그인 입력 정보 맞는지 확인하기 + 이미 로그인 되어있는 경우 다음 화면으로 바로 넘어가기
     
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginInfoField: UIStackView!
@@ -47,6 +47,7 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        print("LoginVC -> viewWillDisappear()")
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -61,16 +62,17 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
         if (id.isEmpty || password.isEmpty){
             self.view.makeToast("ID,password를 모두 입력해주세요.",duration: 1.0,position: .center)
         }
-        //TODO: 로그인시 홈 화면으로 넘어가기
+        //로그인시 홈 화면으로 넘어가기
         else{
             //스토리보드 가져오기
             let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
             //스토리보드를 통해 view controller 가져오기
             let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
             //전환 타입
-            homeVC.modalPresentationStyle = .overCurrentContext
+            homeVC.modalPresentationStyle = .fullScreen
             homeVC.modalTransitionStyle = .crossDissolve
-
+            
+            //전환 
             self.present(homeVC,animated: true,completion: nil)
         }
 
@@ -134,6 +136,18 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
         }
         else{
             textField.resignFirstResponder()
+            
+            //스토리보드 가져오기
+            let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+            //스토리보드를 통해 view controller 가져오기
+            let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
+
+            //전환 타입
+            homeVC.modalPresentationStyle  = .fullScreen
+            homeVC.modalTransitionStyle = .crossDissolve
+
+            self.present(homeVC,animated: true,completion: nil)
+            
             return true
         }
 

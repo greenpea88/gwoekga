@@ -12,6 +12,7 @@ import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
 class JoinVC: UIViewController, UIGestureRecognizerDelegate,UITextFieldDelegate {
     
     //TODO: 입력된 정보가 이미 가입된 회원인지 확인(id값으로 확인/username은 중복 사용 가능)
+    //회원가입한 경우 = 로그인 바로 다음화면으로 넘어가기
     
     @IBOutlet weak var joinBtn: UIButton!
     @IBOutlet weak var joinInfoField: UIStackView!
@@ -86,7 +87,7 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate,UITextFieldDelegate 
                 //스토리보드를 통해 view controller 가져오기
                 let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
                             //전환 타입
-                homeVC.modalPresentationStyle = .overCurrentContext
+                homeVC.modalPresentationStyle = .fullScreen
                 homeVC.modalTransitionStyle = .crossDissolve
                 
                 self.present(homeVC,animated: true,completion: nil)
@@ -98,7 +99,7 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate,UITextFieldDelegate 
     //MARK: - @objc
     @objc func keyboardWillShow(notification: NSNotification){
         //키보드가 버튼 가리는만큼 화면 올리기
-        print("LoginVC -> keyboardWillShow()")
+        print("JoinVC -> keyboardWillShow()")
 
         //키보드 사이즈 가져오기
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
@@ -113,7 +114,7 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate,UITextFieldDelegate 
 
     @objc func keyboardWillHide(notification: NSNotification){
 
-        print("LoginVC -> keyboardWillHide()")
+        print("JoinVC -> keyboardWillHide()")
         
         self.view.frame.origin.y = 0
 
@@ -143,7 +144,7 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate,UITextFieldDelegate 
     //MARK: - UITextFieldDelegate Method
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //텍스트 필드에서 유저가 return키를 눌렀을 때
-        print("LoginVC -> textField returnClicked()")
+        print("JoinVC -> textField returnClicked()")
         
         guard let username = usernameTextField.text else {return false}
         guard let id = idTextField.text else {return false}
@@ -168,7 +169,7 @@ class JoinVC: UIViewController, UIGestureRecognizerDelegate,UITextFieldDelegate 
                 //스토리보드를 통해 view controller 가져오기
                 let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
                             //전환 타입
-                homeVC.modalPresentationStyle = .overCurrentContext
+                homeVC.modalPresentationStyle = .fullScreen
                 homeVC.modalTransitionStyle = .crossDissolve
                 
                 self.present(homeVC,animated: true,completion: nil)
