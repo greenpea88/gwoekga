@@ -8,9 +8,9 @@
 
 import UIKit
 
-class PostVC: UIViewController, UITextViewDelegate{
+class PostVC: KeyBoardNoti, UITextViewDelegate{
     
-    //TODO: 글자수 제한 걸기 + 다 채워지면 submit 버튼 활성화 + 포토뷰 추가하기 
+    //TODO: 다 채워지면 submit 버튼 활성화 + 포토뷰 추가하기 
     
     @IBOutlet weak var underStackView: UIStackView!
     @IBOutlet weak var titleTextField: UITextField!
@@ -40,21 +40,6 @@ class PostVC: UIViewController, UITextViewDelegate{
         submitBtn.isUserInteractionEnabled = false
         //Color Literal 사용해서 custom색 지정
         submitBtn.setTitleColor(#colorLiteral(red: 1, green: 0.8960878849, blue: 0.6251387, alpha: 1), for: .normal)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("PostVC  -> viewWillAppear()")
-        //키보드가 올라가고 내려가고는 iphone에서 default로 notification을 보내줌
-        //notification center 설치
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        print("PostVC -> viewWillDisappear()")
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 
     //MARK: - IBAction Methods
@@ -93,24 +78,6 @@ class PostVC: UIViewController, UITextViewDelegate{
         }
     }
     
-    //MARK: - @objc
-    @objc func keyboardWillShow(notification: NSNotification){
-        print("PostVC -> keyboardWillShow()")
-        //키보드 올라오는만큼 아래바 올리기
-       if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-        self.underStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
-        }
-        
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification){
-        //키보드 내려가면 원상복구
-        //TODO: - 키보드 사라질 때 notification 감지 왜 못하는지?
-        print("PostVC -> keyboardWillHide()")
-        self.underStackView.transform = .identity
-
-    }
-    
     //MARK: - UITextViewDelegate Method
     func textViewDidChange(_ textView: UITextView) {
         //textfield의 placeholder로 label을 대신 사용 -> 값이 입력되면 hidden 값 이용해 없애기
@@ -119,6 +86,7 @@ class PostVC: UIViewController, UITextViewDelegate{
         }
         else{
             self.reviewPlaceHold.isHidden = true
+            //TODO: 하단바보다 textView height 높아지면 scorll on 하기
         
             //입력 값에 따라 textView 크기 동적 변경
             let size = CGSize(width: textView.frame.width, height: .infinity)
@@ -145,4 +113,21 @@ class PostVC: UIViewController, UITextViewDelegate{
         }
     }
     
+    //MARK: - KeyBoardNoti override
+    @objc override func keyboardWillShow(notification: NSNotification){
+        print("PostVC -> keyboardWillShow()")
+        //키보드 올라오는만큼 아래바 올리기
+       if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+        self.underStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
+        }
+
+    }
+
+    @objc override func keyboardWillHide(notification: NSNotification){
+        //키보드 내려가면 원상복구
+        //TODO: - 키보드 사라질 때 notification 감지 왜 못하는지?
+        print("PostVC -> keyboardWillHide()")
+        self.underStackView.transform = .identity
+
+    }
 }

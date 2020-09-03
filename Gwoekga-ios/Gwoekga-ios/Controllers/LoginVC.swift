@@ -8,7 +8,7 @@
 import UIKit
 import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
 
-class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
+class LoginVC: KeyBoardNoti, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
     //TODO: 로그인 입력 정보 맞는지 확인하기 + 이미 로그인 되어있는 경우 다음 화면으로 바로 넘어가기
     
@@ -36,21 +36,6 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
         //gesture 감지할 수 있도록 설정
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        //키보드가 올라가고 내려가고는 iphone에서 default로 notification을 보내줌
-        //notification center 설치
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        print("LoginVC -> viewWillDisappear()")
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
 
     //MARK: - IBAction Method
     @IBAction func onLoginBtnClicked(_ sender: UIButton) {
@@ -75,30 +60,6 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
             //전환 
             self.present(homeVC,animated: true,completion: nil)
         }
-
-    }
-
-    //MARK: - @objc
-    @objc func keyboardWillShow(notification: NSNotification){
-        //키보드가 버튼 가리는만큼 화면 올리기
-        print("LoginVC -> keyboardWillShow()")
-
-        //키보드 사이즈 가져오기
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-            let screenHight = UIScreen.main.bounds.height
-            if(screenHight < keyboardSize.height + loginBtn.frame.origin.y + loginBtn.frame.height){
-                //키보드가 버튼을 덮음
-                let distance = screenHight - keyboardSize.height - loginBtn.frame.origin.y - loginBtn.frame.height
-                self.view.frame.origin.y = distance - 10
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification){
-
-        print("LoginVC -> keyboardWillHide()")
-        
-        self.view.frame.origin.y = 0
 
     }
     
@@ -152,5 +113,29 @@ class LoginVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegat
         }
 
     }
+    
+    //MARK: - KeyBoardNoti override
+   @objc override func keyboardWillShow(notification: NSNotification){
+            //키보드가 버튼 가리는만큼 화면 올리기
+            print("LoginVC -> keyboardWillShow()")
 
+            //키보드 사이즈 가져오기
+            if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+                let screenHight = UIScreen.main.bounds.height
+                if(screenHight < keyboardSize.height + loginBtn.frame.origin.y + loginBtn.frame.height){
+                    //키보드가 버튼을 덮음
+                    let distance = screenHight - keyboardSize.height - loginBtn.frame.origin.y - loginBtn.frame.height
+                    self.view.frame.origin.y = distance - 10
+                }
+            }
+        }
+    
+    @objc override func keyboardWillHide(notification: NSNotification){
+
+            print("LoginVC -> keyboardWillHide()")
+            
+            self.view.frame.origin.y = 0
+
+        }
+    
 }
