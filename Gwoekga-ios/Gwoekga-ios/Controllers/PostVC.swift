@@ -10,6 +10,8 @@ import UIKit
 
 class PostVC: UIViewController, UITextViewDelegate{
     
+    //TODO: 글자수 제한 걸기 + 다 채워지면 submit 버튼 활성화 + 포토뷰 추가하기 
+    
     @IBOutlet weak var underStackView: UIStackView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var submitBtn: UIButton!
@@ -20,6 +22,7 @@ class PostVC: UIViewController, UITextViewDelegate{
     @IBOutlet weak var reviewTextField: UITextView!
     @IBOutlet weak var reviewTextFieldHC: NSLayoutConstraint!
     @IBOutlet weak var reviewPlaceHold: UILabel!
+    @IBOutlet weak var textCountLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -124,6 +127,21 @@ class PostVC: UIViewController, UITextViewDelegate{
             //textView 높이 변경
             self.reviewTextFieldHC.constant = estimatedSize.height
            
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        let inputTextCount = textView.text?.appending(text).count ?? 0
+        
+        print("PostVC -> textView shouldChangeTextIn() / \(inputTextCount)")
+        
+        if (inputTextCount<=280){
+            self.textCountLabel.text = String(inputTextCount) + " / 280"
+            return true
+        }
+        else{
+            return false
         }
     }
     

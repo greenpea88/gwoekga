@@ -223,6 +223,7 @@
                         <outlet property="reviewTextField" destination="O5h-q0-J7I" id="0Gm-4I-Wk9"/>
                         <outlet property="reviewTextFieldHC" destination="1zF-tq-hrC" id="RdA-to-NSA"/>
                         <outlet property="submitBtn" destination="NNZ-aH-Fxr" id="2kK-mL-N0c"/>
+                        <outlet property="textCountLabel" destination="3rz-gB-ZQ1" id="hJd-6T-cwC"/>
                         <outlet property="titleTextField" destination="vet-hh-M64" id="dbQ-BL-pka"/>
                         <outlet property="underStackView" destination="g2w-ZJ-0Tf" id="z0z-Fr-urg"/>
                     </connections>
