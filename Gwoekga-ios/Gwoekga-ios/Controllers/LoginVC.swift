@@ -7,18 +7,27 @@
 //
 import UIKit
 import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
+import NaverThirdPartyLogin //네이버 아이디로 로그인
 
-class LoginVC: KeyBoardNoti, UIGestureRecognizerDelegate, UITextFieldDelegate {
+class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
+    
 
     //TODO: 로그인 입력 정보 맞는지 확인하기 + 이미 로그인 되어있는 경우 다음 화면으로 바로 넘어가기
+    //TODO: 다른 화면에서 로그아웃시 네이버 아이디로 로그인한 것 로그아웃 처리 어떻게??
     
+//    @IBOutlet weak var test: UIButton!
+    @IBOutlet weak var naverLoginBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginInfoField: UIStackView!
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var notJoinYet: UIButton!
     
+    //키보드를 내리기위한 tabGesture
     var keyboardDissmissTabGesture: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
+    
+    //네이버 아이디 로그인
+    let naverLoginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,14 +36,30 @@ class LoginVC: KeyBoardNoti, UIGestureRecognizerDelegate, UITextFieldDelegate {
         //상단 네비게이션 바 부분 숨김 처리
         self.navigationController?.isNavigationBarHidden = true
         loginBtn.layer.cornerRadius = loginBtn.frame.height / 2
+        naverLoginBtn.layer.cornerRadius = naverLoginBtn.frame.height / 2
         
         //설정하지 않으면 delegate를 감지하지 못함
         self.idTextField.delegate = self
         self.passwordTextField.delegate = self
         self.keyboardDissmissTabGesture.delegate = self
+        self.naverLoginInstance?.delegate = self
         
         //gesture 감지할 수 있도록 설정
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
+    }
+    
+    //MARK: - fileprivate
+    fileprivate func enterHome(){
+        //스토리보드 가져오기
+        let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+        //스토리보드를 통해 view controller 가져오기
+        let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
+        //전환 타입
+        homeVC.modalPresentationStyle = .fullScreen
+        homeVC.modalTransitionStyle = .crossDissolve
+        
+        //전환
+        self.present(homeVC,animated: true,completion: nil)
     }
 
     //MARK: - IBAction Method
@@ -49,19 +74,22 @@ class LoginVC: KeyBoardNoti, UIGestureRecognizerDelegate, UITextFieldDelegate {
         }
         //로그인시 홈 화면으로 넘어가기
         else{
-            //스토리보드 가져오기
-            let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-            //스토리보드를 통해 view controller 가져오기
-            let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
-            //전환 타입
-            homeVC.modalPresentationStyle = .fullScreen
-            homeVC.modalTransitionStyle = .crossDissolve
-            
-            //전환 
-            self.present(homeVC,animated: true,completion: nil)
+            enterHome()
         }
 
     }
+    
+    @IBAction func onNaverLoginBtnClicked(_ sender: UIButton) {
+        print("LoginVC -> onNaverLoginBtnClicked()")
+
+        naverLoginInstance?.requestThirdPartyLogin()
+        
+    }
+    
+//    @IBAction func text(_ sender: UIButton) {
+//        naverLoginInstance?.requestDeleteToken()
+//    }
+    
     
     //MARK: - UIGestureRecognizerDelegate Method
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -74,6 +102,9 @@ class LoginVC: KeyBoardNoti, UIGestureRecognizerDelegate, UITextFieldDelegate {
             return false
         }
         else if(touch.view?.isDescendant(of: notJoinYet) == true){
+            return false
+        }
+        else if(touch.view?.isDescendant(of: naverLoginBtn) == true){
             return false
         }
         else{
@@ -122,9 +153,9 @@ class LoginVC: KeyBoardNoti, UIGestureRecognizerDelegate, UITextFieldDelegate {
             //키보드 사이즈 가져오기
             if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
                 let screenHight = UIScreen.main.bounds.height
-                if(screenHight < keyboardSize.height + loginBtn.frame.origin.y + loginBtn.frame.height){
+                if(screenHight < keyboardSize.height + naverLoginBtn.frame.origin.y + naverLoginBtn.frame.height){
                     //키보드가 버튼을 덮음
-                    let distance = screenHight - keyboardSize.height - loginBtn.frame.origin.y - loginBtn.frame.height
+                    let distance = screenHight - keyboardSize.height - naverLoginBtn.frame.origin.y - naverLoginBtn.frame.height
                     self.view.frame.origin.y = distance - 10
                 }
             }
@@ -138,4 +169,26 @@ class LoginVC: KeyBoardNoti, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
         }
     
+    //MARK: - NaverThirdPartyLoginConnectionDelegate Method
+    //로그인 성공시 호출
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        print("LoginVC -> login is Success")
+        enterHome()
+        
+    }
+    //접근 토근 갱신
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+        
+    }
+    //토큰 삭제(로그아웃 시 사용)
+    func oauth20ConnectionDidFinishDeleteToken() {
+        print("LoingVC -> logout")
+    }
+    
+    //error
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+        print("Login VC -> error occur / \(error.localizedDescription)")
+    }
+    
 }
+

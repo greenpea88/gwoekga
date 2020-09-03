@@ -3,22 +3,41 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		3516E9D4735D155BC036A4DB393966FC /* naveridlogin-sdk-ios */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2C86B7F394788F8E6171908E62DD5DAF /* Build configuration list for PBXAggregateTarget "naveridlogin-sdk-ios" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "naveridlogin-sdk-ios";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		2024EE5E265681137A9FEBC630E6E0F1 /* Toast-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E15AC60C991B08D578D75E5D7EABB64 /* Toast-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4753716AE7A1AB22FB6BA61AA74D942F /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F318FE758DBBEDD53C43B7374CF4B0EF /* Toast.swift */; };
-		6B326644BB08AEDF697A82A0F1A66D68 /* Toast-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FCD31C4EE1DA60FB90F8B432CDE1C /* Toast-Swift-dummy.m */; };
-		732F6D6F25D3413898DCF4E8BA8A808F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0F1732A2D4DBA41714F9E205837D34 /* Foundation.framework */; };
+		2024EE5E265681137A9FEBC630E6E0F1 /* Toast-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C38D8ABAE1CF00806A25816CFB1F4105 /* Toast-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2768A2B67BBFD83864644AB668C0D6C7 /* Pods-Gwoekga-ios-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071E19A6977CECAC17D300B8D026D7C /* Pods-Gwoekga-ios-dummy.m */; };
+		4546956BCDD2014BC0F973078C6E7649 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0F1732A2D4DBA41714F9E205837D34 /* Foundation.framework */; };
+		4753716AE7A1AB22FB6BA61AA74D942F /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A7ABF25A3EF4F0F95F23B35320772A /* Toast.swift */; };
+		6B326644BB08AEDF697A82A0F1A66D68 /* Toast-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CECF4A9091E0321B89AECCA3D622AE /* Toast-Swift-dummy.m */; };
 		95ACABC71585D657249CC92BA7731A8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0F1732A2D4DBA41714F9E205837D34 /* Foundation.framework */; };
 		C06D290B9216533843023A0BF93F5927 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB6193BDF9256B1B2DC71E7CF8BFFB3D /* QuartzCore.framework */; };
-		CDFC27737877BE59B9489A09D3588441 /* Pods-Gwoekga-ios-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AE833627B21DAD4FED0F21D37BFCC9B9 /* Pods-Gwoekga-ios-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F7AD35F8E0C076BFCAA96F5A53887C31 /* Pods-Gwoekga-ios-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071E19A6977CECAC17D300B8D026D7C /* Pods-Gwoekga-ios-dummy.m */; };
+		C173EB9F7703D2889B411EE7011D0ABA /* Pods-Gwoekga-ios-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AE833627B21DAD4FED0F21D37BFCC9B9 /* Pods-Gwoekga-ios-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C0141990B7D60FAA988E25AE804A7253 /* PBXContainerItemProxy */ = {
+		87632C681AC75899437D7671544D419C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3516E9D4735D155BC036A4DB393966FC;
+			remoteInfo = "naveridlogin-sdk-ios";
+		};
+		B01DA65A0F65FA428B5A4E0A6885CD65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -29,30 +48,41 @@
 
 /* Begin PBXFileReference section */
 		0387C02842DD8D7491D16F0E1ED65122 /* Pods-Gwoekga-ios-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Gwoekga-ios-Info.plist"; sourceTree = "<group>"; };
-		0E6FCD31C4EE1DA60FB90F8B432CDE1C /* Toast-Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Toast-Swift-dummy.m"; sourceTree = "<group>"; };
 		10DA8C7733E45DD2B9440D0B8B638294 /* Pods-Gwoekga-ios-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Gwoekga-ios-acknowledgements.markdown"; sourceTree = "<group>"; };
-		1E15AC60C991B08D578D75E5D7EABB64 /* Toast-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Toast-Swift-umbrella.h"; sourceTree = "<group>"; };
-		2F50B18C74D2D97745E4801987A30384 /* Toast-Swift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Toast-Swift-Info.plist"; sourceTree = "<group>"; };
-		3B2845562E646CF443B9CC526C2668A3 /* Toast-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Toast-Swift.debug.xcconfig"; sourceTree = "<group>"; };
-		4007A72BDCD28826D29D220D8AF11806 /* Toast-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Toast-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		36DDCCD33ACAE05E7416DEB8FC3EFC21 /* Toast-Swift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Toast-Swift-Info.plist"; sourceTree = "<group>"; };
+		39CDECE351495ABE2C63B75D9F6948AC /* Toast-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Toast-Swift.modulemap"; sourceTree = "<group>"; };
+		59CECF4A9091E0321B89AECCA3D622AE /* Toast-Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Toast-Swift-dummy.m"; sourceTree = "<group>"; };
+		69F107DFB7DFDFE2DA6C1DD2197FD66D /* naveridlogin-sdk-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "naveridlogin-sdk-ios.release.xcconfig"; sourceTree = "<group>"; };
 		7071E19A6977CECAC17D300B8D026D7C /* Pods-Gwoekga-ios-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Gwoekga-ios-dummy.m"; sourceTree = "<group>"; };
-		825B95930816FF3991519AC0ED095A7F /* Toast-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Toast-Swift.modulemap"; sourceTree = "<group>"; };
+		7C27B2B77658C5F7932CBB2767ABDC85 /* NaverThirdPartyLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NaverThirdPartyLogin.framework; sourceTree = "<group>"; };
 		8EFD282E4BD7969141BF00E5CC227A44 /* Pods-Gwoekga-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Gwoekga-ios.release.xcconfig"; sourceTree = "<group>"; };
 		97800E772FD2ADA79310BC0117809EE4 /* Pods-Gwoekga-ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Gwoekga-ios.modulemap"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F87704C3B2645540772532121084ABC /* Pods_Gwoekga_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Gwoekga_ios.framework; path = "Pods-Gwoekga-ios.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A15B7A535363E431C6F07F9438D3E034 /* Toast-Swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Toast-Swift-prefix.pch"; sourceTree = "<group>"; };
 		A3D41D24DBB42209D1801679C6B48B23 /* Pods-Gwoekga-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Gwoekga-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		AE833627B21DAD4FED0F21D37BFCC9B9 /* Pods-Gwoekga-ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Gwoekga-ios-umbrella.h"; sourceTree = "<group>"; };
-		BF1E10D2888B2F7C3435BFF6A7F4667A /* Toast-Swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Toast-Swift-prefix.pch"; sourceTree = "<group>"; };
 		C367951CBB067A89D2F2A59079EBFA2C /* Pods-Gwoekga-ios-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Gwoekga-ios-frameworks.sh"; sourceTree = "<group>"; };
+		C38D8ABAE1CF00806A25816CFB1F4105 /* Toast-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Toast-Swift-umbrella.h"; sourceTree = "<group>"; };
+		C7107ABBBA1868CCCFA3C242D561ADA0 /* Toast-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Toast-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		CB6193BDF9256B1B2DC71E7CF8BFFB3D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		CD754606D7C7B91A56BFA9CB72B8B070 /* Toast-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Toast-Swift.release.xcconfig"; sourceTree = "<group>"; };
 		D6043471C96F93DC41F7DD1E0D7D8B35 /* Toast_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Toast_Swift.framework; path = "Toast-Swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4A7ABF25A3EF4F0F95F23B35320772A /* Toast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Toast/Toast.swift; sourceTree = "<group>"; };
 		EB0F1732A2D4DBA41714F9E205837D34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		F318FE758DBBEDD53C43B7374CF4B0EF /* Toast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Toast/Toast.swift; sourceTree = "<group>"; };
+		F4DEF0F83907F1CFCE15D0C2F172EE5D /* naveridlogin-sdk-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "naveridlogin-sdk-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		FEDBA36E2CE648B9C7D0DEFC54FDEEEE /* Pods-Gwoekga-ios-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Gwoekga-ios-acknowledgements.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4A83D8F7E68EDDD1FF56059D21292698 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4546956BCDD2014BC0F973078C6E7649 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6102CF7EA55F5A7D669F88BF0D1A701F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,31 +92,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		86F0AF34202348C6EE80EC49627C537D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				732F6D6F25D3413898DCF4E8BA8A808F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01B6499BB351F4D13DA64A16EF49B6FC /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E4DD821E3F92A576E63FCE4FAEA66257 /* Toast-Swift */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				6C850C37433B9EAF70AA8EF4EC21FC43 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2809ADCEAFC028117DE3B81C94224276 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F31D1AC5554B796E1CAEE2D00209E81F /* naveridlogin-sdk-ios */,
+				B0D5F887E9FBA9D7DE80E5B6781BE4F2 /* Toast-Swift */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		2B770C9C5770F7D02BD8D5DCAA71F5CB /* Pods-Gwoekga-ios */ = {
@@ -115,6 +138,21 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		970C27977272E8B6C20511B3B3D140E1 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				39CDECE351495ABE2C63B75D9F6948AC /* Toast-Swift.modulemap */,
+				59CECF4A9091E0321B89AECCA3D622AE /* Toast-Swift-dummy.m */,
+				36DDCCD33ACAE05E7416DEB8FC3EFC21 /* Toast-Swift-Info.plist */,
+				A15B7A535363E431C6F07F9438D3E034 /* Toast-Swift-prefix.pch */,
+				C38D8ABAE1CF00806A25816CFB1F4105 /* Toast-Swift-umbrella.h */,
+				C7107ABBBA1868CCCFA3C242D561ADA0 /* Toast-Swift.debug.xcconfig */,
+				CD754606D7C7B91A56BFA9CB72B8B070 /* Toast-Swift.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Toast-Swift";
+			sourceTree = "<group>";
+		};
 		9794CEB53E3B4C303DCD8655BEA73B53 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,19 +161,24 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		ADB41ECB626BC7FC84F0B17847BEB04F /* Support Files */ = {
+		B0D5F887E9FBA9D7DE80E5B6781BE4F2 /* Toast-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				825B95930816FF3991519AC0ED095A7F /* Toast-Swift.modulemap */,
-				0E6FCD31C4EE1DA60FB90F8B432CDE1C /* Toast-Swift-dummy.m */,
-				2F50B18C74D2D97745E4801987A30384 /* Toast-Swift-Info.plist */,
-				BF1E10D2888B2F7C3435BFF6A7F4667A /* Toast-Swift-prefix.pch */,
-				1E15AC60C991B08D578D75E5D7EABB64 /* Toast-Swift-umbrella.h */,
-				3B2845562E646CF443B9CC526C2668A3 /* Toast-Swift.debug.xcconfig */,
-				4007A72BDCD28826D29D220D8AF11806 /* Toast-Swift.release.xcconfig */,
+				E4A7ABF25A3EF4F0F95F23B35320772A /* Toast.swift */,
+				970C27977272E8B6C20511B3B3D140E1 /* Support Files */,
+			);
+			name = "Toast-Swift";
+			path = "Toast-Swift";
+			sourceTree = "<group>";
+		};
+		B5D9504E0C9DA850A7DC2592546C279B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4DEF0F83907F1CFCE15D0C2F172EE5D /* naveridlogin-sdk-ios.debug.xcconfig */,
+				69F107DFB7DFDFE2DA6C1DD2197FD66D /* naveridlogin-sdk-ios.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/Toast-Swift";
+			path = "../Target Support Files/naveridlogin-sdk-ios";
 			sourceTree = "<group>";
 		};
 		CDB809F773337946BBA98D2EA5B9EB6D /* Products */ = {
@@ -152,33 +195,33 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
-				01B6499BB351F4D13DA64A16EF49B6FC /* Pods */,
+				2809ADCEAFC028117DE3B81C94224276 /* Pods */,
 				CDB809F773337946BBA98D2EA5B9EB6D /* Products */,
 				9794CEB53E3B4C303DCD8655BEA73B53 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		E4DD821E3F92A576E63FCE4FAEA66257 /* Toast-Swift */ = {
+		E98BEE03AEE6854AB0D4750E197BF95A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F318FE758DBBEDD53C43B7374CF4B0EF /* Toast.swift */,
-				ADB41ECB626BC7FC84F0B17847BEB04F /* Support Files */,
+				7C27B2B77658C5F7932CBB2767ABDC85 /* NaverThirdPartyLogin.framework */,
 			);
-			name = "Toast-Swift";
-			path = "Toast-Swift";
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F31D1AC5554B796E1CAEE2D00209E81F /* naveridlogin-sdk-ios */ = {
+			isa = PBXGroup;
+			children = (
+				E98BEE03AEE6854AB0D4750E197BF95A /* Frameworks */,
+				B5D9504E0C9DA850A7DC2592546C279B /* Support Files */,
+			);
+			name = "naveridlogin-sdk-ios";
+			path = "naveridlogin-sdk-ios";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		1EA37EBF58EFF13E189FEC9F0F9F7262 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CDFC27737877BE59B9489A09D3588441 /* Pods-Gwoekga-ios-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		541A0721D8D26374CF7CF04B1473A45A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,22 +230,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F0D7195FB2263AC6DEBFDE5B97295E7C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C173EB9F7703D2889B411EE7011D0ABA /* Pods-Gwoekga-ios-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		AD4492F9956CA8AEC1FAF38784483487 /* Pods-Gwoekga-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 011DB0D0838F3568A95C23D4B3B26609 /* Build configuration list for PBXNativeTarget "Pods-Gwoekga-ios" */;
+			buildConfigurationList = 7810A02A723355C135608F335D97F207 /* Build configuration list for PBXNativeTarget "Pods-Gwoekga-ios" */;
 			buildPhases = (
-				1EA37EBF58EFF13E189FEC9F0F9F7262 /* Headers */,
-				66C5E259D0D33C67036D10E91D08A73B /* Sources */,
-				86F0AF34202348C6EE80EC49627C537D /* Frameworks */,
-				D11C2C6C42DE862A4FFA90CEFF282493 /* Resources */,
+				F0D7195FB2263AC6DEBFDE5B97295E7C /* Headers */,
+				D6D38C663BAFD77B3F4324650377E777 /* Sources */,
+				4A83D8F7E68EDDD1FF56059D21292698 /* Frameworks */,
+				F2839269B358FBB15215CF1D2C6DDFF5 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8BA3CDB667CCC448F88E78C6A80159CA /* PBXTargetDependency */,
+				31A262CE4A967756EBC38997EBE3EF51 /* PBXTargetDependency */,
+				C5F986894C410A557AE5C2AFDD357991 /* PBXTargetDependency */,
 			);
 			name = "Pods-Gwoekga-ios";
 			productName = "Pods-Gwoekga-ios";
@@ -237,7 +289,7 @@
 				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -249,6 +301,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				3516E9D4735D155BC036A4DB393966FC /* naveridlogin-sdk-ios */,
 				AD4492F9956CA8AEC1FAF38784483487 /* Pods-Gwoekga-ios */,
 				B990BD87169C76A3ED3FE8A9258D91A3 /* Toast-Swift */,
 			);
@@ -263,7 +316,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D11C2C6C42DE862A4FFA90CEFF282493 /* Resources */ = {
+		F2839269B358FBB15215CF1D2C6DDFF5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -282,64 +335,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		66C5E259D0D33C67036D10E91D08A73B /* Sources */ = {
+		D6D38C663BAFD77B3F4324650377E777 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7AD35F8E0C076BFCAA96F5A53887C31 /* Pods-Gwoekga-ios-dummy.m in Sources */,
+				2768A2B67BBFD83864644AB668C0D6C7 /* Pods-Gwoekga-ios-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8BA3CDB667CCC448F88E78C6A80159CA /* PBXTargetDependency */ = {
+		31A262CE4A967756EBC38997EBE3EF51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Toast-Swift";
 			target = B990BD87169C76A3ED3FE8A9258D91A3 /* Toast-Swift */;
-			targetProxy = C0141990B7D60FAA988E25AE804A7253 /* PBXContainerItemProxy */;
+			targetProxy = B01DA65A0F65FA428B5A4E0A6885CD65 /* PBXContainerItemProxy */;
+		};
+		C5F986894C410A557AE5C2AFDD357991 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "naveridlogin-sdk-ios";
+			target = 3516E9D4735D155BC036A4DB393966FC /* naveridlogin-sdk-ios */;
+			targetProxy = 87632C681AC75899437D7671544D419C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0D4CECAE30E6D3D4B954324CC7F9F934 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3D41D24DBB42209D1801679C6B48B23 /* Pods-Gwoekga-ios.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Gwoekga-ios/Pods-Gwoekga-ios-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Gwoekga-ios/Pods-Gwoekga-ios.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		13967C5C8F4B10B3EE4D6C208A0A7BEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -406,7 +427,7 @@
 		};
 		17D39D711BFE55BA0088E4F08C9A1F73 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4007A72BDCD28826D29D220D8AF11806 /* Toast-Swift.release.xcconfig */;
+			baseConfigurationReference = CD754606D7C7B91A56BFA9CB72B8B070 /* Toast-Swift.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -440,7 +461,7 @@
 			};
 			name = Release;
 		};
-		552CC0355FBDEDB88FB7D6A4166B6BF3 /* Release */ = {
+		3361FB4F2675DB61A116789043DF1557 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8EFD282E4BD7969141BF00E5CC227A44 /* Pods-Gwoekga-ios.release.xcconfig */;
 			buildSettings = {
@@ -476,6 +497,23 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		49159435A28F381564CAC0B52AD7132F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69F107DFB7DFDFE2DA6C1DD2197FD66D /* naveridlogin-sdk-ios.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -541,7 +579,7 @@
 		};
 		87AEE5BC238645494F7F94F67F2BED7A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B2845562E646CF443B9CC526C2668A3 /* Toast-Swift.debug.xcconfig */;
+			baseConfigurationReference = C7107ABBBA1868CCCFA3C242D561ADA0 /* Toast-Swift.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -574,14 +612,68 @@
 			};
 			name = Debug;
 		};
+		D33ADD3C7ABFE243FDD8808163541304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3D41D24DBB42209D1801679C6B48B23 /* Pods-Gwoekga-ios.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Gwoekga-ios/Pods-Gwoekga-ios-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Gwoekga-ios/Pods-Gwoekga-ios.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FED8C5FCD7FE6805D1ADCCE077185524 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4DEF0F83907F1CFCE15D0C2F172EE5D /* naveridlogin-sdk-ios.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		011DB0D0838F3568A95C23D4B3B26609 /* Build configuration list for PBXNativeTarget "Pods-Gwoekga-ios" */ = {
+		2C86B7F394788F8E6171908E62DD5DAF /* Build configuration list for PBXAggregateTarget "naveridlogin-sdk-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0D4CECAE30E6D3D4B954324CC7F9F934 /* Debug */,
-				552CC0355FBDEDB88FB7D6A4166B6BF3 /* Release */,
+				FED8C5FCD7FE6805D1ADCCE077185524 /* Debug */,
+				49159435A28F381564CAC0B52AD7132F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -591,6 +683,15 @@
 			buildConfigurations = (
 				13967C5C8F4B10B3EE4D6C208A0A7BEB /* Debug */,
 				871B6E28ABA34DAE69824AB9D22D3B7D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7810A02A723355C135608F335D97F207 /* Build configuration list for PBXNativeTarget "Pods-Gwoekga-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D33ADD3C7ABFE243FDD8808163541304 /* Debug */,
+				3361FB4F2675DB61A116789043DF1557 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
