@@ -86,6 +86,10 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         if (title.isEmpty || review.isEmpty || isCategorySelected == 0){
             self.view.makeToast("빈칸을 모두 채워주세요.",duration: 1.0,position: .center)
         }
+        else{
+            //TODO: 입력 정보 서버로 보내기
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     //MARK: - UITextViewDelegate Method
