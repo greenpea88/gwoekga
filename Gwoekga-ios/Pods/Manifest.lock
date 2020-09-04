@@ -1,16 +1,20 @@
 PODS:
+  - naveridlogin-sdk-ios (4.1.2)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
+  - naveridlogin-sdk-ios
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
+    - naveridlogin-sdk-ios
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: ac3d1570eee71fe512a992e825eb1738a7107ba4
+PODFILE CHECKSUM: e262475a3a0dc591388ea25ba47df76ee7756093
 
 COCOAPODS: 1.9.3

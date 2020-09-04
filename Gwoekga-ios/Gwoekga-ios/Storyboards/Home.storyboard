@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -64,6 +64,24 @@
                             <userLayoutGuide location="394" affinity="minX"/>
                         </userGuides>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="g2w-ZJ-0Tf">
+                                <rect key="frame" x="20" y="770" width="374" height="38"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-Ti-5JZ">
+                                        <rect key="frame" x="20" y="8" width="24" height="22"/>
+                                        <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="photo.fill" catalog="system"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 / 280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rz-gB-ZQ1">
+                                        <rect key="frame" x="308.5" y="8" width="55.5" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.91834657643125461" green="0.91834657643125461" blue="0.91834657643125461" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="10"/>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xVk-Lb-P24">
                                 <rect key="frame" x="20" y="20" width="374" height="61"/>
                                 <subviews>
@@ -83,6 +101,12 @@
                                         <state key="normal" title="Submit">
                                             <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.99740976100000001" green="0.89819579810000005" blue="0.27076028219999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onSubmitBtnClicked:" destination="BpZ-yg-gJ0" eventType="touchUpInside" id="5MR-vG-rad"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -107,24 +131,6 @@
                                     </textField>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="8" left="13" bottom="8" right="8"/>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="g2w-ZJ-0Tf">
-                                <rect key="frame" x="20" y="770" width="374" height="38"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Puf-Ti-5JZ">
-                                        <rect key="frame" x="20" y="8" width="24" height="22"/>
-                                        <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="photo.fill" catalog="system"/>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 / 280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rz-gB-ZQ1">
-                                        <rect key="frame" x="308.5" y="8" width="55.5" height="22"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.91834657643125461" green="0.91834657643125461" blue="0.91834657643125461" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="10"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="BfW-dO-nhr" userLabel="Categories">
                                 <rect key="frame" x="10" y="122.5" width="394" height="22"/>
@@ -223,6 +229,7 @@
                         <outlet property="reviewTextField" destination="O5h-q0-J7I" id="0Gm-4I-Wk9"/>
                         <outlet property="reviewTextFieldHC" destination="1zF-tq-hrC" id="RdA-to-NSA"/>
                         <outlet property="submitBtn" destination="NNZ-aH-Fxr" id="2kK-mL-N0c"/>
+                        <outlet property="textCountLabel" destination="3rz-gB-ZQ1" id="hJd-6T-cwC"/>
                         <outlet property="titleTextField" destination="vet-hh-M64" id="dbQ-BL-pka"/>
                         <outlet property="underStackView" destination="g2w-ZJ-0Tf" id="z0z-Fr-urg"/>
                     </connections>
@@ -275,7 +282,17 @@
                     <view key="view" contentMode="scaleToFill" id="wKZ-w2-zNT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Im2-mB-Uur">
+                                <rect key="frame" x="184" y="433" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Im2-mB-Uur" firstAttribute="centerY" secondItem="wKZ-w2-zNT" secondAttribute="centerY" id="JYm-Qj-WbP"/>
+                            <constraint firstItem="Im2-mB-Uur" firstAttribute="centerX" secondItem="wKZ-w2-zNT" secondAttribute="centerX" id="xRK-P3-fhQ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="pNi-kC-1vs"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="user" image="person.fill" catalog="system" id="xuW-dg-L46"/>

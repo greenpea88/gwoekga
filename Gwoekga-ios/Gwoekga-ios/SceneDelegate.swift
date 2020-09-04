@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NaverThirdPartyLogin //네이버 아이디로 로그인
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -48,6 +49,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    //MARK: - naver login
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+      NaverThirdPartyLoginConnection
+        .getSharedInstance()?
+        .receiveAccessToken(URLContexts.first?.url)
+    }
 
 }
 
