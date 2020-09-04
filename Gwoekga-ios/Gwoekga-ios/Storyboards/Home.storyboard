@@ -101,6 +101,12 @@
                                         <state key="normal" title="Submit">
                                             <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.99740976100000001" green="0.89819579810000005" blue="0.27076028219999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onSubmitBtnClicked:" destination="BpZ-yg-gJ0" eventType="touchUpInside" id="5MR-vG-rad"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

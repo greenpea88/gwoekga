@@ -24,6 +24,8 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
     @IBOutlet weak var reviewPlaceHold: UILabel!
     @IBOutlet weak var textCountLabel: UILabel!
     
+    var isCategorySelected = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +37,6 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         
         self.reviewTextField.delegate = self
         self.reviewTextField.isEditable = true
-        
-        //입력값 없을 때 버튼 비활성화
-        submitBtn.isUserInteractionEnabled = false
-        //Color Literal 사용해서 custom색 지정
-        submitBtn.setTitleColor(#colorLiteral(red: 1, green: 0.8960878849, blue: 0.6251387, alpha: 1), for: .normal)
     }
 
     //MARK: - IBAction Methods
@@ -51,6 +48,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
     
     @IBAction func onCategoryRadio(_ sender: UIButton) {
         //카테고리(책,영화,뮤지컬,연극) 선택 - radio button type으로
+        isCategorySelected = 1
         
         if (sender.tag == 1){
             bookBtn.isSelected = true
@@ -76,6 +74,18 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
             musicalBtn.isSelected = false
             playBtn.isSelected = true
         }
+        
+    }
+    
+    @IBAction func onSubmitBtnClicked(_ sender: UIButton) {
+        print("PostVC -> onSubmitBtnClicked")
+        
+        guard let title = titleTextField.text else {return}
+        guard let review = reviewTextField.text else {return}
+        
+        if (title.isEmpty || review.isEmpty || isCategorySelected == 0){
+            self.view.makeToast("빈칸을 모두 채워주세요.",duration: 1.0,position: .center)
+        }
     }
     
     //MARK: - UITextViewDelegate Method
@@ -85,16 +95,16 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
             self.reviewPlaceHold.isHidden = false
         }
         else{
+            
             self.reviewPlaceHold.isHidden = true
             //TODO: 하단바보다 textView height 높아지면 scorll on 하기
-        
+            
             //입력 값에 따라 textView 크기 동적 변경
             let size = CGSize(width: textView.frame.width, height: .infinity)
             //textView안에 텍스트들을 가지고 맞는 크기를 계산함
             let estimatedSize = textView.sizeThatFits(size)
             //textView 높이 변경
             self.reviewTextFieldHC.constant = estimatedSize.height
-           
         }
     }
     

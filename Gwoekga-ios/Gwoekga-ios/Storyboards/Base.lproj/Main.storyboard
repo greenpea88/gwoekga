@@ -67,12 +67,19 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfc-Ev-Pva">
                                 <rect key="frame" x="100" y="567" width="214" height="34"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3503899248210483" green="0.68495755152381144" blue="0.35718389350830565" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <state key="normal" title="Login as Naver"/>
                                 <connections>
                                     <action selector="onNaverLoginBtnClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LKf-9H-ne4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8d-38-y14">
+                                <rect key="frame" x="184" y="686" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f6h-8O-acB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -87,6 +94,8 @@
                             <constraint firstItem="PfA-6u-6ki" firstAttribute="top" secondItem="wfz-Es-aPD" secondAttribute="bottom" id="YUh-Wo-zo7"/>
                             <constraint firstItem="PfA-6u-6ki" firstAttribute="trailing" secondItem="jfc-Ev-Pva" secondAttribute="trailing" id="YwS-u5-Hft"/>
                             <constraint firstItem="PfA-6u-6ki" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZIj-75-T4E"/>
+                            <constraint firstItem="l8d-38-y14" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eVf-v7-UIQ"/>
+                            <constraint firstItem="l8d-38-y14" firstAttribute="top" secondItem="jfc-Ev-Pva" secondAttribute="bottom" constant="85" id="hhr-eg-giN"/>
                             <constraint firstItem="tqi-j4-17B" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xY2-df-epD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -99,6 +108,7 @@
                         <outlet property="naverLoginBtn" destination="jfc-Ev-Pva" id="VTF-Z8-JXF"/>
                         <outlet property="notJoinYet" destination="tqi-j4-17B" id="CL1-Nk-PDD"/>
                         <outlet property="passwordTextField" destination="kXZ-Pg-SET" id="wia-Nc-jCp"/>
+                        <outlet property="test" destination="l8d-38-y14" id="Afx-fy-Ofp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

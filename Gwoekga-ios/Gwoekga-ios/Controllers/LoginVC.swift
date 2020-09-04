@@ -13,9 +13,10 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     
 
     //TODO: 로그인 입력 정보 맞는지 확인하기 + 이미 로그인 되어있는 경우 다음 화면으로 바로 넘어가기
-    //TODO: 다른 화면에서 로그아웃시 네이버 아이디로 로그인한 것 로그아웃 처리 어떻게??
+    //TODO: 다른 화면에서 로그아웃시 네이버 아이디로 로그인한 것 로그아웃 처리 어떻게??  -> 토큰은 1시간이 지나면 만료됨
     
-//    @IBOutlet weak var test: UIButton!
+    
+    @IBOutlet weak var test: UIButton!
     @IBOutlet weak var naverLoginBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginInfoField: UIStackView!
@@ -86,9 +87,9 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         
     }
     
-//    @IBAction func text(_ sender: UIButton) {
-//        naverLoginInstance?.requestDeleteToken()
-//    }
+    @IBAction func test(_ sender: UIButton) {
+        naverLoginInstance?.requestDeleteToken()
+    }
     
     
     //MARK: - UIGestureRecognizerDelegate Method
@@ -107,6 +108,9 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         else if(touch.view?.isDescendant(of: naverLoginBtn) == true){
             return false
         }
+        else if(touch.view?.isDescendant(of: test) == true){
+                   return false
+               }
         else{
             //키보드 내림
             view.endEditing(true)
