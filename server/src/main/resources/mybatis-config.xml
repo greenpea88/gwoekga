@@ -13,6 +13,7 @@
 
 	<mappers>
 		<mapper resource="sqlmap/user.xml" />
+		<mapper resource="sqlmap/category.xml" />
 	</mappers>
 
 </configuration>

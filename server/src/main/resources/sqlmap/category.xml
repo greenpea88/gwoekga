@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+
+	<select id="selectCategories" resultType="map">
+		SELECT
+        	C.categoryEng as categoryEng,
+        	C.categoryKr as categoryKr,
+        	C.seq as seq
+        FROM Category C
+	</select>
+
+
+</mapper>
