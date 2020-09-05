@@ -6,6 +6,7 @@ target 'Gwoekga-ios' do
   use_frameworks!
   pod 'Toast-Swift', '~> 5.0.1'
   pod 'naveridlogin-sdk-ios'
+  pod 'YPImagePicker'
   # Pods for Gwoekga-ios
 
 end
