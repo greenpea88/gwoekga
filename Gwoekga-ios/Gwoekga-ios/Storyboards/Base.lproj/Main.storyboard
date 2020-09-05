@@ -70,7 +70,7 @@
                                 <color key="backgroundColor" red="0.3503899248210483" green="0.68495755152381144" blue="0.35718389350830565" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                <state key="normal" title="Login as Naver"/>
+                                <state key="normal" title="Login with NAVER"/>
                                 <connections>
                                     <action selector="onNaverLoginBtnClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LKf-9H-ne4"/>
                                 </connections>

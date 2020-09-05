@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import YPImagePicker //오픈소스 : https://github.com/Yummypets/YPImagePicker#configuration
 
 class PostVC: KeyBoardNoti, UITextViewDelegate{
     
     //TODO: 다 채워지면 submit 버튼 활성화 + 포토뷰 추가하기 
     
-    @IBOutlet weak var underStackView: UIStackView!
+    @IBOutlet weak var underStackView: UIView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var bookBtn: UIButton!
@@ -23,6 +24,11 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
     @IBOutlet weak var reviewTextFieldHC: NSLayoutConstraint!
     @IBOutlet weak var reviewPlaceHold: UILabel!
     @IBOutlet weak var textCountLabel: UILabel!
+    @IBOutlet weak var postImgView: UIImageView!
+    @IBOutlet weak var postImgViewHC: NSLayoutConstraint!
+    @IBOutlet weak var imgDeleteBtn: UIButton!
+    @IBOutlet weak var scrollViewHC: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var isCategorySelected = 0
     
@@ -31,6 +37,9 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         super.viewDidLoad()
         print("PostVC -> viewDidLoad()")
         // Do any additional setup after loading the view.
+        
+        self.postImgView.layer.cornerRadius =  10
+        self.imgDeleteBtn.layer.cornerRadius = imgDeleteBtn.frame.height / 2
         
         //title 입력 textfield에 포커스 주기
         self.titleTextField.becomeFirstResponder()
@@ -92,6 +101,55 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         }
     }
     
+    @IBAction func onPhoToSelectBtnClicked(_ sender: UIButton) {
+        print("PostVC -> onPhotoSelectBtnClicked()")
+        
+         //카메라 라이브러리 세팅
+        var config = YPImagePickerConfiguration()
+        config.screens = [.library, .photo]
+        
+        //navigation bar text color 세팅
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black ] // Title color
+        UINavigationBar.appearance().tintColor = .yellow // Left. bar buttons
+        config.colors.tintColor = .systemYellow // Right bar buttons (actions)
+                
+        //사진이 선택되었을 때
+        let picker = YPImagePicker(configuration: config)
+        picker.didFinishPicking { [unowned picker] items, _ in
+        //선택되는 사진이 존재한다면
+            if let photo = items.singlePhoto {
+//                print(photo.fromCamera) // Image source (camera or library)
+//                print(photo.image) // Final image selected by the user
+//                print(photo.originalImage) // original image selected by the user, unfiltered
+//                print(photo.modifiedImage) // Transformed image, can be nil
+//                print(photo.exifMeta) // Print exif meta data of original image.
+                let ratio = photo.image.size.width / photo.image.size.height
+                let newHeight = self.postImgView.bounds.width * ratio
+                print("new height / \(newHeight)")
+                print("before height / \(self.postImgViewHC.constant)")
+                self.postImgViewHC.constant = newHeight
+                print("before height / \(self.postImgViewHC.constant)")
+                //사진 추가
+                self.postImgView.image = photo.image
+                self.imgDeleteBtn.isHidden = false
+            }
+        //picker 창 닫기
+        picker.dismiss(animated: true, completion: nil)
+        }
+                
+        //picker 창 보여주기
+        present(picker, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func onImgDeleteBtnClicked(_ sender: UIButton) {
+        print("PostVC -> onImgDeleteBtnClicked()")
+        self.postImgView.image = nil
+        sender.isHidden = true
+    }
+    
+    
+    
     //MARK: - UITextViewDelegate Method
     func textViewDidChange(_ textView: UITextView) {
         //textfield의 placeholder로 label을 대신 사용 -> 값이 입력되면 hidden 값 이용해 없애기
@@ -102,12 +160,26 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
             
             self.reviewPlaceHold.isHidden = true
             //TODO: 하단바보다 textView height 높아지면 scorll on 하기
-            
+//
+//            let underStackViewLoc = self.underStackView.frame.origin.y
+////            print("underStackViewLoc  \(underStackViewLoc)")
+//            let textViewTop = textView.frame.origin.y
+////            print("textViewTop  \(textViewTop)")
+//            let distance = underStackViewLoc - textViewTop - 10
+//            print("distance \(distance)")
             //입력 값에 따라 textView 크기 동적 변경
             let size = CGSize(width: textView.frame.width, height: .infinity)
             //textView안에 텍스트들을 가지고 맞는 크기를 계산함
             let estimatedSize = textView.sizeThatFits(size)
-            //textView 높이 변경
+//            print("estimatedSize / \(textView.sizeThatFits(size).height)")
+//            if (distance >= estimatedSize.height){
+//                //textView 높이 변경
+//                print("change")
+//                self.reviewTextFieldHC.constant = estimatedSize.height
+//            }
+//            else{
+//                self.reviewTextField.isScrollEnabled = true
+//            }
             self.reviewTextFieldHC.constant = estimatedSize.height
         }
     }
@@ -116,7 +188,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         
         let inputTextCount = textView.text?.appending(text).count ?? 0
         
-        print("PostVC -> textView shouldChangeTextIn() / \(inputTextCount)")
+//        print("PostVC -> textView shouldChangeTextIn() / \(inputTextCount)")
         
         if (inputTextCount<=280){
             self.textCountLabel.text = String(inputTextCount) + " / 280"
@@ -132,7 +204,19 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         print("PostVC -> keyboardWillShow()")
         //키보드 올라오는만큼 아래바 올리기
        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-        self.underStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
+        let viewHeight = self.view.frame.height
+//        print("keyboard height \(viewHeight - keyboardSize.height)")
+//        print("underStackVeiw location \(self.underStackView.frame.origin.y)")
+        
+        if (viewHeight - keyboardSize.height < self.underStackView.frame.origin.y){
+            let distance =  viewHeight -  self.underStackView.frame.origin.y - self.underStackView.frame.height
+//            print("underStckVeiw location  / \(self.underStackView.frame.origin.y)")
+//            print("from bottom / \(distance)")
+            self.underStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height + distance)
+            let newHeight =
+                self.underStackView.frame.origin.y - self.scrollView.frame.origin.y
+            self.scrollViewHC.constant = newHeight
+        }
         }
 
     }
@@ -142,6 +226,8 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         //TODO: - 키보드 사라질 때 notification 감지 왜 못하는지?
         print("PostVC -> keyboardWillHide()")
         self.underStackView.transform = .identity
-
+        let newHeight =
+            self.underStackView.frame.origin.y - self.scrollView.frame.origin.y
+        self.scrollViewHC.constant = newHeight
     }
 }

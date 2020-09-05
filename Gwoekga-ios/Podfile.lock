@@ -1,20 +1,32 @@
 PODS:
   - naveridlogin-sdk-ios (4.1.2)
+  - PryntTrimmerView (4.0.0)
+  - SteviaLayout (4.7.3)
   - Toast-Swift (5.0.1)
+  - YPImagePicker (4.3.1):
+    - PryntTrimmerView (~> 4.0.0)
+    - SteviaLayout (~> 4.7.3)
 
 DEPENDENCIES:
   - naveridlogin-sdk-ios
   - Toast-Swift (~> 5.0.1)
+  - YPImagePicker
 
 SPEC REPOS:
   trunk:
     - naveridlogin-sdk-ios
+    - PryntTrimmerView
+    - SteviaLayout
     - Toast-Swift
+    - YPImagePicker
 
 SPEC CHECKSUMS:
   naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
+  PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
+  SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  YPImagePicker: 08bbb809ed62bf4149fc015c97249eb4b9463ff9
 
-PODFILE CHECKSUM: e262475a3a0dc591388ea25ba47df76ee7756093
+PODFILE CHECKSUM: 852233db990a703427b020a81abadd0f7685e34e
 
 COCOAPODS: 1.9.3
