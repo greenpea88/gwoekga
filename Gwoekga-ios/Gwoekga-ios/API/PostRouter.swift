@@ -10,9 +10,9 @@ import Foundation
 import Alamofire
 
 enum PostRouter: URLRequestConvertible {
-    case getCategoryList(term: String)
+    case getCategoryList
     case getGenreList(term: String)
-//    case postPost()
+//    case postPost() //body에 데이터 넣어서 보내기
     
     var baseURL: URL {
         return URL(string: API.BASE_URL)!

@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.2.2)
+  - Cosmos (22.1.0)
   - naveridlogin-sdk-ios (4.1.2)
   - PryntTrimmerView (4.0.0)
   - SteviaLayout (4.7.3)
@@ -11,6 +12,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
+  - Cosmos (~> 22.1)
   - naveridlogin-sdk-ios
   - SwiftyJSON (~> 4.0)
   - Toast-Swift (~> 5.0.1)
@@ -19,6 +21,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Cosmos
     - naveridlogin-sdk-ios
     - PryntTrimmerView
     - SteviaLayout
@@ -28,6 +31,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  Cosmos: 2795b36ad4bbea1af3050d6d65576ed63875f86a
   naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
   PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
@@ -35,6 +39,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YPImagePicker: 08bbb809ed62bf4149fc015c97249eb4b9463ff9
 
-PODFILE CHECKSUM: 089c953ac89ebe1679150b00b22945989638621b
+PODFILE CHECKSUM: b0079950f61e506a85739acb65164ed24108cbf2
 
 COCOAPODS: 1.9.3

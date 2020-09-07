@@ -15,5 +15,6 @@ enum API{
 enum NOTIFICATION{
     enum API{
         static let AUTH_FAIL = "authentication failed"
+        static let LOAD_DATA_FAIL = "data load failed"
     }
 }

@@ -192,6 +192,5 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
         print("Login VC -> error occur / \(error.localizedDescription)")
     }
-    
 }
 

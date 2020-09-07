@@ -35,10 +35,11 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     
     var selectTextView = 2
     var isCategorySelected = 0
+    var selectedCategory = ""
     var selectCategoryList = [String]() //select할 카테고리의 값이 존재
     var selectGenreList = ["카테고리를 먼저 선택해주세요"]
     var prevSelectCategory: String = ""
-//    let selectList = ["하나","둘","셋","넷"]
+
     let url = "http://ec2-54-237-170-211.compute-1.amazonaws.com:8080/api/category/all"
     
     var selectCategoryGenre: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
@@ -58,9 +59,19 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
         
         self.view.addGestureRecognizer(selectCategoryGenre)
         
-//        createPickerView()
-//        dismissPickerView()
         requestCategory()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //인증 실패 노티피케이션 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(showErrorPopUP(notification:)), name: NSNotification.Name(rawValue: NOTIFICATION.API.LOAD_DATA_FAIL), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NOTIFICATION.API.LOAD_DATA_FAIL), object: nil)
     }
 
     //MARK: - IBAction Methods
@@ -264,6 +275,9 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
             selectTextView = 1
             createPickerView(genreSelect)
             dismissPickerView()
+            if (selectGenreList.count == 0){
+                self.view.makeToast("선택할 수 있는 장르가 없습니다.😥", duration: 1.0, position: .center)
+            }
             return true
         }
         else{
@@ -334,45 +348,54 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     
     //MARK: - HTTP request
     func requestCategory(){
-        AF.request(url,method: .get).responseJSON{
-            response in
-            switch response.result{
-            case .success(let value):
-                let json = JSON(value)
-//                let result = json["result"].intValue
-                for i in 0..<json.count{
-                    self.selectCategoryList.append(json[i]["categoryEng"].stringValue)
-                    print(json[i]["categoryEng"].stringValue)
-                }
-                print(self.selectCategoryList)
-                break
-            default:
-                break
+        
+        PostManager.shared.getCategory(completion: {[weak self] result in
+            guard let self = self else {return}
+            
+            switch result{
+            case .success(let categories):
+                self.selectCategoryList = categories
+            case .failure(let error):
+                print("error : \(error)")
             }
-        }
+        })
     }
     
     func requestGenre(_ category: String){
         //선택한 장르와 다르면 배열 초기화
-        self.selectGenreList = []
-        AF.request("http://ec2-54-237-170-211.compute-1.amazonaws.com:8080/api/category/" + category,method: .get).responseJSON{
-                    response in
-                    switch response.result{
-                    case .success(let value):
-                        let json = JSON(value)
-//                        let result = json["result"].intValue
-                        if (self.selectGenreList.count == 0){
-                            for i in 0..<json.count{
-                                self.selectGenreList.append(json[i]["genreKr"].stringValue)
-                            }
-                        }
-                        print(self.selectGenreList)
-                        print(json)
-                        break
-                    default:
-                        break
-                    }
+        if selectedCategory != category{
+            self.selectGenreList = []
+            PostManager.shared.getGenre(category: category, completion: {[weak self] result in
+                guard let self = self else {return}
+                
+                switch result{
+                case .success(let genres):
+                    self.selectGenreList = genres
+                case .failure(let error):
+                    print("error : \(error)")
                 }
+            })
+        }
+        
+        selectedCategory = category
+    }
+    
+    func postReview(){
+//        let review = Review(title: titleTextField.text!, star: <#T##Float#>, email: <#T##String#>, category: <#T##String#>, genres: <#T##[Int]#>)
+    }
+    
+    //MARK: - objc Methods
+    @objc func showErrorPopUP(notification: NSNotification){
+        print("BaseVC -> showErrorPopUp()")
+        
+        if let data = notification.userInfo?["statusCode"]{
+            print("showErrorPopUp() \(data)")
+            
+//            DispatchQueue.main.async {
+//                //view에 관련된 사항은 main thread에서 진행해줘야함
+//                self.view.makeToast("데이터를 로드할 수 없습니다.", duration: 1.0, position: .center)
+//            }
+        }
     }
 }
 
