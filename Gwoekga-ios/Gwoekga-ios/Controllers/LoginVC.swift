@@ -178,7 +178,6 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
         print("LoginVC -> login is Success")
         enterHome()
-        
     }
     //접근 토근 갱신
     func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
