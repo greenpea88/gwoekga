@@ -10,6 +10,7 @@ import Foundation
 
 struct Review: Codable{
     var title: String
+    var written: String
     var star: Float
     var email: String
     var category: String

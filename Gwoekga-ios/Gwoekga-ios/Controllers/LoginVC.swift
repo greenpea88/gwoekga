@@ -75,6 +75,7 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         }
         //로그인시 홈 화면으로 넘어가기
         else{
+            USER.EMAIL = id
             enterHome()
         }
 
@@ -131,18 +132,10 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
             return false
         }
         else{
+            USER.EMAIL = id
             textField.resignFirstResponder()
             
-            //스토리보드 가져오기
-            let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-            //스토리보드를 통해 view controller 가져오기
-            let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
-
-            //전환 타입
-            homeVC.modalPresentationStyle  = .fullScreen
-            homeVC.modalTransitionStyle = .crossDissolve
-
-            self.present(homeVC,animated: true,completion: nil)
+            enterHome()
             
             return true
         }

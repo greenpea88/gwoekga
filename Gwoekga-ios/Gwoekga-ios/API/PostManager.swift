@@ -90,4 +90,15 @@ final class PostManager{
                 }
             })
     }
+    
+    func postPost(review: Review,completion: @escaping (Result<[String], MyError>) -> Void){
+      
+        print("PostManager -> postGenre()")
+        
+        self.session
+            .request(PostRouter.postPost(post: review))
+            .responseJSON(completionHandler: {  response in
+            debugPrint(response)
+        })
+      }
 }

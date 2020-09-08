@@ -18,3 +18,10 @@ enum NOTIFICATION{
         static let LOAD_DATA_FAIL = "data load failed"
     }
 }
+
+enum USER{
+    static var EMAIL: String = ""
+}
+
+
+//http://ec2-54-237-170-211.compute-1.amazonaws.com:8080/api/Post/all

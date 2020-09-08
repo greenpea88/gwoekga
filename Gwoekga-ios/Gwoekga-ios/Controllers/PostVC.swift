@@ -10,6 +10,7 @@ import UIKit
 import YPImagePicker //오픈소스 : https://github.com/Yummypets/YPImagePicker#configuration
 import Alamofire
 import SwiftyJSON
+import Cosmos //https://github.com/evgenyneu/Cosmos
 
 class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate{
     
@@ -29,9 +30,9 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var imgDeleteBtn: UIButton!
     @IBOutlet weak var scrollViewHC: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pickerView: UITextField!
     @IBOutlet weak var categorySelect: UITextField!
     @IBOutlet weak var genreSelect: UITextField!
+    @IBOutlet weak var starRating: CosmosView!
     
     var selectTextView = 2
     var isCategorySelected = 0
@@ -39,8 +40,6 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     var selectCategoryList = [String]() //select할 카테고리의 값이 존재
     var selectGenreList = ["카테고리를 먼저 선택해주세요"]
     var prevSelectCategory: String = ""
-
-    let url = "http://ec2-54-237-170-211.compute-1.amazonaws.com:8080/api/category/all"
     
     var selectCategoryGenre: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
     
@@ -92,6 +91,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
         }
         else{
             //TODO: 입력 정보 서버로 보내기
+            postReview()
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -143,23 +143,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
         self.postImgViewHC.constant = 0
         sender.isHidden = true
     }
-    
-//    @IBAction func onCategoryBtnClicked(_ sender: UIButton) {
-//        print("PostVC -> onCatgoryBtnClicked()")
-//        self.view.endEditing(true)
-//        //서버로부터 카테고리를 받아온 다음에 pickerview로 선택할 수 있도록 띄우기
-//        selectBtn = categorySelectBtn
-//        pickerView.becomeFirstResponder()
-//    }
-//
-//    @IBAction func onGenreBtnClicked(_ sender: UIButton) {
-//        print("PostVC -> onGenreBtnClicked()")
-//        self.view.endEditing(true)
-//        //서버로부터 카테고리를 받아온 다음에 pickerview로 선택할 수 있도록 띄우기
-//        selectBtn = genreSelectBtn
-//        pickerView.becomeFirstResponder()
-//
-//    }
+
     @IBAction func onDonBtnClicked(_ sender: Any){
         self.view.endEditing(true)
     }
@@ -296,13 +280,17 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     }
     
     func dismissPickerView(){
+        print("PostVC -> dismissPickerView()")
         let toolBar = UIToolbar()
+//        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+        //constraint 충돌 방지 위해 위에 것 대신 해당 방식으로 선언해도 됨
         toolBar.sizeToFit()
         let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.onDonBtnClicked(_:)))
         toolBar.items =  [button]
         toolBar.tintColor = #colorLiteral(red: 1, green: 0.7959558368, blue: 0, alpha: 1)
         toolBar.setItems([button], animated: true)
         toolBar.isUserInteractionEnabled = true
+        toolBar.updateConstraintsIfNeeded() //constraint error 해결위해 추가
 
         switch selectTextView{
         case 0:
@@ -381,7 +369,18 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     }
     
     func postReview(){
-//        let review = Review(title: titleTextField.text!, star: <#T##Float#>, email: <#T##String#>, category: <#T##String#>, genres: <#T##[Int]#>)
+        guard let title = titleTextField.text else {return}
+        guard let review = reviewTextField.text else {return}
+        let rate = Float(starRating.rating)
+        guard let category = categorySelect.text else {return}
+        guard let genre = genreSelect.text else {return}
+        print("PostVC -> postReview() / title \(title), review \(review), rate \(rate), category \(category), genre \(genre)")
+        
+        let posting = Review(title: title,written: review, star: rate, email: USER.EMAIL, category: category, genres: [1])
+        
+        PostManager.shared.postPost(review: posting, completion: { result in
+            debugPrint(result)
+        })
     }
     
     //MARK: - objc Methods
