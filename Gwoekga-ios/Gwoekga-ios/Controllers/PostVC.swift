@@ -8,18 +8,18 @@
 
 import UIKit
 import YPImagePicker //오픈소스 : https://github.com/Yummypets/YPImagePicker#configuration
+import Alamofire
+import SwiftyJSON
 
-class PostVC: KeyBoardNoti, UITextViewDelegate{
+class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate{
+    
+    
     
     //TODO: 다 채워지면 submit 버튼 활성화 + 포토뷰 추가하기 
     
     @IBOutlet weak var underStackView: UIView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var submitBtn: UIButton!
-    @IBOutlet weak var bookBtn: UIButton!
-    @IBOutlet weak var movieBtn: UIButton!
-    @IBOutlet weak var musicalBtn: UIButton!
-    @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var reviewTextField: UITextView!
     @IBOutlet weak var reviewTextFieldHC: NSLayoutConstraint!
     @IBOutlet weak var reviewPlaceHold: UILabel!
@@ -29,8 +29,20 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
     @IBOutlet weak var imgDeleteBtn: UIButton!
     @IBOutlet weak var scrollViewHC: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pickerView: UITextField!
+    @IBOutlet weak var categorySelect: UITextField!
+    @IBOutlet weak var genreSelect: UITextField!
     
+    var selectTextView = 2
     var isCategorySelected = 0
+    var selectedCategory = ""
+    var selectCategoryList = [String]() //select할 카테고리의 값이 존재
+    var selectGenreList = ["카테고리를 먼저 선택해주세요"]
+    var prevSelectCategory: String = ""
+
+    let url = "http://ec2-54-237-170-211.compute-1.amazonaws.com:8080/api/category/all"
+    
+    var selectCategoryGenre: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
     
     
     override func viewDidLoad() {
@@ -41,11 +53,25 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         self.postImgView.layer.cornerRadius =  10
         self.imgDeleteBtn.layer.cornerRadius = imgDeleteBtn.frame.height / 2
         
-        //title 입력 textfield에 포커스 주기
-        self.titleTextField.becomeFirstResponder()
-        
         self.reviewTextField.delegate = self
+        self.selectCategoryGenre.delegate = self
         self.reviewTextField.isEditable = true
+        
+        self.view.addGestureRecognizer(selectCategoryGenre)
+        
+        requestCategory()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //인증 실패 노티피케이션 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(showErrorPopUP(notification:)), name: NSNotification.Name(rawValue: NOTIFICATION.API.LOAD_DATA_FAIL), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NOTIFICATION.API.LOAD_DATA_FAIL), object: nil)
     }
 
     //MARK: - IBAction Methods
@@ -53,37 +79,6 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
         print("PostVC -> onCancleBtnClicked()")
         //이전 view로 되돌아감
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func onCategoryRadio(_ sender: UIButton) {
-        //카테고리(책,영화,뮤지컬,연극) 선택 - radio button type으로
-        isCategorySelected = 1
-        
-        if (sender.tag == 1){
-            bookBtn.isSelected = true
-            movieBtn.isSelected = false
-            musicalBtn.isSelected = false
-            playBtn.isSelected = false
-        }
-        else if (sender.tag == 2){
-            bookBtn.isSelected = false
-            movieBtn.isSelected = true
-            musicalBtn.isSelected = false
-            playBtn.isSelected = false
-        }
-        else if (sender.tag == 3){
-            bookBtn.isSelected = false
-            movieBtn.isSelected = false
-            musicalBtn.isSelected = true
-            playBtn.isSelected = false
-        }
-        else if (sender.tag == 4){
-            bookBtn.isSelected = false
-            movieBtn.isSelected = false
-            musicalBtn.isSelected = false
-            playBtn.isSelected = true
-        }
-        
     }
     
     @IBAction func onSubmitBtnClicked(_ sender: UIButton) {
@@ -125,10 +120,10 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
 //                print(photo.exifMeta) // Print exif meta data of original image.
                 let ratio = photo.image.size.width / photo.image.size.height
                 let newHeight = self.postImgView.bounds.width * ratio
-                print("new height / \(newHeight)")
-                print("before height / \(self.postImgViewHC.constant)")
+//                print("new height / \(newHeight)")
+//                print("before height / \(self.postImgViewHC.constant)")
                 self.postImgViewHC.constant = newHeight
-                print("before height / \(self.postImgViewHC.constant)")
+//                print("before height / \(self.postImgViewHC.constant)")
                 //사진 추가
                 self.postImgView.image = photo.image
                 self.imgDeleteBtn.isHidden = false
@@ -145,10 +140,29 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
     @IBAction func onImgDeleteBtnClicked(_ sender: UIButton) {
         print("PostVC -> onImgDeleteBtnClicked()")
         self.postImgView.image = nil
+        self.postImgViewHC.constant = 0
         sender.isHidden = true
     }
     
-    
+//    @IBAction func onCategoryBtnClicked(_ sender: UIButton) {
+//        print("PostVC -> onCatgoryBtnClicked()")
+//        self.view.endEditing(true)
+//        //서버로부터 카테고리를 받아온 다음에 pickerview로 선택할 수 있도록 띄우기
+//        selectBtn = categorySelectBtn
+//        pickerView.becomeFirstResponder()
+//    }
+//
+//    @IBAction func onGenreBtnClicked(_ sender: UIButton) {
+//        print("PostVC -> onGenreBtnClicked()")
+//        self.view.endEditing(true)
+//        //서버로부터 카테고리를 받아온 다음에 pickerview로 선택할 수 있도록 띄우기
+//        selectBtn = genreSelectBtn
+//        pickerView.becomeFirstResponder()
+//
+//    }
+    @IBAction func onDonBtnClicked(_ sender: Any){
+        self.view.endEditing(true)
+    }
     
     //MARK: - UITextViewDelegate Method
     func textViewDidChange(_ textView: UITextView) {
@@ -198,6 +212,107 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
             return false
         }
     }
+
+    //MARK: - PickerViewDataSouce Method
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        //하나의 PickerView에서 선택 가능한 리스트의 수
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        //PickerView에 표시될 항목의 개수를 반환
+        switch selectTextView{
+        case 0:
+            return selectCategoryList.count
+        case 1:
+            return selectGenreList.count
+        default:
+            return selectCategoryList.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        //PickerView 내에서 특정한 위치(row)를 가리키게 될 때, 그 위치에 해당하는 문자열을 반환
+//        return selectCategoryList[row]
+        switch selectTextView{
+        case 0:
+            return selectCategoryList[row]
+        case 1:
+            return selectGenreList[row]
+        default:
+            return selectCategoryList[row]
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //PickerView 에서 특정 row가 focus되었을 때 어떤 행동을 할지 정의
+        switch selectTextView{
+        case 0:
+            categorySelect.text = selectCategoryList[row]
+            requestGenre(selectCategoryList[row])
+        case 1:
+            isCategorySelected = 1
+            genreSelect.text = selectGenreList[row]
+        default:
+            categorySelect.text = selectCategoryList[row]
+        }
+    }
+    
+    //MARK: - UIGestureRecognizerDelegate Method
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        //사용자가 터치했을 때 동작하게 됨
+        
+        if (touch.view?.isDescendant(of: categorySelect) == true){
+            print("PostVC -> gesture category")
+            selectTextView = 0
+//            print(selectList)
+            self.createPickerView(self.categorySelect)
+            self.dismissPickerView()
+            return true
+        }
+        else if(touch.view?.isDescendant(of: genreSelect) == true){
+            print("PostVC -> gesture genre")
+            selectTextView = 1
+            createPickerView(genreSelect)
+            dismissPickerView()
+            if (selectGenreList.count == 0){
+                self.view.makeToast("선택할 수 있는 장르가 없습니다.😥", duration: 1.0, position: .center)
+            }
+            return true
+        }
+        else{
+            //키보드 내림
+            return false
+        }
+    }
+    
+    //MARK: - pickerView display
+    func createPickerView(_ textField: UITextField){
+        print("PostVC -> createPickerView")
+        let displayPickerView = UIPickerView()
+        displayPickerView.delegate = self
+
+        textField.inputView = displayPickerView
+    }
+    
+    func dismissPickerView(){
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.onDonBtnClicked(_:)))
+        toolBar.items =  [button]
+        toolBar.tintColor = #colorLiteral(red: 1, green: 0.7959558368, blue: 0, alpha: 1)
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+
+        switch selectTextView{
+        case 0:
+            categorySelect.inputAccessoryView = toolBar
+        case 1:
+            genreSelect.inputAccessoryView = toolBar
+        default:
+            categorySelect.inputAccessoryView = toolBar
+        }
+    }
     
     //MARK: - KeyBoardNoti override
     @objc override func keyboardWillShow(notification: NSNotification){
@@ -230,4 +345,57 @@ class PostVC: KeyBoardNoti, UITextViewDelegate{
             self.underStackView.frame.origin.y - self.scrollView.frame.origin.y
         self.scrollViewHC.constant = newHeight
     }
+    
+    //MARK: - HTTP request
+    func requestCategory(){
+        
+        PostManager.shared.getCategory(completion: {[weak self] result in
+            guard let self = self else {return}
+            
+            switch result{
+            case .success(let categories):
+                self.selectCategoryList = categories
+            case .failure(let error):
+                print("error : \(error)")
+            }
+        })
+    }
+    
+    func requestGenre(_ category: String){
+        //선택한 장르와 다르면 배열 초기화
+        if selectedCategory != category{
+            self.selectGenreList = []
+            PostManager.shared.getGenre(category: category, completion: {[weak self] result in
+                guard let self = self else {return}
+                
+                switch result{
+                case .success(let genres):
+                    self.selectGenreList = genres
+                case .failure(let error):
+                    print("error : \(error)")
+                }
+            })
+        }
+        
+        selectedCategory = category
+    }
+    
+    func postReview(){
+//        let review = Review(title: titleTextField.text!, star: <#T##Float#>, email: <#T##String#>, category: <#T##String#>, genres: <#T##[Int]#>)
+    }
+    
+    //MARK: - objc Methods
+    @objc func showErrorPopUP(notification: NSNotification){
+        print("BaseVC -> showErrorPopUp()")
+        
+        if let data = notification.userInfo?["statusCode"]{
+            print("showErrorPopUp() \(data)")
+            
+//            DispatchQueue.main.async {
+//                //view에 관련된 사항은 main thread에서 진행해줘야함
+//                self.view.makeToast("데이터를 로드할 수 없습니다.", duration: 1.0, position: .center)
+//            }
+        }
+    }
 }
+

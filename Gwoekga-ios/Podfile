@@ -7,6 +7,9 @@ target 'Gwoekga-ios' do
   pod 'Toast-Swift', '~> 5.0.1'
   pod 'naveridlogin-sdk-ios'
   pod 'YPImagePicker'
+  pod 'Alamofire', '~> 5.2'
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'Cosmos', '~> 22.1'
   # Pods for Gwoekga-ios
 
 end
