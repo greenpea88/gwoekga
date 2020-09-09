@@ -14,5 +14,5 @@ struct Review: Codable{
     var star: Float
     var email: String
     var category: String
-    var genres = [Int]()
+    var genres : String
 }

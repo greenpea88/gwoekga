@@ -60,7 +60,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         else{
             //키보드 내리기
             self.view.endEditing(true)
-            
+            USER.EMAIL = id
             //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 self.welcomeView.isHidden = false
@@ -117,7 +117,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         }
         else{
             textField.resignFirstResponder()
-            
+            USER.EMAIL = id
             //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 self.welcomeView.isHidden = false
@@ -138,6 +138,25 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
             return true
         }
 
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField.tag == 1){
+            
+            
+            let inputTextCount = textField.text?.appending(string).count ?? 0
+            
+            if (inputTextCount > 8){
+                self.view.makeToast("🚨8자 이하로 입력해주세요🚨", duration: 1.0, position: .center)
+                return false
+            }
+            else{
+                return true
+            }
+        }
+        else{
+            return true
+        }
     }
     
     //MARK: - KeyBoardNoti override

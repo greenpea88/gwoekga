@@ -49,6 +49,7 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
     }
     
+    
     //MARK: - fileprivate
     fileprivate func enterHome(){
         //스토리보드 가져오기

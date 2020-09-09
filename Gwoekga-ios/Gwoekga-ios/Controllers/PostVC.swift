@@ -35,10 +35,11 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var starRating: CosmosView!
     
     var selectTextView = 2
-    var isCategorySelected = 0
+    var isCategorySelected = 0 //category,genre가 모두 채워졌는지 확인 -> category를 선택해야 genre를 선택하므로 genre 선택될 때 on
     var selectedCategory = ""
     var selectCategoryList = [String]() //select할 카테고리의 값이 존재
     var selectGenreList = ["카테고리를 먼저 선택해주세요"]
+    var selectedGenreIdx = "" //genre값 idx로 post하므로 idx값 저장해두기
     var prevSelectCategory: String = ""
     
     var selectCategoryGenre: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
@@ -157,27 +158,10 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
         else{
             
             self.reviewPlaceHold.isHidden = true
-            //TODO: 하단바보다 textView height 높아지면 scorll on 하기
-//
-//            let underStackViewLoc = self.underStackView.frame.origin.y
-////            print("underStackViewLoc  \(underStackViewLoc)")
-//            let textViewTop = textView.frame.origin.y
-////            print("textViewTop  \(textViewTop)")
-//            let distance = underStackViewLoc - textViewTop - 10
-//            print("distance \(distance)")
-            //입력 값에 따라 textView 크기 동적 변경
             let size = CGSize(width: textView.frame.width, height: .infinity)
             //textView안에 텍스트들을 가지고 맞는 크기를 계산함
             let estimatedSize = textView.sizeThatFits(size)
-//            print("estimatedSize / \(textView.sizeThatFits(size).height)")
-//            if (distance >= estimatedSize.height){
-//                //textView 높이 변경
-//                print("change")
-//                self.reviewTextFieldHC.constant = estimatedSize.height
-//            }
-//            else{
-//                self.reviewTextField.isScrollEnabled = true
-//            }
+            //텍스트 필드 높이 재정의하기
             self.reviewTextFieldHC.constant = estimatedSize.height
         }
     }
@@ -236,6 +220,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
             requestGenre(selectCategoryList[row])
         case 1:
             isCategorySelected = 1
+            selectedGenreIdx = "[" + String(row+1) + "]"
             genreSelect.text = selectGenreList[row]
         default:
             categorySelect.text = selectCategoryList[row]
@@ -260,6 +245,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
             createPickerView(genreSelect)
             dismissPickerView()
             if (selectGenreList.count == 0){
+                
                 self.view.makeToast("선택할 수 있는 장르가 없습니다.😥", duration: 1.0, position: .center)
             }
             return true
@@ -282,7 +268,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     func dismissPickerView(){
         print("PostVC -> dismissPickerView()")
         let toolBar = UIToolbar()
-//        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+//        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 30))
         //constraint 충돌 방지 위해 위에 것 대신 해당 방식으로 선언해도 됨
         toolBar.sizeToFit()
         let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.onDonBtnClicked(_:)))
@@ -305,6 +291,9 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
     //MARK: - KeyBoardNoti override
     @objc override func keyboardWillShow(notification: NSNotification){
         print("PostVC -> keyboardWillShow()")
+        
+        self.underStackView.transform = .identity
+        
         //키보드 올라오는만큼 아래바 올리기
        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
         let viewHeight = self.view.frame.height
@@ -312,6 +301,7 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
 //        print("underStackVeiw location \(self.underStackView.frame.origin.y)")
         
         if (viewHeight - keyboardSize.height < self.underStackView.frame.origin.y){
+            //만약에 키보드보다 아래에 있다면
             let distance =  viewHeight -  self.underStackView.frame.origin.y - self.underStackView.frame.height
 //            print("underStckVeiw location  / \(self.underStackView.frame.origin.y)")
 //            print("from bottom / \(distance)")
@@ -373,10 +363,9 @@ class PostVC: KeyBoardNoti, UITextViewDelegate, UIPickerViewDelegate, UIPickerVi
         guard let review = reviewTextField.text else {return}
         let rate = Float(starRating.rating)
         guard let category = categorySelect.text else {return}
-        guard let genre = genreSelect.text else {return}
-        print("PostVC -> postReview() / title \(title), review \(review), rate \(rate), category \(category), genre \(genre)")
+        print("PostVC -> postReview() / title \(title), review \(review), rate \(rate), category \(category), genre \(selectedGenreIdx)")
         
-        let posting = Review(title: title,written: review, star: rate, email: USER.EMAIL, category: category, genres: [1])
+        let posting = Review(title: title,written: review, star: rate, email: USER.EMAIL, category: category, genres: selectedGenreIdx)
         
         PostManager.shared.postPost(review: posting, completion: { result in
             debugPrint(result)

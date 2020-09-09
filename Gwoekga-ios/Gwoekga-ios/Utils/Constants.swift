@@ -20,8 +20,6 @@ enum NOTIFICATION{
 }
 
 enum USER{
+    static var USERNAME: String = ""
     static var EMAIL: String = ""
 }
-
-
-//http://ec2-54-237-170-211.compute-1.amazonaws.com:8080/api/Post/all
