@@ -15,8 +15,7 @@
 		F91E69862506660800EBF2A5 /* MyErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E69852506660700EBF2A5 /* MyErrors.swift */; };
 		F91E698925066F5100EBF2A5 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E698825066F5100EBF2A5 /* Review.swift */; };
 		F91E698B25078F5A00EBF2A5 /* TimeLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E698A25078F5900EBF2A5 /* TimeLineCell.swift */; };
-		F91E69912508EA6E00EBF2A5 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E69902508EA6E00EBF2A5 /* State.swift */; };
-		F9690452250079B500AFCE26 /* KeyBoardNoti.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9690451250079B500AFCE26 /* KeyBoardNoti.swift */; };
+		F9690452250079B500AFCE26 /* keyBoardNoti.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9690451250079B500AFCE26 /* keyBoardNoti.swift */; };
 		F96C904124FE1B8000DECD1D /* ControlVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C904024FE1B8000DECD1D /* ControlVC.swift */; };
 		F96C904324FE532700DECD1D /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C904224FE532700DECD1D /* MyProfileVC.swift */; };
 		F9705B8624FCC0B5000B771A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705B8524FCC0B5000B771A /* AppDelegate.swift */; };
@@ -29,6 +28,7 @@
 		F9705B9E24FCC101000B771A /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9705B9D24FCC101000B771A /* Home.storyboard */; };
 		F9705BA024FCC367000B771A /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705B9F24FCC367000B771A /* PostVC.swift */; };
 		F9705BA224FCC6BA000B771A /* JoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705BA124FCC6BA000B771A /* JoinVC.swift */; };
+		F97A2C772509EDE5005E6EC8 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,8 +42,7 @@
 		F91E69852506660700EBF2A5 /* MyErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyErrors.swift; sourceTree = "<group>"; };
 		F91E698825066F5100EBF2A5 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		F91E698A25078F5900EBF2A5 /* TimeLineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineCell.swift; sourceTree = "<group>"; };
-		F91E69902508EA6E00EBF2A5 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		F9690451250079B500AFCE26 /* KeyBoardNoti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoardNoti.swift; sourceTree = "<group>"; };
+		F9690451250079B500AFCE26 /* keyBoardNoti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyBoardNoti.swift; sourceTree = "<group>"; };
 		F96C904024FE1B8000DECD1D /* ControlVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlVC.swift; sourceTree = "<group>"; };
 		F96C904224FE532700DECD1D /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		F9705B8224FCC0B5000B771A /* Gwoekga-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gwoekga-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +57,7 @@
 		F9705B9D24FCC101000B771A /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		F9705B9F24FCC367000B771A /* PostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		F9705BA124FCC6BA000B771A /* JoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinVC.swift; sourceTree = "<group>"; };
+		F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,6 @@
 			children = (
 				F91E696A250603E800EBF2A5 /* Constants.swift */,
 				F91E69852506660700EBF2A5 /* MyErrors.swift */,
-				F91E69902508EA6E00EBF2A5 /* State.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -161,7 +160,8 @@
 				F9705BA124FCC6BA000B771A /* JoinVC.swift */,
 				F96C904024FE1B8000DECD1D /* ControlVC.swift */,
 				F96C904224FE532700DECD1D /* MyProfileVC.swift */,
-				F9690451250079B500AFCE26 /* KeyBoardNoti.swift */,
+				F9690451250079B500AFCE26 /* keyBoardNoti.swift */,
+				F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -300,12 +300,12 @@
 				F9705BA224FCC6BA000B771A /* JoinVC.swift in Sources */,
 				F91E698925066F5100EBF2A5 /* Review.swift in Sources */,
 				F96C904124FE1B8000DECD1D /* ControlVC.swift in Sources */,
+				F97A2C772509EDE5005E6EC8 /* CustomTabBarController.swift in Sources */,
 				F91E697F2506474100EBF2A5 /* PostRouter.swift in Sources */,
 				F96C904324FE532700DECD1D /* MyProfileVC.swift in Sources */,
 				F91E69862506660800EBF2A5 /* MyErrors.swift in Sources */,
 				F91E696B250603E800EBF2A5 /* Constants.swift in Sources */,
-				F9690452250079B500AFCE26 /* KeyBoardNoti.swift in Sources */,
-				F91E69912508EA6E00EBF2A5 /* State.swift in Sources */,
+				F9690452250079B500AFCE26 /* keyBoardNoti.swift in Sources */,
 				F9705B9C24FCC0F1000B771A /* LoginVC.swift in Sources */,
 				F9705B8824FCC0B5000B771A /* SceneDelegate.swift in Sources */,
 				F9705BA024FCC367000B771A /* PostVC.swift in Sources */,

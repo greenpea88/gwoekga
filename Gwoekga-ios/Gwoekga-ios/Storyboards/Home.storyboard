@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xXd-kK-3rq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -11,7 +11,7 @@
         <!--main-->
         <scene sceneID="m7K-br-VLi">
             <objects>
-                <viewController storyboardIdentifier="homeVCID" id="11v-5i-gP7" customClass="HomeVC" customModule="Gwoekga_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainID" id="11v-5i-gP7" customClass="HomeVC" customModule="Gwoekga_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Jl-xF-X5s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,6 +108,12 @@
                                                                                     <real key="value" value="25"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="updateOnTouch" value="NO"/>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                                                    <real key="value" value="0.5"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                                                    <integer key="value" value="1"/>
+                                                                                </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3G-nV-fJ0">
@@ -152,16 +158,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOd-LF-nWi">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lVO-jc-TzA">
-                                        <rect key="frame" x="188" y="366" width="37" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EWB-pb-mfv">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
@@ -197,25 +193,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="qzf-AF-0el" firstAttribute="trailing" secondItem="Q63-eq-Rbw" secondAttribute="trailing" id="636-bn-NKX"/>
-                            <constraint firstItem="qzf-AF-0el" firstAttribute="trailing" secondItem="UOd-LF-nWi" secondAttribute="trailing" id="8af-KB-9dc"/>
                             <constraint firstItem="qzf-AF-0el" firstAttribute="bottom" secondItem="EWB-pb-mfv" secondAttribute="bottom" id="JCY-d0-uF1"/>
                             <constraint firstItem="Q63-eq-Rbw" firstAttribute="top" secondItem="qzf-AF-0el" secondAttribute="top" id="M7F-ok-Qrm"/>
-                            <constraint firstItem="UOd-LF-nWi" firstAttribute="top" secondItem="qzf-AF-0el" secondAttribute="top" id="MSQ-DO-SVx"/>
                             <constraint firstItem="qzf-AF-0el" firstAttribute="trailing" secondItem="EWB-pb-mfv" secondAttribute="trailing" id="Po2-wb-XuP"/>
                             <constraint firstItem="qzf-AF-0el" firstAttribute="bottom" secondItem="Q63-eq-Rbw" secondAttribute="bottom" id="Wmp-t3-Aeu"/>
                             <constraint firstItem="EWB-pb-mfv" firstAttribute="top" secondItem="qzf-AF-0el" secondAttribute="top" id="bWO-a8-qWe"/>
                             <constraint firstItem="EWB-pb-mfv" firstAttribute="leading" secondItem="qzf-AF-0el" secondAttribute="leading" id="gw2-J9-g7x"/>
                             <constraint firstItem="qzf-AF-0el" firstAttribute="trailing" secondItem="6P9-VV-O3k" secondAttribute="trailing" constant="40" id="kUx-UD-sph"/>
-                            <constraint firstItem="qzf-AF-0el" firstAttribute="bottom" secondItem="UOd-LF-nWi" secondAttribute="bottom" id="mPb-RG-BWL"/>
                             <constraint firstItem="Q63-eq-Rbw" firstAttribute="leading" secondItem="qzf-AF-0el" secondAttribute="leading" id="nZP-mY-ARa"/>
                             <constraint firstItem="qzf-AF-0el" firstAttribute="bottom" secondItem="6P9-VV-O3k" secondAttribute="bottom" constant="30" id="qsq-9a-8xt"/>
-                            <constraint firstItem="UOd-LF-nWi" firstAttribute="leading" secondItem="qzf-AF-0el" secondAttribute="leading" id="xzT-cd-vZk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qzf-AF-0el"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="main" image="book.fill" catalog="system" id="SRj-KT-BGg"/>
                     <connections>
-                        <outlet property="loadingView" destination="UOd-LF-nWi" id="CFj-Cq-u6v"/>
                         <outlet property="noLoadedDataView" destination="EWB-pb-mfv" id="dEA-PQ-5bJ"/>
                         <outlet property="postBtn" destination="6P9-VV-O3k" id="Obp-13-jqh"/>
                         <outlet property="timeLineTableView" destination="Q63-eq-Rbw" id="o7A-V3-xRO"/>
@@ -486,10 +477,10 @@
             </objects>
             <point key="canvasLocation" x="1773.913043478261" y="-820.3125"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Custom Tab Bar Controller-->
         <scene sceneID="ZEh-oV-Mn0">
             <objects>
-                <tabBarController storyboardIdentifier="tabBarHome" automaticallyAdjustsScrollViewInsets="NO" id="xXd-kK-3rq" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarHome" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xXd-kK-3rq" customClass="CustomTabBarController" customModule="Gwoekga_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Jg3-xX-V0n">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
