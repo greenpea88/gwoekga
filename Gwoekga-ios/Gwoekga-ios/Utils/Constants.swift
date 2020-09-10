@@ -18,3 +18,14 @@ enum NOTIFICATION{
         static let LOAD_DATA_FAIL = "data load failed"
     }
 }
+
+enum USER{
+    static var USERNAME: String = ""
+    static var EMAIL: String = ""
+}
+
+enum SEGUE{
+    static let LOGIN_ENTER_HOME = "loginEnterHomeSegue"
+    static let JOIN_ENTER_HOHE = "joinEnterHomeSegue"
+    static let JOIN = "joinSegue"
+}

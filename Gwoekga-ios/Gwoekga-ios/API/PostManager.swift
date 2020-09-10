@@ -66,7 +66,6 @@ final class PostManager{
     }
     
     func getGenre(category: String,completion: @escaping (Result<[String], MyError>) -> Void){
-        print("PostManager -> getGenre()")
         
         self.session
             .request(PostRouter.getGenreList(term: category))
@@ -81,7 +80,6 @@ final class PostManager{
                     let genre = subJson["genreEng"].stringValue
                     genres.append(genre)
                 }
-                print(genres)
                 if genres.count > 0 {
                     completion(.success(genres))
                 }
@@ -89,5 +87,73 @@ final class PostManager{
                     completion(.failure(.noContent))
                 }
             })
+    }
+    
+    func postPost(review: Review,completion: @escaping (Result<[String], MyError>) -> Void){
+      
+        print("PostManager -> postGenre()")
+        
+        self.session
+            .request(PostRouter.postPost(post: review))
+            .responseJSON(completionHandler: {  response in
+                guard let responseValue = response.value else { return }
+                let jsonArray = JSON(responseValue)
+                
+                if jsonArray.count > 0 {
+                    //성공 시 받아서 사용할 값이 있는가?
+                    completion(.success(["Success"]))
+                }
+                else {
+                    completion(.failure(.noContent))
+                }
+
+        })
+      }
+    
+    func getPost(completion: @escaping (Result<[Review], MyError>) -> Void) {
+        print("PostManager -> getPost()")
+        
+        self.session
+            .request(PostRouter.getPost)
+            .responseJSON(completionHandler: {response in
+                guard let responseValue = response.value else { return }
+//                debugPrint(response)
+//                        semaphore.signal()
+                            
+                var reviews = [Review]()
+                let jsonArray = JSON(responseValue)
+                        
+                for (idx, subJson) : (String, JSON) in jsonArray{
+                    let title = subJson["title"].stringValue
+                    let email = subJson["email"].stringValue
+                    let category = subJson["category"].stringValue
+                    let rate = subJson["star"].floatValue
+                    let written = subJson["written"].stringValue
+                    var genres = ""
+                            
+                    for (i,internalJson) : (String, JSON) in subJson["genres"]{
+                        let genre = internalJson["genreEng"].stringValue
+                                
+                        if(Int(i) == (subJson["genres"].count - 1)){
+                            genres = genres + genre
+                        }
+                        else{
+                            genres = genres + genre + ","
+                        }
+                    }
+                            
+                    let review = Review(title: title, written: written, star: rate, email: email, category: category, genres: genres)
+                            
+                    reviews.append(review)
+                }
+                print("PosterManager -> getPost() / \(reviews)")
+                if reviews.count > 0 {
+                    completion(.success(reviews))
+                    print("load Data")
+                }
+                else{
+                    completion(.failure(.noContent))
+                }
+        })
     }
 }

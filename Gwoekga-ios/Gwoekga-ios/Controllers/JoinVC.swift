@@ -21,7 +21,10 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var welcomeView: UIView!
+    @IBOutlet weak var loadingActivity: UIActivityIndicatorView!
     
+    var loadedReviews = [Review]()
+    var sendReviews = [Review]()
     
     var keyboardDissmissTabGesture: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
     
@@ -40,6 +43,49 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
 
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+    //        print("loginVC -> prepare() \(self.sendReviews)")
+            switch segue.identifier {
+            case SEGUE.JOIN_ENTER_HOHE:
+                let tabBarController = segue.destination as! CustomTabBarController
+                let login = tabBarController.viewControllers?[0] as! HomeVC
+                
+                login.showReviews = self.sendReviews
+                login.fromMainVeiw  = 1
+            default:
+                print("default")
+            }
+        }
+    
+    fileprivate func enterHome(){
+            //처음 화면이 로드될 때 불러와있을 정보들 -> 올라가있는 정보들 중 한 10개 정도만,,,?(최근 것부터~)
+        loadingActivity.isHidden = false
+            let semaphore = DispatchSemaphore(value: 0)
+            let loadingQueue = DispatchQueue.global()
+            
+            loadingQueue.async {
+                 PostManager.shared.getPost(completion: {[weak self] result in
+                           guard let self = self else {return}
+                           
+                           switch result{
+                           case .success(let reviews):
+                               //배열은 시간순으로 되어있으므로 뒤집기
+                               self.loadedReviews = reviews.reversed()
+                               self.sendReviews = Array(self.loadedReviews.prefix(5))
+                           case .failure(let error):
+                            print(error)
+                           }
+                    semaphore.signal()
+                       })
+            }
+            semaphore.wait(timeout: .now() + 5)
+            DispatchQueue.main.async {
+                //화면 전환 방법 segue로 변경
+                self.performSegue(withIdentifier: SEGUE.JOIN_ENTER_HOHE, sender: self)
+            }
+        }
     
     //MARK: - IBAction Methods
     @IBAction func onRegisteredBtnClicked(_ sender: UIButton) {
@@ -60,7 +106,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         else{
             //키보드 내리기
             self.view.endEditing(true)
-            
+            USER.EMAIL = id
             //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 self.welcomeView.isHidden = false
@@ -68,15 +114,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
             
             //view 전환
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                //스토리보드 가져오기
-                let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-                //스토리보드를 통해 view controller 가져오기
-                let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
-                            //전환 타입
-                homeVC.modalPresentationStyle = .fullScreen
-                homeVC.modalTransitionStyle = .crossDissolve
-                
-                self.present(homeVC,animated: true,completion: nil)
+                self.enterHome()
             })
         }
     }
@@ -117,7 +155,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         }
         else{
             textField.resignFirstResponder()
-            
+            USER.EMAIL = id
             //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 self.welcomeView.isHidden = false
@@ -125,19 +163,30 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
             
             //view 전환
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                //스토리보드 가져오기
-                let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-                //스토리보드를 통해 view controller 가져오기
-                let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
-                            //전환 타입
-                homeVC.modalPresentationStyle = .fullScreen
-                homeVC.modalTransitionStyle = .crossDissolve
-                
-                self.present(homeVC,animated: true,completion: nil)
+                self.enterHome()
             })
             return true
         }
 
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField.tag == 1){
+            
+            
+            let inputTextCount = textField.text?.appending(string).count ?? 0
+            
+            if (inputTextCount > 8){
+                self.view.makeToast("🚨8자 이하로 입력해주세요🚨", duration: 1.0, position: .center)
+                return false
+            }
+            else{
+                return true
+            }
+        }
+        else{
+            return true
+        }
     }
     
     //MARK: - KeyBoardNoti override

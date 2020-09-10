@@ -12,7 +12,8 @@ import Alamofire
 enum PostRouter: URLRequestConvertible {
     case getCategoryList
     case getGenreList(term: String)
-//    case postPost() //body에 데이터 넣어서 보내기
+    case postPost(post: Review) //body에 데이터 넣어서 보내기
+    case getPost
     
     var baseURL: URL {
         return URL(string: API.BASE_URL)!
@@ -22,6 +23,10 @@ enum PostRouter: URLRequestConvertible {
         switch self {
         case .getCategoryList, .getGenreList:
             return .get
+        case .postPost:
+            return .post
+        case .getPost:
+            return .post
         }
     }
     
@@ -32,29 +37,34 @@ enum PostRouter: URLRequestConvertible {
             return "category/all"
         case let .getGenreList(term):
             return "category/" + term
+        case .postPost:
+            return "post/upload"
+        case .getPost:
+            return "post/all" //test용
         }
     }
     
-//    var parameters: [String:String]{
-//        switch self{
-//
-//        }
-//    }
     
     func asURLRequest() throws -> URLRequest {
         let url = baseURL.appendingPathComponent(path)
         
-        print("PostRouter -> asURLRequest() url : \(url)")
+//        print("PostRouter -> asURLRequest() url : \(url)")
         
         var request = URLRequest(url: url)
         request.method = method
         
-//        switch self {
-//        case let .get(parameters):
-//            request = try URLEncodedFormParameterEncoder().encode(parameters, into: request)
-//        case let .post(parameters):
-//            request = try JSONParameterEncoder().encode(parameters, into: request)
-//        }
+        switch self {
+        case .getCategoryList, .getGenreList:
+            break
+        case let .postPost(post):
+//            print(post)
+            let body = ["title" : post.title, "written" : post.written, "star" : String(post.star), "email" : post.email, "category" : post.category, "genres" : post.genres]
+//            request.httpBody = try JSONSerialization.data(withJSONObject: body,options: [])
+//            request.httpBody = body
+            request = try URLEncodedFormParameterEncoder().encode(body,into: request)
+        case .getPost:
+            break
+        }
         
         return request
     }

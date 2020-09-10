@@ -8,6 +8,7 @@
 import UIKit
 import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
 import NaverThirdPartyLogin //네이버 아이디로 로그인
+import Alamofire
 
 class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
@@ -23,6 +24,10 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var notJoinYet: UIButton!
+    @IBOutlet weak var loadingView: UIView!
+    
+    var loadedReviews = [Review]()
+    var sendReviews = [Review]()
     
     //키보드를 내리기위한 tabGesture
     var keyboardDissmissTabGesture: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
@@ -32,7 +37,11 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        //값이 저장되어있다면 자동 로그인
+        if let userId = UserDefaults.standard.string(forKey: "id"){
+            //로그인 실행
+            //id 존재하면 화면 전환
+        }
         
         //상단 네비게이션 바 부분 숨김 처리
         self.navigationController?.isNavigationBarHidden = true
@@ -49,18 +58,100 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
     }
     
-    //MARK: - fileprivate
-    fileprivate func enterHome(){
-        //스토리보드 가져오기
-        let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-        //스토리보드를 통해 view controller 가져오기
-        let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
-        //전환 타입
-        homeVC.modalPresentationStyle = .fullScreen
-        homeVC.modalTransitionStyle = .crossDissolve
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        //전환
-        self.present(homeVC,animated: true,completion: nil)
+//        print("loginVC -> prepare() \(self.sendReviews)")
+        switch segue.identifier {
+        case SEGUE.JOIN:
+            break
+        case SEGUE.LOGIN_ENTER_HOME:
+            let tabBarController = segue.destination as! CustomTabBarController
+            let login = tabBarController.viewControllers?[0] as! HomeVC
+            
+            login.showReviews = self.sendReviews
+            login.fromMainVeiw  = 1
+        default:
+            print("default")
+        }
+    }
+    
+    fileprivate func enterHome(){
+//        //스토리보드 가져오기
+//        let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
+//        //스토리보드를 통해 view controller 가져오기
+//        let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
+//        //전환 타입
+//        homeVC.modalPresentationStyle = .fullScreen
+//        homeVC.modalTransitionStyle = .crossDissolve
+//        //전환
+//        self.present(homeVC,animated: true,completion: nil)
+        //처음 화면이 로드될 때 불러와있을 정보들 -> 올라가있는 정보들 중 한 10개 정도만,,,?(최근 것부터~)
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        let loadingQueue = DispatchQueue.global()
+        
+        loadingQueue.async {
+                        PostManager.shared.getPost(completion: {[weak self] result in
+                       guard let self = self else {return}
+                       
+                       switch result{
+                       case .success(let reviews):
+                           //배열은 시간순으로 되어있으므로 뒤집기
+                           self.loadedReviews = reviews.reversed()
+                           self.sendReviews = Array(self.loadedReviews.prefix(5))
+                       case .failure(let error):
+                        print(error)
+                       }
+                semaphore.signal()
+                   })
+        }
+        semaphore.wait(timeout: .now() + 5)
+        DispatchQueue.main.async {
+            //ui와 관련된 사항은 main thread에서 진행되어야 함
+            //화면 전환 방법 segue로 변경
+            self.performSegue(withIdentifier: SEGUE.LOGIN_ENTER_HOME, sender: self)
+        }
+    }
+    
+    fileprivate func getEmailFromNaver(){
+        guard let isValidAccessToken = naverLoginInstance?.isValidAccessTokenExpireTimeNow() else {return}
+        
+        if !isValidAccessToken{
+            //유효한 토큰이 없을 경우
+            return
+        }
+        
+        guard let tokenType = naverLoginInstance?.tokenType else {return}
+        guard let accessToken = naverLoginInstance?.accessToken else {return}
+        let url = "https://openapi.naver.com/v1/nid/me"
+        
+        let auth = "\(tokenType) \(accessToken)"
+        
+        AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization" : auth]).responseJSON { response in
+            debugPrint(response)
+        }
+    }
+    
+    //MARK: - login operation
+    fileprivate func autoLogin(){
+        print("LoginVC -> autoLogin()")
+        //앱에서 로그인을 했을 경우, 완전 종료 후 재접속시 자동 로그인
+        //로그인을 성공했을 경우에만 저장시킴 -> 재접속시에는 로그인 토큰 받을 필요 없음?
+        guard let id = idTextField.text else {return}
+        guard let password = passwordTextField.text else{return}
+        
+        UserDefaults.standard.set(id, forKey: "id")
+        UserDefaults.standard.set(password, forKey: "password")
+    }
+    
+    fileprivate func getLogin(completion: @escaping (Bool, Any?, Error?) -> Void){
+        //콜백 메소드 처리
+        
+        //TODO: login server부분 생기면 Alamofired이용해서 request보내기
+    }
+    
+    fileprivate func loginAction(){
+        //콜백 메소드
     }
 
     //MARK: - IBAction Method
@@ -75,7 +166,15 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         }
         //로그인시 홈 화면으로 넘어가기
         else{
-            enterHome()
+            USER.EMAIL = id
+            self.view.endEditing(true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.loadingView.isHidden = false
+            })
+            //view 전환
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                self.enterHome()
+            })
         }
 
     }
@@ -131,18 +230,15 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
             return false
         }
         else{
+            USER.EMAIL = id
             textField.resignFirstResponder()
-            
-            //스토리보드 가져오기
-            let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-            //스토리보드를 통해 view controller 가져오기
-            let homeVC = storyboard.instantiateViewController(withIdentifier: "tabBarHome")
-
-            //전환 타입
-            homeVC.modalPresentationStyle  = .fullScreen
-            homeVC.modalTransitionStyle = .crossDissolve
-
-            self.present(homeVC,animated: true,completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.loadingView.isHidden = false
+            })
+            //view 전환
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                self.enterHome()
+            })
             
             return true
         }
@@ -177,7 +273,15 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     //로그인 성공시 호출
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
         print("LoginVC -> login is Success")
-        enterHome()
+        getEmailFromNaver()
+        self.view.endEditing(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.loadingView.isHidden = false
+        })
+        //view 전환
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+            self.enterHome()
+        })
     }
     //접근 토근 갱신
     func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
