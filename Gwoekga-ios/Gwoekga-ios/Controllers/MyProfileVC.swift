@@ -11,30 +11,36 @@ import Alamofire
 
 class MyProfileVC: UIViewController {
     
+    @IBOutlet weak var profileImgView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userEmailLabel: UILabel!
+    @IBOutlet weak var followingNumBtn: UIButton!
+    @IBOutlet weak var followerNumBtn: UIButton!
+    @IBOutlet weak var editProfileBtn: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-//        AF.request("http://ec2-54-237-170-211.compute-1.amazonaws.com:8080/api/category/all").responseJSON { (response) in
-//            debugPrint(response)
-//
-//            switch response.result{
-//            case .success:
-//                guard let result = response.data else {return}
-//
-//                do {
-//                    let decoder = JSONDecoder()
-//                    let json = try decoder.decode(<#T##type: Decodable.Protocol##Decodable.Protocol#>, from: self)
-//                }
-//
-//
-//            case .failure:
-//                <#code#>
-//            }
-//
-//            }
+        self.profileImgView.layer.cornerRadius = 10
+        self.editProfileBtn.layer.borderWidth = 1
+        self.editProfileBtn.layer.borderColor = #colorLiteral(red: 1, green: 0.7959558368, blue: 0, alpha: 1)
+        self.editProfileBtn.layer.cornerRadius = 10
+        
         }
         
-
+    @IBAction func onFollowingBtnClicked(_ sender: UIButton) {
+        print("MyProfileVC -> onFollowingBtnClicked()")
+    }
+    
+    @IBAction func onFollowerBtnClicked(_ sender: UIButton) {
+        print("MyProfileVC -> onFollowerBtnClicked()")
+    }
+    
+    @IBAction func onEditProfileBtnClicked(_ sender: UIButton) {
+        print("MyProfileVC -> onEditProfileBtnClicked")
+    }
+    
 }
 

@@ -8,6 +8,7 @@
 import UIKit
 import Toast_Swift // 오픈소스 : https://github.com/scalessec/Toast-Swift
 import NaverThirdPartyLogin //네이버 아이디로 로그인
+import Alamofire
 
 class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
@@ -39,6 +40,7 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         //값이 저장되어있다면 자동 로그인
         if let userId = UserDefaults.standard.string(forKey: "id"){
             //로그인 실행
+            //id 존재하면 화면 전환
         }
         
         //상단 네비게이션 바 부분 숨김 처리
@@ -111,10 +113,30 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         }
     }
     
+    fileprivate func getEmailFromNaver(){
+        guard let isValidAccessToken = naverLoginInstance?.isValidAccessTokenExpireTimeNow() else {return}
+        
+        if !isValidAccessToken{
+            //유효한 토큰이 없을 경우
+            return
+        }
+        
+        guard let tokenType = naverLoginInstance?.tokenType else {return}
+        guard let accessToken = naverLoginInstance?.accessToken else {return}
+        let url = "https://openapi.naver.com/v1/nid/me"
+        
+        let auth = "\(tokenType) \(accessToken)"
+        
+        AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization" : auth]).responseJSON { response in
+            debugPrint(response)
+        }
+    }
+    
     //MARK: - login operation
     fileprivate func autoLogin(){
         print("LoginVC -> autoLogin()")
-        //앱에서 로그인을 햇을 경우, 완전 종료 후 재접속시 자동 로그인
+        //앱에서 로그인을 했을 경우, 완전 종료 후 재접속시 자동 로그인
+        //로그인을 성공했을 경우에만 저장시킴 -> 재접속시에는 로그인 토큰 받을 필요 없음?
         guard let id = idTextField.text else {return}
         guard let password = passwordTextField.text else{return}
         
@@ -251,6 +273,7 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     //로그인 성공시 호출
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
         print("LoginVC -> login is Success")
+        getEmailFromNaver()
         self.view.endEditing(true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.loadingView.isHidden = false
