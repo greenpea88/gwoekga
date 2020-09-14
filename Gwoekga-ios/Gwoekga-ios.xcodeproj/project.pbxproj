@@ -28,11 +28,17 @@
 		F9705B9E24FCC101000B771A /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9705B9D24FCC101000B771A /* Home.storyboard */; };
 		F9705BA024FCC367000B771A /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705B9F24FCC367000B771A /* PostVC.swift */; };
 		F9705BA224FCC6BA000B771A /* JoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9705BA124FCC6BA000B771A /* JoinVC.swift */; };
+		F977863B250BB38D00486D33 /* FollowUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977863A250BB38D00486D33 /* FollowUserCell.swift */; };
+		F977863D250F4F0A00486D33 /* FollowNaviVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977863C250F4F0A00486D33 /* FollowNaviVC.swift */; };
+		F977863F250F734200486D33 /* CheckAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977863E250F734200486D33 /* CheckAuthVC.swift */; };
 		F97A2C772509EDE5005E6EC8 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */; };
 		F97A2C79250A4167005E6EC8 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C78250A4167005E6EC8 /* LoginManager.swift */; };
 		F97A2C7B250A4295005E6EC8 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C7A250A4295005E6EC8 /* LoginRouter.swift */; };
 		F97A2C7D250A5ABC005E6EC8 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C7C250A5ABC005E6EC8 /* EditProfileVC.swift */; };
 		F97A2C7F250A5BA1005E6EC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F97A2C7E250A5BA1005E6EC8 /* GoogleService-Info.plist */; };
+		F97A2C84250B894B005E6EC8 /* FollowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C83250B894B005E6EC8 /* FollowVC.swift */; };
+		F97A2C86250B8A8F005E6EC8 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C85250B8A8F005E6EC8 /* MenuCell.swift */; };
+		F97A2C8A250BA0BF005E6EC8 /* SimpleInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C89250BA0BF005E6EC8 /* SimpleInfoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,11 +67,17 @@
 		F9705B9D24FCC101000B771A /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		F9705B9F24FCC367000B771A /* PostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		F9705BA124FCC6BA000B771A /* JoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinVC.swift; sourceTree = "<group>"; };
+		F977863A250BB38D00486D33 /* FollowUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowUserCell.swift; sourceTree = "<group>"; };
+		F977863C250F4F0A00486D33 /* FollowNaviVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNaviVC.swift; sourceTree = "<group>"; };
+		F977863E250F734200486D33 /* CheckAuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAuthVC.swift; sourceTree = "<group>"; };
 		F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		F97A2C78250A4167005E6EC8 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		F97A2C7A250A4295005E6EC8 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		F97A2C7C250A5ABC005E6EC8 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		F97A2C7E250A5BA1005E6EC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F97A2C83250B894B005E6EC8 /* FollowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowVC.swift; sourceTree = "<group>"; };
+		F97A2C85250B8A8F005E6EC8 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		F97A2C89250BA0BF005E6EC8 /* SimpleInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInfoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +186,9 @@
 				F9690451250079B500AFCE26 /* keyBoardNoti.swift */,
 				F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */,
 				F97A2C7C250A5ABC005E6EC8 /* EditProfileVC.swift */,
+				F97A2C83250B894B005E6EC8 /* FollowVC.swift */,
+				F977863C250F4F0A00486D33 /* FollowNaviVC.swift */,
+				F977863E250F734200486D33 /* CheckAuthVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -192,6 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				F91E698A25078F5900EBF2A5 /* TimeLineCell.swift */,
+				F97A2C85250B8A8F005E6EC8 /* MenuCell.swift */,
+				F97A2C89250BA0BF005E6EC8 /* SimpleInfoCell.swift */,
+				F977863A250BB38D00486D33 /* FollowUserCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -318,9 +336,12 @@
 				F91E697D250645D000EBF2A5 /* PostInterceptor.swift in Sources */,
 				F97A2C7D250A5ABC005E6EC8 /* EditProfileVC.swift in Sources */,
 				F91E697B2506451100EBF2A5 /* PostManager.swift in Sources */,
+				F97A2C8A250BA0BF005E6EC8 /* SimpleInfoCell.swift in Sources */,
 				F91E698B25078F5A00EBF2A5 /* TimeLineCell.swift in Sources */,
 				F97A2C79250A4167005E6EC8 /* LoginManager.swift in Sources */,
 				F9705BA224FCC6BA000B771A /* JoinVC.swift in Sources */,
+				F977863B250BB38D00486D33 /* FollowUserCell.swift in Sources */,
+				F977863D250F4F0A00486D33 /* FollowNaviVC.swift in Sources */,
 				F91E698925066F5100EBF2A5 /* Review.swift in Sources */,
 				F96C904124FE1B8000DECD1D /* ControlVC.swift in Sources */,
 				F97A2C772509EDE5005E6EC8 /* CustomTabBarController.swift in Sources */,
@@ -329,10 +350,13 @@
 				F91E69862506660800EBF2A5 /* MyErrors.swift in Sources */,
 				F91E696B250603E800EBF2A5 /* Constants.swift in Sources */,
 				F97A2C7B250A4295005E6EC8 /* LoginRouter.swift in Sources */,
+				F97A2C86250B8A8F005E6EC8 /* MenuCell.swift in Sources */,
 				F9690452250079B500AFCE26 /* keyBoardNoti.swift in Sources */,
 				F9705B9C24FCC0F1000B771A /* LoginVC.swift in Sources */,
 				F9705B8824FCC0B5000B771A /* SceneDelegate.swift in Sources */,
 				F9705BA024FCC367000B771A /* PostVC.swift in Sources */,
+				F97A2C84250B894B005E6EC8 /* FollowVC.swift in Sources */,
+				F977863F250F734200486D33 /* CheckAuthVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

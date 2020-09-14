@@ -8,6 +8,7 @@
 
 import UIKit
 import NaverThirdPartyLogin //네이버 아이디로 로그인
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        FirebaseApp.configure() //firebase 사용
         
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
 

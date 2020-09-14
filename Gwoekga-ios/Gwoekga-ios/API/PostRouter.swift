@@ -13,7 +13,8 @@ enum PostRouter: URLRequestConvertible {
     case getCategoryList
     case getGenreList(term: String)
     case postPost(post: Review) //body에 데이터 넣어서 보내기
-    case getPost
+    case getPost(time: String)
+    case getNewPost(time: String)
     
     var baseURL: URL {
         return URL(string: API.BASE_URL)!
@@ -26,7 +27,9 @@ enum PostRouter: URLRequestConvertible {
         case .postPost:
             return .post
         case .getPost:
-            return .post
+            return .get
+        case .getNewPost:
+            return .get
         }
     }
     
@@ -39,8 +42,10 @@ enum PostRouter: URLRequestConvertible {
             return "category/" + term
         case .postPost:
             return "post/upload"
-        case .getPost:
-            return "post/all" //test용
+        case let .getPost(time):
+            return "post/posttime/" + time
+        case let .getNewPost(time):
+            return "post/updatetime/" + time
         }
     }
     
@@ -54,7 +59,7 @@ enum PostRouter: URLRequestConvertible {
         request.method = method
         
         switch self {
-        case .getCategoryList, .getGenreList:
+        case .getCategoryList, .getGenreList, .getPost, .getNewPost:
             break
         case let .postPost(post):
 //            print(post)
@@ -62,8 +67,6 @@ enum PostRouter: URLRequestConvertible {
 //            request.httpBody = try JSONSerialization.data(withJSONObject: body,options: [])
 //            request.httpBody = body
             request = try URLEncodedFormParameterEncoder().encode(body,into: request)
-        case .getPost:
-            break
         }
         
         return request

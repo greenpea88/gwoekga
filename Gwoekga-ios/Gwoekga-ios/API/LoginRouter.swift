@@ -10,10 +10,8 @@ import Foundation
 import Alamofire
 
 enum LoginRouter: URLRequestConvertible {
-    case getCategoryList
-    case getGenreList(term: String)
-    case postPost(post: Review) //body에 데이터 넣어서 보내기
-    case getPost
+    
+    case signUpAuth(email: String,code: String,pw: String,nickname: String,naver: String)
     
     var baseURL: URL {
         return URL(string: API.BASE_URL)!
@@ -21,11 +19,7 @@ enum LoginRouter: URLRequestConvertible {
     
     var method: HTTPMethod {
         switch self {
-        case .getCategoryList, .getGenreList:
-            return .get
-        case .postPost:
-            return .post
-        case .getPost:
+        case .signUpAuth:
             return .post
         }
     }
@@ -33,17 +27,17 @@ enum LoginRouter: URLRequestConvertible {
     //end point
     var path: String {
         switch self {
-        case .getCategoryList:
-            return "category/all"
-        case let .getGenreList(term):
-            return "category/" + term
-        case .postPost:
-            return "post/upload"
-        case .getPost:
-            return "post/all" //test용
+        case .signUpAuth:
+            return "user/signupGeneral"
         }
     }
     
+    var parameters: [String:String]{
+        switch self {
+        case let .signUpAuth(email, code, pw, nickname, naver):
+            return   ["email" : email, "code" : code, "pw" : pw, "nickname" : nickname, "naver" : naver]
+        }
+    }
     
     func asURLRequest() throws -> URLRequest {
         let url = baseURL.appendingPathComponent(path)
@@ -54,18 +48,11 @@ enum LoginRouter: URLRequestConvertible {
         request.method = method
         
         switch self {
-        case .getCategoryList, .getGenreList:
-            break
-        case let .postPost(post):
-//            print(post)
-            let body = ["title" : post.title, "written" : post.written, "star" : String(post.star), "email" : post.email, "category" : post.category, "genres" : post.genres]
-//            request.httpBody = try JSONSerialization.data(withJSONObject: body,options: [])
-//            request.httpBody = body
-            request = try URLEncodedFormParameterEncoder().encode(body,into: request)
-        case .getPost:
-            break
+        case .signUpAuth:
+            request = try URLEncodedFormParameterEncoder().encode(parameters, into: request)
         }
         
         return request
     }
 }
+

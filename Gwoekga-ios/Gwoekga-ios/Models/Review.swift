@@ -9,10 +9,12 @@
 import Foundation
 
 struct Review: Codable{
+    var postSeq: String = ""
     var title: String
     var written: String
     var star: Float
     var email: String
     var category: String
     var genres : String
+    var postTime: String = ""
 }
