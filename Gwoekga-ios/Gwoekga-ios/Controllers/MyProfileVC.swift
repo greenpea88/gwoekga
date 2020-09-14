@@ -31,18 +31,22 @@ class MyProfileVC: UIViewController {
         
         }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navi = segue.destination as! FollowNaviVC
-        switch clickedBtn{
-        case  "following":
-            let following = navi.topViewController as! FollowVC
-            following.selectedIndex = 0
-            following.selectedIdxPath = IndexPath(item: 0, section: 0)
-        case "follower":
-            let follower = navi.topViewController as! FollowVC
-            follower.selectedIndex = 1
-            follower.selectedIdxPath = IndexPath(item: 1, section: 0)
+        
+        switch segue.identifier {
+        case SEGUE.FOLLOW:
+            let navi = segue.destination as! FollowNaviVC
+            if (clickedBtn == "following") {
+                let following = navi.topViewController as! FollowVC
+                following.selectedIndex = 0
+                following.selectedIdxPath = IndexPath(item: 0, section: 0)
+            }
+            else if (clickedBtn == "follower"){
+                let follower = navi.topViewController as! FollowVC
+                follower.selectedIndex = 1
+                follower.selectedIdxPath = IndexPath(item: 1, section: 0)
+            }
         default:
-            print("default")
+            print("defualt")
         }
     }
         

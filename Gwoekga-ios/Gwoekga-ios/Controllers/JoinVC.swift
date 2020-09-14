@@ -20,10 +20,9 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var welcomeView: UIView!
+    @IBOutlet weak var passwordCheckField: UITextField!
+    @IBOutlet weak var passwordNotSameLabel: UILabel!
     @IBOutlet weak var loadingActivity: UIActivityIndicatorView!
-
-    var sendReviews = [Review]()
     
     var keyboardDissmissTabGesture: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
     
@@ -34,59 +33,43 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         //상단 네비게이션 바 부분 숨김 처리
         self.navigationController?.isNavigationBarHidden = true
         joinBtn.layer.cornerRadius = joinBtn.frame.height / 2
+        
+        joinBtn.isEnabled = false
 
         self.keyboardDissmissTabGesture.delegate = self
         self.usernameTextField.delegate = self
         self.idTextField.delegate = self
         self.passwordTextField.delegate = self
+        self.passwordCheckField.delegate = self
 
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
+        
+        passwordTextField.addTarget(self, action: #selector(textFieldDidchange(_:)), for: .editingChanged)
+        passwordCheckField.addTarget(self, action: #selector(textFieldDidchange(_:)), for: .editingChanged)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             
-    //        print("loginVC -> prepare() \(self.sendReviews)")
-            switch segue.identifier {
-            case SEGUE.JOIN_ENTER_HOHE:
-                let tabBarController = segue.destination as! CustomTabBarController
-                let login = tabBarController.viewControllers?[0] as! HomeVC
-                
-                login.showReviews = self.sendReviews
-                login.fromMainVeiw  = 1
-            default:
-                print("default")
-            }
-        }
-    
-    fileprivate func enterHome(){
-            //처음 화면이 로드될 때 불러와있을 정보들 -> 올라가있는 정보들 중 한 10개 정도만,,,?(최근 것부터~)
-        let semaphore = DispatchSemaphore(value: 0)
-        let loadingQueue = DispatchQueue.global()
-        
-        let now = Date()
-        let formatter = DateFormatter()
-//        formatter.timeZone = TimeZone.current
-        formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
-        let dateString = formatter.string(from: now)
+        print("loginVC -> prepare()")
+        switch segue.identifier{
+        case SEGUE.CHECK_AUTH:
+            let allowNum = "0123456789"
+            let authVC = segue.destination as! CheckAuthVC
+            authVC.randomNum = String((1..<7).map{_ in allowNum.randomElement()!})
             
-            loadingQueue.async {
-                PostManager.shared.getPost(time: dateString, completion: {[weak self] result in
-                           guard let self = self else {return}
-                           
-                           switch result{
-                           case .success(let reviews):
-                               self.sendReviews = reviews
-                           case .failure(let error):
-                            print(error)
-                           }
-                    semaphore.signal()
-                       })
-            }
-            semaphore.wait(timeout: .now() + 5)
-            DispatchQueue.main.async {
-                //화면 전환 방법 segue로 변경
-                self.performSegue(withIdentifier: SEGUE.JOIN_ENTER_HOHE, sender: self)
-            }
+        default:
+            print("default")
+        }
+//            switch segue.identifier {
+//            case SEGUE.JOIN_ENTER_HOHE:
+//                let tabBarController = segue.destination as! CustomTabBarController
+//                let login = tabBarController.viewControllers?[0] as! HomeVC
+//
+//                login.showReviews = self.sendReviews
+//                login.fromMainVeiw  = 1
+//            default:
+//                print("default")
+//            }
         }
     
     //MARK: - IBAction Methods
@@ -100,24 +83,46 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         guard let username = usernameTextField.text else {return}
         guard let id = idTextField.text else {return}
         guard let password = passwordTextField.text else {return}
+        guard let passwordCheck = passwordCheckField.text else {return}
         
-        if (username.isEmpty || id.isEmpty || password.isEmpty){
+        if (username.isEmpty || id.isEmpty || password.isEmpty || passwordCheck.isEmpty){
             self.view.makeToast("회원 정보를 모두 입력해주세요.",duration: 1.0,position: .center)
         }
-        //TODO: 회원 가입 시 홈 화면으로 넘어가기 + welcome 화면 띄우기
         else{
             //키보드 내리기
             self.view.endEditing(true)
             USER.EMAIL = id
-            //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.welcomeView.isHidden = false
+                self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
             })
+        }
+    }
+    
+    //MARK:- objc
+    @objc func textFieldDidchange(_ textField: UITextField){
+        print("JoinVC -> textFiledDidChange()")
+        if (textField.tag == 3){
+            guard let inputText = textField.text else {return}
             
-            //view 전환
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                self.enterHome()
-            })
+            if inputText.isEmpty {
+                self.passwordCheckField.isEnabled = false
+            }
+            else {
+                self.passwordCheckField.isEnabled = true
+            }
+        }
+        else if (textField.tag == 4){
+            guard let pwCheck = textField.text else {return}
+            guard let pw = passwordTextField.text else {return}
+            
+            if pw != pwCheck{
+                self.passwordNotSameLabel.isHidden = false
+                self.joinBtn.isEnabled = false
+            }
+            else{
+                self.passwordNotSameLabel.isHidden = true
+                self.joinBtn.isEnabled = true
+            }
         }
     }
     
@@ -150,22 +155,18 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         guard let username = usernameTextField.text else {return false}
         guard let id = idTextField.text else {return false}
         guard let password = passwordTextField.text else {return false}
+        guard let passwordCheck = passwordCheckField.text else {return false}
         
-        if (username.isEmpty || id.isEmpty || password.isEmpty){
+        if (username.isEmpty || id.isEmpty || password.isEmpty || passwordCheck.isEmpty){
             self.view.makeToast("회원 정보를 모두 입력해주세요.",duration: 1.0,position: .center)
             return false
         }
         else{
             textField.resignFirstResponder()
             USER.EMAIL = id
-            //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.welcomeView.isHidden = false
-            })
             
-            //view 전환
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                self.enterHome()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
             })
             return true
         }
@@ -174,8 +175,6 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if (textField.tag == 1){
-            
-            
             let inputTextCount = textField.text?.appending(string).count ?? 0
             
             if (inputTextCount > 8){

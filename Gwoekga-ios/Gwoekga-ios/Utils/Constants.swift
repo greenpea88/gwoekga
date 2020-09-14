@@ -28,6 +28,7 @@ enum SEGUE{
     static let LOGIN_ENTER_HOME = "loginEnterHomeSegue"
     static let JOIN_ENTER_HOHE = "joinEnterHomeSegue"
     static let JOIN = "joinSegue"
+    static let CHECK_AUTH = "checkAuthSegue"
     static let EDIT_PROFILE = "editProfileSegue"
     static let FOLLOW = "followSegue"
 }

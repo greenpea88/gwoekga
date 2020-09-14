@@ -15,6 +15,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     //TODO: - 현재 로드된 정보 이후로 upload된 정보들 server에 요청해 가져오기
+    //TODO: cell 높이 내용물에 따라 동적으로 적용하기
 
     @IBOutlet weak var postBtn: UIButton!
     @IBOutlet weak var timeLineTableView: UITableView!
@@ -34,7 +35,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         postBtn.layer.cornerRadius = postBtn.frame.height / 2
         timeLineTableView.delegate = self
         timeLineTableView.dataSource = self
-        
+
         timeLineTableView.refreshControl  = UIRefreshControl()
         timeLineTableView.refreshControl?.addTarget(self,action: #selector(pullToRefresh),for: .valueChanged)
     }
@@ -112,6 +113,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 당겨서 새로고침 종료
         timeLineTableView.refreshControl?.endRefreshing()
     }
+    
+//    //MARK: - UITableViewDelegate Method
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //table cell 내용물에 따라 높이 동적으로 설정
+        return UITableView.automaticDimension
+    }
+    
     //MARK: - UITableViewDataSource Method
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //row의 개수
