@@ -75,7 +75,7 @@ final class PostManager{
                 var genres = [String]()
                 let jsonArray = JSON(responseValue)
                 
-                for (index, subJson): (String, JSON) in jsonArray{
+                for (_, subJson): (String, JSON) in jsonArray{
                     
                     let genre = subJson["genreEng"].stringValue
                     genres.append(genre)
@@ -110,25 +110,27 @@ final class PostManager{
         })
       }
     
-    func getPost(completion: @escaping (Result<[Review], MyError>) -> Void) {
+    func getPost(time: String, completion: @escaping (Result<[Review], MyError>) -> Void) {
         print("PostManager -> getPost()")
         
         self.session
-            .request(PostRouter.getPost)
+            .request(PostRouter.getPost(time: time))
             .responseJSON(completionHandler: {response in
                 guard let responseValue = response.value else { return }
-//                debugPrint(response)
+                debugPrint(response)
 //                        semaphore.signal()
                             
                 var reviews = [Review]()
                 let jsonArray = JSON(responseValue)
                         
-                for (idx, subJson) : (String, JSON) in jsonArray{
+                for (_, subJson) : (String, JSON) in jsonArray{
+                    let postSeq = subJson["postSeq"].stringValue
                     let title = subJson["title"].stringValue
                     let email = subJson["email"].stringValue
                     let category = subJson["category"].stringValue
                     let rate = subJson["star"].floatValue
                     let written = subJson["written"].stringValue
+                    let postTime = subJson["posttime"].stringValue
                     var genres = ""
                             
                     for (i,internalJson) : (String, JSON) in subJson["genres"]{
@@ -142,11 +144,11 @@ final class PostManager{
                         }
                     }
                             
-                    let review = Review(title: title, written: written, star: rate, email: email, category: category, genres: genres)
+                    let review = Review(postSeq: postSeq,title: title, written: written, star: rate, email: email, category: category, genres: genres,postTime: postTime)
                             
                     reviews.append(review)
                 }
-                print("PosterManager -> getPost() / \(reviews)")
+//                print("PosterManager -> getPost() / \(reviews)")
                 if reviews.count > 0 {
                     completion(.success(reviews))
                     print("load Data")

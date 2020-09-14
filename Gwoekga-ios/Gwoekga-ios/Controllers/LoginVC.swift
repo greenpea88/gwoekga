@@ -26,7 +26,6 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     @IBOutlet weak var notJoinYet: UIButton!
     @IBOutlet weak var loadingView: UIView!
     
-    var loadedReviews = [Review]()
     var sendReviews = [Review]()
     
     //키보드를 내리기위한 tabGesture
@@ -38,10 +37,11 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
     override func viewDidLoad() {
         super.viewDidLoad()
         //값이 저장되어있다면 자동 로그인
-        if let userId = UserDefaults.standard.string(forKey: "id"){
-            //로그인 실행
-            //id 존재하면 화면 전환
-        }
+//        if let userId = UserDefaults.standard.string(forKey: "id"){
+//            //로그인 실행
+//            //id 존재하면 화면 전환
+//        }
+        
         
         //상단 네비게이션 바 부분 숨김 처리
         self.navigationController?.isNavigationBarHidden = true
@@ -90,15 +90,20 @@ class LoginVC: KeyBoardNoti, NaverThirdPartyLoginConnectionDelegate, UIGestureRe
         let semaphore = DispatchSemaphore(value: 0)
         let loadingQueue = DispatchQueue.global()
         
+        let now = Date()
+        let formatter = DateFormatter()
+//        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        let dateString = formatter.string(from: now)
+        
         loadingQueue.async {
-                        PostManager.shared.getPost(completion: {[weak self] result in
+            PostManager.shared.getPost(time: dateString, completion: {[weak self] result in
                        guard let self = self else {return}
                        
                        switch result{
                        case .success(let reviews):
                            //배열은 시간순으로 되어있으므로 뒤집기
-                           self.loadedReviews = reviews.reversed()
-                           self.sendReviews = Array(self.loadedReviews.prefix(5))
+                           self.sendReviews = reviews
                        case .failure(let error):
                         print(error)
                        }

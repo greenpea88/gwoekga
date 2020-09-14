@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import Toast_Swift
 
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -18,6 +19,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var postBtn: UIButton!
     @IBOutlet weak var timeLineTableView: UITableView!
     @IBOutlet weak var noLoadedDataView: UIView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
 //    var test = ["test","test2","test3"]
     var showReviews = [Review]() //표시할 게시물을 담는 배열
@@ -29,7 +31,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print("HomeVC -> viewDidLoad()")
-        print("test value \(showReviews)")
         postBtn.layer.cornerRadius = postBtn.frame.height / 2
         timeLineTableView.delegate = self
         timeLineTableView.dataSource = self
@@ -38,22 +39,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         timeLineTableView.refreshControl?.addTarget(self,action: #selector(pullToRefresh),for: .valueChanged)
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        print("HomeVC -> veiwDidAppear()")
-////        loadPost()
-////        loadingView.isHidden = true
-//    }
-//    
-//    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        print("HomeVC -> viewWillDisappear()")
-//        self.loadingView.isHidden = false
-//        self.showReviews = []
-//    }
-    
     //MARK: - get data from server
     func loadNewPost(){
-        print("HomeVC -> loadNewData")
+        print("HomeVC -> loadNewPost()")
 //        현재 로드된 것 이후에 업로드 된 정보 불러오기
 //        PostManager.shared.getPost(completion: {[weak self] result in
 //            guard let self = self else {return}
@@ -69,31 +57,53 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func loadPost(){
-        //처음 화면이 로드될 때 불러와있을 정보들 -> 올라가있는 정보들 중 한 10개 정도만,,,?(최근 것부터~)
-             PostManager.shared.getPost(completion: {[weak self] result in
-                       guard let self = self else {return}
-                       
-                       switch result{
-                       case .success(let reviews):
-                           //배열은 시간순으로 되어있으므로 뒤집기
-                           self.loadedReviews = reviews.reversed()
-                           self.showReviews = Array(self.loadedReviews.prefix(10))
-                       case .failure(let error):
-                        print(error)
-                        self.noLoadedDataView.isHidden = false
-                       }
-        })
-        
-    }
-    
     func loadPastPost(){
         //밑으로 내릴 경우 더 밑에 위치한 정보 불러오기
+        print("HomeVC -> loadPastPost()")
+        let lastTime = showReviews[showReviews.count - 1].postTime
+        let firstIndex = lastTime.index(lastTime.startIndex, offsetBy: 0)
+        let lastIndex = lastTime.index(lastTime.endIndex, offsetBy: -10)
+        let dateString = lastTime[firstIndex..<lastIndex]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = formatter.date(from: String(dateString)) else {return}
+        formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        let stringDate = formatter.string(from: date)
+//        let date = "2017-04-08 08:03:30 +0000"
+//        let test = formatter.date(from: date)
+        
+        print("original String with date: \(lastTime) , \(dateString)")
+        print("change String with date: \(stringDate)")
+
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        let loadingQueue = DispatchQueue.global()
+
+        loadingQueue.async {
+            PostManager.shared.getPost(time: stringDate, completion: {[weak self] result in
+                guard let self = self else {return}
+
+                switch result{
+                    case .success(let reviews):
+                        self.loadedReviews = reviews
+                        self.showReviews += self.loadedReviews
+                case .failure(_):
+                        self.view.makeToast("더이상 불러올 게시글이 없습니다😳",duration: 1.0,position: .bottom)
+                    }
+                semaphore.signal()
+            })
+        }
+        semaphore.wait(timeout: .now() + 5)
+        DispatchQueue.main.async {
+            //ui와 관련된 사항은 main thread에서 진행되어야 함
+            self.loadingIndicator.isHidden = true
+            self.timeLineTableView.reloadData()
+        }
     }
     
     //MARK: - @objc
     @objc func pullToRefresh(_ sender: Any) {
-        // 새로고침 시 갱신 되어야할 내용
+        // 새로고침 시 갱신되어야할 내용
         print("HomeVC -> pullToRefresh()")
         loadNewPost()
         showReviews += self.loadedReviews
@@ -102,17 +112,15 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 당겨서 새로고침 종료
         timeLineTableView.refreshControl?.endRefreshing()
     }
-    
     //MARK: - UITableViewDataSource Method
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //row의 개수
         return showReviews.count
-//    return test.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //row마다 표시될 cell
-        print("HomeVC -> make tableViewCell")
+//        print("HomeVC -> make tableViewCell")
         let cell = timeLineTableView.dequeueReusableCell(withIdentifier: "InitCell", for: indexPath) as! TimeLineCell
         let review = showReviews[indexPath.row]
         cell.textLabel?.text = String(indexPath.row)
@@ -124,5 +132,20 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+
+        // Change 10.0 to adjust the distance from bottom
+        if maximumOffset - currentOffset <= 10.0 {
+            print("end of scroll")
+            DispatchQueue.main.async {
+                self.loadingIndicator.isHidden = false
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                self.loadPastPost()
+            })
+        }
+    }
 }
 

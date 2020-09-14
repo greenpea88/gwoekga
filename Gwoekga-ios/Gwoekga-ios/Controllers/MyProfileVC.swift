@@ -18,6 +18,7 @@ class MyProfileVC: UIViewController {
     @IBOutlet weak var followerNumBtn: UIButton!
     @IBOutlet weak var editProfileBtn: UIButton!
     
+    var clickedBtn = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +30,32 @@ class MyProfileVC: UIViewController {
         self.editProfileBtn.layer.cornerRadius = 10
         
         }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navi = segue.destination as! FollowNaviVC
+        switch clickedBtn{
+        case  "following":
+            let following = navi.topViewController as! FollowVC
+            following.selectedIndex = 0
+            following.selectedIdxPath = IndexPath(item: 0, section: 0)
+        case "follower":
+            let follower = navi.topViewController as! FollowVC
+            follower.selectedIndex = 1
+            follower.selectedIdxPath = IndexPath(item: 1, section: 0)
+        default:
+            print("default")
+        }
+    }
         
     @IBAction func onFollowingBtnClicked(_ sender: UIButton) {
         print("MyProfileVC -> onFollowingBtnClicked()")
+        clickedBtn = "following"
+        self.performSegue(withIdentifier: SEGUE.FOLLOW, sender: self)
     }
     
     @IBAction func onFollowerBtnClicked(_ sender: UIButton) {
         print("MyProfileVC -> onFollowerBtnClicked()")
+        clickedBtn = "follower"
+        self.performSegue(withIdentifier: SEGUE.FOLLOW, sender: self)
     }
     
     @IBAction func onEditProfileBtnClicked(_ sender: UIButton) {

@@ -22,8 +22,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var welcomeView: UIView!
     @IBOutlet weak var loadingActivity: UIActivityIndicatorView!
-    
-    var loadedReviews = [Review]()
+
     var sendReviews = [Review]()
     
     var keyboardDissmissTabGesture: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
@@ -61,19 +60,22 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     
     fileprivate func enterHome(){
             //처음 화면이 로드될 때 불러와있을 정보들 -> 올라가있는 정보들 중 한 10개 정도만,,,?(최근 것부터~)
-        loadingActivity.isHidden = false
-            let semaphore = DispatchSemaphore(value: 0)
-            let loadingQueue = DispatchQueue.global()
+        let semaphore = DispatchSemaphore(value: 0)
+        let loadingQueue = DispatchQueue.global()
+        
+        let now = Date()
+        let formatter = DateFormatter()
+//        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        let dateString = formatter.string(from: now)
             
             loadingQueue.async {
-                 PostManager.shared.getPost(completion: {[weak self] result in
+                PostManager.shared.getPost(time: dateString, completion: {[weak self] result in
                            guard let self = self else {return}
                            
                            switch result{
                            case .success(let reviews):
-                               //배열은 시간순으로 되어있으므로 뒤집기
-                               self.loadedReviews = reviews.reversed()
-                               self.sendReviews = Array(self.loadedReviews.prefix(5))
+                               self.sendReviews = reviews
                            case .failure(let error):
                             print(error)
                            }
