@@ -43,9 +43,9 @@ enum PostRouter: URLRequestConvertible {
         case .postPost:
             return "post/upload"
         case let .getPost(time):
-            return "post/posttime/" + time
+            return "post/posttime/before/" + time
         case let .getNewPost(time):
-            return "post/updatetime/" + time
+            return "post/posttime/after/" + time
         }
     }
     

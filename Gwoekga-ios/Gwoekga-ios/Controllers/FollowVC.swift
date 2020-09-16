@@ -88,6 +88,7 @@ class FollowVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        print(collectionView.bounds.width)
         return CGSize(width: collectionView.bounds.width / CGFloat(menuTitles.count), height: collectionView.bounds.height)
     }
     

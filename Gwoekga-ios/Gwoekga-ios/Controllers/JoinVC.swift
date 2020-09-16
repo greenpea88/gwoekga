@@ -19,6 +19,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     @IBOutlet weak var registeredBtn: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var idTextField: UITextField!
+    @IBOutlet weak var notFitToEmailFormat: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordCheckField: UITextField!
     @IBOutlet weak var passwordNotSameLabel: UILabel!
@@ -44,6 +45,7 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
 
         self.view.addGestureRecognizer(keyboardDissmissTabGesture)
         
+        idTextField.addTarget(self, action: #selector(textFieldDidchange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidchange(_:)), for: .editingChanged)
         passwordCheckField.addTarget(self, action: #selector(textFieldDidchange(_:)), for: .editingChanged)
     }
@@ -60,16 +62,6 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         default:
             print("default")
         }
-//            switch segue.identifier {
-//            case SEGUE.JOIN_ENTER_HOHE:
-//                let tabBarController = segue.destination as! CustomTabBarController
-//                let login = tabBarController.viewControllers?[0] as! HomeVC
-//
-//                login.showReviews = self.sendReviews
-//                login.fromMainVeiw  = 1
-//            default:
-//                print("default")
-//            }
         }
     
     //MARK: - IBAction Methods
@@ -101,7 +93,19 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     //MARK:- objc
     @objc func textFieldDidchange(_ textField: UITextField){
         print("JoinVC -> textFiledDidChange()")
-        if (textField.tag == 3){
+        if (textField.tag == 2){
+            guard let inputText = textField.text else {return}
+            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,20}"
+            let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+            
+            if (emailTest.evaluate(with: inputText)) {
+                notFitToEmailFormat.isHidden = true
+            }
+                else{
+                notFitToEmailFormat.isHidden = false
+            }
+        }
+        else if (textField.tag == 3){
             guard let inputText = textField.text else {return}
             
             if inputText.isEmpty {

@@ -166,6 +166,12 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 형식에 맞게 적어주세요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5U-gY-8ZG">
+                                                <rect key="frame" x="0.0" y="83" width="294" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cmo-aB-GgU">
                                                 <rect key="frame" x="0.0" y="88" width="294" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -236,6 +242,7 @@
                         <outlet property="joinBtn" destination="gaZ-2X-IC4" id="zyn-KS-thr"/>
                         <outlet property="joinInfoField" destination="vb9-IH-ZRm" id="CRe-gF-1bE"/>
                         <outlet property="loadingActivity" destination="6Kw-ay-HcE" id="8fi-qp-RQf"/>
+                        <outlet property="notFitToEmailFormat" destination="Y5U-gY-8ZG" id="Sae-RB-pnU"/>
                         <outlet property="passwordCheckField" destination="GuD-dM-aud" id="ha8-nQ-0OS"/>
                         <outlet property="passwordNotSameLabel" destination="ogz-a3-eqg" id="AU1-LX-owN"/>
                         <outlet property="passwordTextField" destination="Cmo-aB-GgU" id="6EB-9O-mtV"/>
@@ -261,24 +268,30 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-wB-CPI">
-                                <rect key="frame" x="82" y="373" width="250" height="150"/>
+                                <rect key="frame" x="82" y="348" width="250" height="200"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YA2-AK-08D">
-                                        <rect key="frame" x="17.5" y="21" width="215.5" height="108.5"/>
+                                        <rect key="frame" x="22.5" y="32" width="205" height="136.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인증번호 6자리를 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiM-xw-5Bq">
-                                                <rect key="frame" x="0.0" y="0.0" width="215.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코드를 메일로 보내드렸습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F22-TX-tpf">
+                                                <rect key="frame" x="0.0" y="0.0" width="205" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인증번호 6자리를 입력해주세요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiM-xw-5Bq">
+                                                <rect key="frame" x="0.0" y="30.5" width="205" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="APj-bi-uIg">
-                                                <rect key="frame" x="0.0" y="30.5" width="215.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="58.5" width="205" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awp-ds-MnR">
-                                                <rect key="frame" x="0.0" y="74.5" width="215.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="102.5" width="205" height="34"/>
                                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -295,7 +308,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="YA2-AK-08D" firstAttribute="centerY" secondItem="Ge9-wB-CPI" secondAttribute="centerY" id="Iva-U9-Egl"/>
-                                    <constraint firstAttribute="height" constant="150" id="WRS-de-plH"/>
+                                    <constraint firstAttribute="height" constant="200" id="WRS-de-plH"/>
                                     <constraint firstAttribute="width" constant="250" id="fF9-7i-fgp"/>
                                     <constraint firstItem="YA2-AK-08D" firstAttribute="centerX" secondItem="Ge9-wB-CPI" secondAttribute="centerX" id="oci-jt-PmM"/>
                                 </constraints>

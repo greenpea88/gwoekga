@@ -11,7 +11,8 @@ import Alamofire
 
 enum LoginRouter: URLRequestConvertible {
     
-    case signUpAuth(email: String,code: String,pw: String,nickname: String,naver: String)
+    case signUpAuth(email: String,code: String)
+    case signUp(email: String,code: String,pw: String,nickname: String,naver: String)
     
     var baseURL: URL {
         return URL(string: API.BASE_URL)!
@@ -21,6 +22,8 @@ enum LoginRouter: URLRequestConvertible {
         switch self {
         case .signUpAuth:
             return .post
+        case .signUp:
+            return .post
         }
     }
     
@@ -28,14 +31,9 @@ enum LoginRouter: URLRequestConvertible {
     var path: String {
         switch self {
         case .signUpAuth:
-            return "user/signupGeneral"
-        }
-    }
-    
-    var parameters: [String:String]{
-        switch self {
-        case let .signUpAuth(email, code, pw, nickname, naver):
-            return   ["email" : email, "code" : code, "pw" : pw, "nickname" : nickname, "naver" : naver]
+            return "user/sendEmail"
+        case  .signUp:
+            return "user/signup"
         }
     }
     
@@ -48,8 +46,12 @@ enum LoginRouter: URLRequestConvertible {
         request.method = method
         
         switch self {
-        case .signUpAuth:
-            request = try URLEncodedFormParameterEncoder().encode(parameters, into: request)
+        case let .signUpAuth(email,code):
+             let body = ["email" : email, "code" : code]
+             request = try URLEncodedFormParameterEncoder().encode(body,into: request)
+        case let .signUp(email, code, pw, nickname, naver):
+            let body = ["email" : email, "pw" : pw, "nickname" : nickname, "naver" : naver]
+            request = try URLEncodedFormParameterEncoder().encode(body,into :request)
         }
         
         return request

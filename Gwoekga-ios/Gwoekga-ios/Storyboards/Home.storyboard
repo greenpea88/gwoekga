@@ -636,6 +636,14 @@
                                                         <constraint firstAttribute="trailingMargin" secondItem="nM1-Q9-han" secondAttribute="trailing" id="rJ6-kx-t7X"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="categoryGenreLabel" destination="Xqm-RL-Ano" id="QJX-ZV-kaz"/>
+                                                    <outlet property="reviewTitleLabel" destination="huB-uH-FRD" id="Yhb-2V-XDU"/>
+                                                    <outlet property="starRating" destination="RLB-Uw-7W0" id="nPK-RP-ipk"/>
+                                                    <outlet property="userEmailLabel" destination="7aq-nV-4Ug" id="RDW-SQ-7nI"/>
+                                                    <outlet property="userNameLabel" destination="YuU-md-1a6" id="HV1-cq-KUC"/>
+                                                    <outlet property="userProfileImg" destination="Iy5-i0-uIE" id="D6a-A2-vAv"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>

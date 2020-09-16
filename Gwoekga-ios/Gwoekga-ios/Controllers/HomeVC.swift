@@ -44,18 +44,37 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func loadNewPost(){
         print("HomeVC -> loadNewPost()")
 //        현재 로드된 것 이후에 업로드 된 정보 불러오기
-//        PostManager.shared.getPost(completion: {[weak self] result in
-//            guard let self = self else {return}
-//
-//            switch result{
-//            case .success(let reviews):
-//                //배열은 시간순으로 되어있으므로 뒤집기
-//                self.loadedReviews = reviews.reversed()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        })
+        let currentTime = showReviews[0].postTime
+        let firstIndex = currentTime.index(currentTime.startIndex, offsetBy: 0)
+        let lastIndex = currentTime.index(currentTime.endIndex, offsetBy: -10)
+        let dateString = currentTime[firstIndex..<lastIndex]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        guard let date = formatter.date(from: String(dateString)) else {return}
+        formatter.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        let stringDate = formatter.string(from: date)
         
+        print("original String with date: \(currentTime) , \(dateString)")
+        print("change String with date: \(stringDate)")
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        let loadingQueue = DispatchQueue.global()
+        
+        loadingQueue.async {
+            PostManager.shared.getNewPost(time: stringDate, completion: {[weak self] result in
+                guard let self = self else {return}
+                
+                switch result{
+                case .success(let reviews):
+                    self.loadedReviews = reviews
+                    self.showReviews = self.loadedReviews + self.showReviews
+                case .failure(_):
+                    self.view.makeToast("새로 업로드된 게시물이 존재하지 않습니다😥",duration: 1.0,position: .top)
+                }
+                semaphore.signal()
+            })
+        }
+        semaphore.wait(timeout: .now() + 5)
     }
     
     func loadPastPost(){
@@ -72,9 +91,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let stringDate = formatter.string(from: date)
 //        let date = "2017-04-08 08:03:30 +0000"
 //        let test = formatter.date(from: date)
-        
-        print("original String with date: \(lastTime) , \(dateString)")
-        print("change String with date: \(stringDate)")
 
         
         let semaphore = DispatchSemaphore(value: 0)
@@ -107,9 +123,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 새로고침 시 갱신되어야할 내용
         print("HomeVC -> pullToRefresh()")
         loadNewPost()
-        showReviews += self.loadedReviews
-        timeLineTableView.reloadData()
-        
+        self.timeLineTableView.reloadData()
         // 당겨서 새로고침 종료
         timeLineTableView.refreshControl?.endRefreshing()
     }

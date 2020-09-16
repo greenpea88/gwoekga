@@ -158,4 +158,48 @@ final class PostManager{
                 }
         })
     }
+    
+    func getNewPost(time: String, completion: @escaping (Result<[Review], MyError>) -> Void){
+        self.session
+            .request(PostRouter.getNewPost(time: time))
+            .responseJSON(completionHandler: {response in
+                guard let responseValue = response.value else { return }
+                debugPrint(response)
+                                    
+                var reviews = [Review]()
+                let jsonArray = JSON(responseValue)
+                                
+                for (_, subJson) : (String, JSON) in jsonArray{
+                    let postSeq = subJson["postSeq"].stringValue
+                    let title = subJson["title"].stringValue
+                    let email = subJson["email"].stringValue
+                    let category = subJson["category"].stringValue
+                    let rate = subJson["star"].floatValue
+                    let written = subJson["written"].stringValue
+                    let postTime = subJson["posttime"].stringValue
+                    var genres = ""
+                                    
+                    for (i,internalJson) : (String, JSON) in subJson["genres"]{
+                        let genre = internalJson["genreEng"].stringValue
+                                        
+                        if(Int(i) == (subJson["genres"].count - 1)){
+                            genres = genres + genre
+                        }
+                        else{
+                            genres = genres + genre + ","
+                        }
+                    }
+                                    
+                    let review = Review(postSeq: postSeq,title: title, written: written, star: rate, email: email, category: category, genres: genres,postTime: postTime)
+                                    
+                    reviews.append(review)
+                }
+                if reviews.count > 0 {
+                    completion(.success(reviews))
+                }
+                else{
+                    completion(.failure(.noContent))
+                }
+        })
+    }
 }
