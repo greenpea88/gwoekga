@@ -8,6 +8,9 @@ PODS:
     - FirebaseAnalytics (= 6.8.1)
   - Firebase/CoreOnly (6.32.0):
     - FirebaseCore (= 6.10.2)
+  - Firebase/Messaging (6.32.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 4.6.2)
   - FirebaseAnalytics (6.8.1):
     - FirebaseCore (~> 6.10)
     - FirebaseInstallations (~> 1.6)
@@ -31,6 +34,19 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
+  - FirebaseInstanceID (4.6.0):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstallations (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+  - FirebaseMessaging (4.6.2):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstanceID (~> 4.6)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Reachability (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
+    - Protobuf (>= 3.9.2, ~> 3.9)
   - GoogleAppMeasurement (6.8.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
@@ -65,6 +81,7 @@ PODS:
   - nanopb/encode (1.30906.0)
   - naveridlogin-sdk-ios (4.1.2)
   - PromisesObjC (1.2.10)
+  - Protobuf (3.13.0)
   - PryntTrimmerView (4.0.0)
   - SteviaLayout (4.7.3)
   - SwiftyJSON (4.3.0)
@@ -77,6 +94,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.2)
   - Cosmos (~> 22.1)
   - Firebase/Analytics
+  - Firebase/Messaging
   - naveridlogin-sdk-ios
   - SwiftyJSON (~> 4.0)
   - Toast-Swift (~> 5.0.1)
@@ -91,12 +109,15 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseInstallations
+    - FirebaseInstanceID
+    - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
     - nanopb
     - naveridlogin-sdk-ios
     - PromisesObjC
+    - Protobuf
     - PryntTrimmerView
     - SteviaLayout
     - SwiftyJSON
@@ -111,18 +132,21 @@ SPEC CHECKSUMS:
   FirebaseCore: 1d697bb944bf2af5fc248f1a66e165c9dd88bf97
   FirebaseCoreDiagnostics: 7415bfb3883b3500c5a95c42b6ba66baae78f600
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FirebaseInstanceID: 84f5f5762f1bee94ca2254f693bbf5aec6666504
+  FirebaseMessaging: 82d75b3770a78bbce470769a6980429608b4c407
   GoogleAppMeasurement: e3618c6e9f5166a6b320b03b759da3b04ec2a101
   GoogleDataTransport: e85fb700c9b027079ce182c3d08e12e0f9618bb4
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   YPImagePicker: 08bbb809ed62bf4149fc015c97249eb4b9463ff9
 
-PODFILE CHECKSUM: 51bdc2e09f210532158fa5cb70e7c9abb5bd5ea6
+PODFILE CHECKSUM: 364cd85f4f87c9d70d8319759b5ed75850853435
 
 COCOAPODS: 1.9.3

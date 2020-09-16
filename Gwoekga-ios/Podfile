@@ -11,6 +11,7 @@ target 'Gwoekga-ios' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Cosmos', '~> 22.1'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Messaging'
   # Pods for Gwoekga-ios
 
 end

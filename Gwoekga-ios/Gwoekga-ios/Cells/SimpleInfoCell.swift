@@ -7,7 +7,14 @@
 //
 
 import UIKit
+import Cosmos
 
 class SimpleInfoCell: UITableViewCell {
     
+    @IBOutlet weak var userProfileImg: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userEmailLabel: UILabel!
+    @IBOutlet weak var reviewTitleLabel: UILabel!
+    @IBOutlet weak var categoryGenreLabel: UILabel!
+    @IBOutlet weak var starRating: CosmosView!
 }

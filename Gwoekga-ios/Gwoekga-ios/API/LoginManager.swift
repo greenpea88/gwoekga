@@ -31,13 +31,13 @@ final class LoginManager{
         session = Session(interceptor: interceptors)
     }
     
-    func signUpAuth(email: String, code: String, pw: String, nickname: String, naver: String){
-        //completion 추가하기
-        self.session
-            .request(LoginRouter.signUpAuth(email: email, code: code, pw: pw, nickname: nickname, naver: naver))
-            .validate(statusCode: 200..<400)
-            .responseJSON(completionHandler: { response in
-            debugPrint(response)
-        })
-    }
+//    func signUpAuth(email: String, code: String, pw: String, nickname: String, naver: String){
+//        //completion 추가하기
+//        self.session
+//            .request(LoginRouter.signUpAuth(email: email, code: code)
+//            .validate(statusCode: 200..<400)
+//            .responseJSON(completionHandler: { response in
+//            debugPrint(response)
+//        })
+//    }
 }

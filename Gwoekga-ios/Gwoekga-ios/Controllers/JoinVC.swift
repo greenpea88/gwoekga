@@ -60,16 +60,6 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         default:
             print("default")
         }
-//            switch segue.identifier {
-//            case SEGUE.JOIN_ENTER_HOHE:
-//                let tabBarController = segue.destination as! CustomTabBarController
-//                let login = tabBarController.viewControllers?[0] as! HomeVC
-//
-//                login.showReviews = self.sendReviews
-//                login.fromMainVeiw  = 1
-//            default:
-//                print("default")
-//            }
         }
     
     //MARK: - IBAction Methods
