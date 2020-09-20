@@ -10,4 +10,6 @@ import Foundation
 
 enum MyError: String, Error{
     case noContent = "😧 로드된 데이터가 없습니다."
+    case cantSendEmail = "이메일을 보내지 못했습니다."
+    case cantAddUser = "유저를 추가하지 못했습니다. 다시 시도해주세요."
 }

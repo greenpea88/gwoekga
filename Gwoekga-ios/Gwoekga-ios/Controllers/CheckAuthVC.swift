@@ -17,6 +17,9 @@ class CheckAuthVC: KeyBoardNoti{
     
     var sendReviews = [Review]()
     var randomNum:String = ""
+    var email: String = ""
+    var pw: String = ""
+    var nickName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +44,6 @@ class CheckAuthVC: KeyBoardNoti{
         }
     }
     
-    
     //MARK: - IBAction Method
     @IBAction func onCheckBtnClicked(_ sender: UIButton) {
         print("CheckAuthVC -> onCheckBtnClicked()")
@@ -51,20 +53,49 @@ class CheckAuthVC: KeyBoardNoti{
             self.view.makeToast("인증번호가 일치하지 않습니다.",duration: 1.0,position: .center)
         }
         else{
-            self.view.endEditing(true)
-//            키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.welcome.isHidden = false
-            })
-
-//            view 전환
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                self.enterHome()
-            })
+//            self.view.endEditing(true)
+////            키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//                self.welcome.isHidden = false
+//            })
+//
+////            view 전환
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+//                self.enterHome()
+//            })
+            signIn()
         }
     }
     
     //MARK: - Fileprivate Method
+    fileprivate func signIn() {
+        
+        //TODO: Naver 회원가입 완료시 naver 매개변수 수정할 것
+        LoginManager.shared.signUp(email: email, pw: pw, nickName: nickName, naver: "N", completion: {result in
+            
+            switch result{
+            case .success(_):
+                self.view.endEditing(true)
+                //키보드 내려간 후 딜레이 주고 welcome 화면 띄우기
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    self.welcome.isHidden = false
+                })
+
+                //view 전환
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                    self.enterHome()
+                })
+            case .failure(let error):
+                self.view.makeToast(error.rawValue,duration: 1.0, position: .center)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    //이전 화면으로 되돌아가기
+                    self.navigationController?.popViewController(animated: true)
+                })
+            }
+        })
+    }
+    
     fileprivate func enterHome(){
                 //처음 화면이 로드될 때 불러와있을 정보들 -> 올라가있는 정보들 중 한 10개 정도만,,,?(최근 것부터~)
             let semaphore = DispatchSemaphore(value: 0)
@@ -95,6 +126,7 @@ class CheckAuthVC: KeyBoardNoti{
                     self.performSegue(withIdentifier: SEGUE.JOIN_ENTER_HOHE, sender: self)
                 }
             }
+    
     
     //MARK: - KeyBoardNoti override
        @objc override func keyboardWillShow(notification: NSNotification){

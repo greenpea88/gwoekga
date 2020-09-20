@@ -12,7 +12,7 @@ import Alamofire
 enum LoginRouter: URLRequestConvertible {
     
     case signUpAuth(email: String,code: String)
-    case signUp(email: String,code: String,pw: String,nickname: String,naver: String)
+    case signUp(email: String,pw: String,nickname: String,naver: String)
     
     var baseURL: URL {
         return URL(string: API.BASE_URL)!
@@ -49,7 +49,7 @@ enum LoginRouter: URLRequestConvertible {
         case let .signUpAuth(email,code):
              let body = ["email" : email, "code" : code]
              request = try URLEncodedFormParameterEncoder().encode(body,into: request)
-        case let .signUp(email, code, pw, nickname, naver):
+        case let .signUp(email, pw, nickname, naver):
             let body = ["email" : email, "pw" : pw, "nickname" : nickname, "naver" : naver]
             request = try URLEncodedFormParameterEncoder().encode(body,into :request)
         }

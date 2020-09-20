@@ -31,13 +31,43 @@ final class LoginManager{
         session = Session(interceptor: interceptors)
     }
     
-//    func signUpAuth(email: String, code: String, pw: String, nickname: String, naver: String){
-//        //completion 추가하기
-//        self.session
-//            .request(LoginRouter.signUpAuth(email: email, code: code)
-//            .validate(statusCode: 200..<400)
-//            .responseJSON(completionHandler: { response in
-//            debugPrint(response)
-//        })
-//    }
+    func signUpAuth(email: String, code: String, completion: @escaping (Result<String, MyError>) -> Void){
+        //completion 추가하기
+        self.session
+            .request(LoginRouter.signUpAuth(email: email, code: code))
+            .validate(statusCode: 200..<400)
+            .responseJSON(completionHandler: { response in
+                guard let responseValue = response.value else {return}
+                let jsonArray = JSON(responseValue)
+                
+                let success = jsonArray["state"].stringValue
+                
+                if (success == "success"){
+                    completion(.success("success"))
+                }
+                else{
+                    completion(.failure(.cantSendEmail))
+                }
+        })
+    }
+    
+    func signUp(email: String, pw: String, nickName: String, naver: String, completion: @escaping (Result<String, MyError>) -> Void){
+        self.session
+            .request(LoginRouter.signUp(email: email, pw: pw, nickname: nickName, naver: naver))
+            .validate(statusCode: 200..<400)
+            .responseJSON(completionHandler: {response in
+            debugPrint(response)
+                guard let responseValue = response.value else {return}
+                let jsonArray = JSON(responseValue)
+                
+                let result = jsonArray["status"].stringValue
+                
+                if(result == "성공"){
+                    completion(.success("success"))
+                }
+                else{
+                    completion(.failure(.cantAddUser))
+                }
+        })
+    }
 }
