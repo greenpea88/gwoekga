@@ -27,6 +27,8 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
     
     var keyboardDissmissTabGesture: UIGestureRecognizer = UIGestureRecognizer(target: self, action: nil)
     
+    var randomNumber: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -55,14 +57,44 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
         print("loginVC -> prepare()")
         switch segue.identifier{
         case SEGUE.CHECK_AUTH:
-            let allowNum = "0123456789"
             let authVC = segue.destination as! CheckAuthVC
-            authVC.randomNum = String((1..<7).map{_ in allowNum.randomElement()!})
+            authVC.randomNum = randomNumber
             
+            guard let nickName = usernameTextField.text else {return}
+            guard let email = idTextField.text else {return}
+            guard let password = passwordTextField.text else {return}
+            
+            authVC.nickName = nickName
+            authVC.email = email
+            authVC.pw = password
         default:
             print("default")
         }
         }
+    
+    func checkEmailValid(){
+        let allowNum = "0123456789"
+        randomNumber = String((1..<7).map{_ in allowNum.randomElement()!})
+//         LoginManager.shared.signUpAuth(email: "green_pea88@naver.com", code: randomNumber){result in
+//                        debugPrint(result)
+//                        switch result{
+//                        case  .success(let state):
+//                            if (state == "success"){
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//                                    self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
+//                                })
+//                            }
+//                            else{
+//                                self.view.makeToast("이미 존재하는 이메일입니다.",duration: 1.0,position: .center)
+//                            }
+//                        case .failure(let error):
+//                            print(error)
+//                        }
+//                    } //서버 문제로 인한 500 error
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
+        })
+    }
     
     //MARK: - IBAction Methods
     @IBAction func onRegisteredBtnClicked(_ sender: UIButton) {
@@ -84,9 +116,10 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
             //키보드 내리기
             self.view.endEditing(true)
             USER.EMAIL = id
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
-            })
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//                self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
+//            })
+            checkEmailValid()
         }
     }
     
@@ -169,9 +202,10 @@ class JoinVC: KeyBoardNoti, UIGestureRecognizerDelegate,UITextFieldDelegate {
             textField.resignFirstResponder()
             USER.EMAIL = id
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
-            })
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//                self.performSegue(withIdentifier: SEGUE.CHECK_AUTH, sender: self)
+//            })
+            checkEmailValid()
             return true
         }
 
