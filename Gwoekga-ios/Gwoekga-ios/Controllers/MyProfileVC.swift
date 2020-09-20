@@ -9,7 +9,8 @@
 import UIKit
 import Alamofire
 
-class MyProfileVC: UIViewController {
+class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    
     
     @IBOutlet weak var profileImgView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -17,8 +18,12 @@ class MyProfileVC: UIViewController {
     @IBOutlet weak var followingNumBtn: UIButton!
     @IBOutlet weak var followerNumBtn: UIButton!
     @IBOutlet weak var editProfileBtn: UIButton!
+    @IBOutlet weak var reviewTableView: UITableView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var clickedBtn = ""
+//    var myReview = [Review]()
+    var myReview = ["1","2","3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +34,13 @@ class MyProfileVC: UIViewController {
         self.editProfileBtn.layer.borderColor = #colorLiteral(red: 1, green: 0.7959558368, blue: 0, alpha: 1)
         self.editProfileBtn.layer.cornerRadius = 10
         
+        reviewTableView.delegate = self
+        reviewTableView.dataSource = self
+        
+        reviewTableView.refreshControl  = UIRefreshControl()
+        reviewTableView.refreshControl?.addTarget(self,action: #selector(pullToRefresh),for: .valueChanged)
         }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
@@ -49,7 +60,17 @@ class MyProfileVC: UIViewController {
             print("defualt")
         }
     }
-        
+    
+    func loadNewPost(){
+        print("MyProfileVC -> loadNewPost()")
+    }
+    
+    func loadPastPost(){
+        print("MyProfileVC -> loadPastPost()")
+        self.loadingIndicator.isHidden = true
+    }
+    
+    //MARK: - IBAction Method
     @IBAction func onFollowingBtnClicked(_ sender: UIButton) {
         print("MyProfileVC -> onFollowingBtnClicked()")
         clickedBtn = "following"
@@ -66,5 +87,40 @@ class MyProfileVC: UIViewController {
         print("MyProfileVC -> onEditProfileBtnClicked")
     }
     
+    //MARK: - objc
+    @objc func pullToRefresh(_ sender: Any) {
+        // 새로고침 시 갱신되어야할 내용
+        print("HomeVC -> pullToRefresh()")
+//        loadNewPost()
+        self.reviewTableView.reloadData()
+        // 당겨서 새로고침 종료
+        reviewTableView.refreshControl?.endRefreshing()
+    }
+    
+    //MARK: - UITabelViewDataSource Method
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myReview.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = reviewTableView.dequeueReusableCell(withIdentifier: "simplePostInfo", for: indexPath) as! SimpleInfoCell
+        return cell
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        //제일 밑까지 내려가면 이전 정보 불러오기
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+
+        if maximumOffset - currentOffset <= 10.0 {
+            print("end of scroll")
+            DispatchQueue.main.async {
+                self.loadingIndicator.isHidden = false
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                self.loadPastPost()
+            })
+        }
+    }
 }
 

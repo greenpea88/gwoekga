@@ -427,6 +427,7 @@
                                             <constraint firstItem="get-SZ-0xD" firstAttribute="top" secondItem="6WH-Zq-NKH" secondAttribute="top" id="F20-eF-uGI"/>
                                             <constraint firstItem="mtd-yR-LLf" firstAttribute="leading" secondItem="6WH-Zq-NKH" secondAttribute="leading" constant="5" id="FsL-NI-u8l"/>
                                             <constraint firstAttribute="trailing" secondItem="zXk-ss-bzf" secondAttribute="trailing" id="Ise-Hv-rwN"/>
+                                            <constraint firstItem="XKl-Pc-UIF" firstAttribute="leading" secondItem="6WH-Zq-NKH" secondAttribute="leading" constant="102" id="J3E-QB-qJg"/>
                                             <constraint firstItem="zXk-ss-bzf" firstAttribute="top" secondItem="O5h-q0-J7I" secondAttribute="bottom" id="JgS-64-F8a"/>
                                             <constraint firstItem="get-SZ-0xD" firstAttribute="leading" secondItem="6WH-Zq-NKH" secondAttribute="leading" id="Jod-L6-TKl"/>
                                             <constraint firstAttribute="trailing" secondItem="get-SZ-0xD" secondAttribute="trailing" id="Kce-64-NvW"/>
@@ -450,6 +451,7 @@
                                     <constraint firstItem="6WH-Zq-NKH" firstAttribute="top" secondItem="55D-ge-xqO" secondAttribute="top" id="KPg-Ad-KQa"/>
                                     <constraint firstItem="6WH-Zq-NKH" firstAttribute="leading" secondItem="55D-ge-xqO" secondAttribute="leading" id="Lhz-Ac-za8"/>
                                     <constraint firstItem="6WH-Zq-NKH" firstAttribute="width" secondItem="ie8-jp-X55" secondAttribute="width" id="fI3-B7-0qc"/>
+                                    <constraint firstItem="ie8-jp-X55" firstAttribute="bottom" secondItem="6WH-Zq-NKH" secondAttribute="bottom" constant="16.5" id="iPw-cq-c9V"/>
                                     <constraint firstAttribute="height" constant="300" id="xY8-Ag-gly"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="55D-ge-xqO"/>
@@ -544,6 +546,10 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TaY-GB-H9z">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="493.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" id="F8S-eg-9Ez">
+                                            <rect key="frame" x="0.0" y="222" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="simplePostInfo" rowHeight="166" id="I9p-cf-Otc" customClass="SimpleInfoCell" customModule="Gwoekga_ios" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="166"/>
@@ -773,7 +779,9 @@
                         <outlet property="editProfileBtn" destination="Lh0-if-rOz" id="rev-2U-zNK"/>
                         <outlet property="followerNumBtn" destination="4yh-XP-mRw" id="LEE-I1-ZxP"/>
                         <outlet property="followingNumBtn" destination="OiW-4g-7kP" id="mqc-pJ-Vtk"/>
+                        <outlet property="loadingIndicator" destination="F8S-eg-9Ez" id="2MO-zj-LcS"/>
                         <outlet property="profileImgView" destination="06J-AR-9Wg" id="SDN-vV-XTr"/>
+                        <outlet property="reviewTableView" destination="TaY-GB-H9z" id="eM9-Hl-g0a"/>
                         <outlet property="userEmailLabel" destination="mFD-ed-0jm" id="6gd-de-iDc"/>
                         <outlet property="userNameLabel" destination="OdD-xo-iRz" id="Qtt-zL-Vb0"/>
                         <segue destination="LFt-LM-jYZ" kind="presentation" identifier="followSegue" modalPresentationStyle="fullScreen" id="8JN-pu-V4B"/>
