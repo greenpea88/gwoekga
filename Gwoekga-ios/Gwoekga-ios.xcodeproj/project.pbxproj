@@ -31,6 +31,9 @@
 		F977863B250BB38D00486D33 /* FollowUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977863A250BB38D00486D33 /* FollowUserCell.swift */; };
 		F977863D250F4F0A00486D33 /* FollowNaviVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977863C250F4F0A00486D33 /* FollowNaviVC.swift */; };
 		F977863F250F734200486D33 /* CheckAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977863E250F734200486D33 /* CheckAuthVC.swift */; };
+		F9779FAC251A448A00D2FB1B /* Review.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9779FAB251A448A00D2FB1B /* Review.storyboard */; };
+		F9779FAE251A461500D2FB1B /* DetailReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9779FAD251A461500D2FB1B /* DetailReviewVC.swift */; };
+		F9789B1F2517AB8B00B4C7A2 /* LoginInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9789B1E2517AB8B00B4C7A2 /* LoginInterceptor.swift */; };
 		F97A2C772509EDE5005E6EC8 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */; };
 		F97A2C79250A4167005E6EC8 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C78250A4167005E6EC8 /* LoginManager.swift */; };
 		F97A2C7B250A4295005E6EC8 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C7A250A4295005E6EC8 /* LoginRouter.swift */; };
@@ -70,6 +73,9 @@
 		F977863A250BB38D00486D33 /* FollowUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowUserCell.swift; sourceTree = "<group>"; };
 		F977863C250F4F0A00486D33 /* FollowNaviVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNaviVC.swift; sourceTree = "<group>"; };
 		F977863E250F734200486D33 /* CheckAuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAuthVC.swift; sourceTree = "<group>"; };
+		F9779FAB251A448A00D2FB1B /* Review.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Review.storyboard; sourceTree = "<group>"; };
+		F9779FAD251A461500D2FB1B /* DetailReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReviewVC.swift; sourceTree = "<group>"; };
+		F9789B1E2517AB8B00B4C7A2 /* LoginInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInterceptor.swift; sourceTree = "<group>"; };
 		F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		F97A2C78250A4167005E6EC8 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		F97A2C7A250A4295005E6EC8 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
@@ -126,6 +132,7 @@
 				F91E697E2506474100EBF2A5 /* PostRouter.swift */,
 				F97A2C78250A4167005E6EC8 /* LoginManager.swift */,
 				F97A2C7A250A4295005E6EC8 /* LoginRouter.swift */,
+				F9789B1E2517AB8B00B4C7A2 /* LoginInterceptor.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -189,6 +196,7 @@
 				F97A2C83250B894B005E6EC8 /* FollowVC.swift */,
 				F977863C250F4F0A00486D33 /* FollowNaviVC.swift */,
 				F977863E250F734200486D33 /* CheckAuthVC.swift */,
+				F9779FAD251A461500D2FB1B /* DetailReviewVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -199,6 +207,7 @@
 				F9705B8B24FCC0B5000B771A /* Main.storyboard */,
 				F9705B9024FCC0BA000B771A /* LaunchScreen.storyboard */,
 				F9705B9D24FCC101000B771A /* Home.storyboard */,
+				F9779FAB251A448A00D2FB1B /* Review.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -274,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9779FAC251A448A00D2FB1B /* Review.storyboard in Resources */,
 				F9705B9224FCC0BA000B771A /* LaunchScreen.storyboard in Resources */,
 				F9705B8F24FCC0BA000B771A /* Assets.xcassets in Resources */,
 				F97A2C7F250A5BA1005E6EC8 /* GoogleService-Info.plist in Resources */,
@@ -333,6 +343,7 @@
 			files = (
 				F9705B8A24FCC0B5000B771A /* HomeVC.swift in Sources */,
 				F9705B8624FCC0B5000B771A /* AppDelegate.swift in Sources */,
+				F9789B1F2517AB8B00B4C7A2 /* LoginInterceptor.swift in Sources */,
 				F91E697D250645D000EBF2A5 /* PostInterceptor.swift in Sources */,
 				F97A2C7D250A5ABC005E6EC8 /* EditProfileVC.swift in Sources */,
 				F91E697B2506451100EBF2A5 /* PostManager.swift in Sources */,
@@ -351,6 +362,7 @@
 				F91E696B250603E800EBF2A5 /* Constants.swift in Sources */,
 				F97A2C7B250A4295005E6EC8 /* LoginRouter.swift in Sources */,
 				F97A2C86250B8A8F005E6EC8 /* MenuCell.swift in Sources */,
+				F9779FAE251A461500D2FB1B /* DetailReviewVC.swift in Sources */,
 				F9690452250079B500AFCE26 /* keyBoardNoti.swift in Sources */,
 				F9705B9C24FCC0F1000B771A /* LoginVC.swift in Sources */,
 				F9705B8824FCC0B5000B771A /* SceneDelegate.swift in Sources */,
