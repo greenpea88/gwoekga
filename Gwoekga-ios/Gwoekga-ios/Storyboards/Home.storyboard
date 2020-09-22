@@ -158,7 +158,7 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottomMargin" secondItem="w7B-9o-K9Q" secondAttribute="bottom" id="RBa-Kc-HCi"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="w7B-9o-K9Q" secondAttribute="trailing" id="TgV-sk-dWe"/>
@@ -167,7 +167,6 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="gAm-b3-0MS" firstAttribute="leading" secondItem="QIs-23-fCl" secondAttribute="leadingMargin" id="41m-yg-bSZ"/>
                                                 <constraint firstItem="hiW-cD-lJI" firstAttribute="top" secondItem="QIs-23-fCl" secondAttribute="topMargin" id="4SL-ch-eVz"/>
@@ -532,6 +531,14 @@
             </objects>
             <point key="canvasLocation" x="1003" y="-151"/>
         </scene>
+        <!--Review-->
+        <scene sceneID="wRZ-44-52m">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="detailReview" storyboardName="Review" id="Sb9-d8-3VW" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lH1-Ld-iqH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="720" y="1025"/>
+        </scene>
         <!--user-->
         <scene sceneID="MKK-bZ-fic">
             <objects>
@@ -626,7 +633,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="2NZ-Ix-ihh" firstAttribute="top" secondItem="nM1-Q9-han" secondAttribute="top" id="0pb-46-7ph"/>
                                                                 <constraint firstAttribute="trailing" secondItem="2NZ-Ix-ihh" secondAttribute="trailing" id="4Do-gi-wzC"/>
@@ -785,6 +792,7 @@
                         <outlet property="userEmailLabel" destination="mFD-ed-0jm" id="6gd-de-iDc"/>
                         <outlet property="userNameLabel" destination="OdD-xo-iRz" id="Qtt-zL-Vb0"/>
                         <segue destination="LFt-LM-jYZ" kind="presentation" identifier="followSegue" modalPresentationStyle="fullScreen" id="8JN-pu-V4B"/>
+                        <segue destination="Sb9-d8-3VW" kind="presentation" identifier="seeDetail" modalPresentationStyle="fullScreen" id="gep-Wc-RAZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="maf-xx-P7n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -898,7 +906,7 @@
                                                             </constraints>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="zXa-Yi-X4H" firstAttribute="top" secondItem="t9P-Gi-PDR" secondAttribute="top" constant="10" id="F49-XK-WRO"/>
                                                         <constraint firstAttribute="bottom" secondItem="zXa-Yi-X4H" secondAttribute="bottom" constant="10" id="H3Y-py-Qi8"/>

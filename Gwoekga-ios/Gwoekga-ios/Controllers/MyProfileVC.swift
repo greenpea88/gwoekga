@@ -91,7 +91,7 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @objc func pullToRefresh(_ sender: Any) {
         // 새로고침 시 갱신되어야할 내용
         print("HomeVC -> pullToRefresh()")
-//        loadNewPost()
+        loadNewPost()
         self.reviewTableView.reloadData()
         // 당겨서 새로고침 종료
         reviewTableView.refreshControl?.endRefreshing()
@@ -105,6 +105,10 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = reviewTableView.dequeueReusableCell(withIdentifier: "simplePostInfo", for: indexPath) as! SimpleInfoCell
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "seeDetail", sender: self)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
