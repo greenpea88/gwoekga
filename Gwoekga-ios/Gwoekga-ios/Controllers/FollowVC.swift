@@ -88,7 +88,7 @@ class FollowVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print(collectionView.bounds.width)
+        print(collectionView.bounds.width , collectionView.frame.width)
         return CGSize(width: collectionView.bounds.width / CGFloat(menuTitles.count), height: collectionView.bounds.height)
     }
     
@@ -106,5 +106,10 @@ class FollowVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
         let cell = userListTableView.dequeueReusableCell(withIdentifier: "FollowCell", for: indexPath) as! FollowUserCell
         cell.userNameLabel.text = selectedArray[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //클릭한 사용자의 profile 화면으로 넘어가기
+        userListTableView.deselectRow(at: indexPath, animated: false)
     }
 }

@@ -36,6 +36,7 @@
 		F9779FB0251ABB3800D2FB1B /* ReviewNaviVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9779FAF251ABB3800D2FB1B /* ReviewNaviVC.swift */; };
 		F9779FB2251AC3B200D2FB1B /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9779FB1251AC3B200D2FB1B /* CommentCell.swift */; };
 		F9779FB4251ACBAF00D2FB1B /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9779FB3251ACBAF00D2FB1B /* Comment.swift */; };
+		F9779FB6251B664E00D2FB1B /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9779FB5251B664E00D2FB1B /* Profile.storyboard */; };
 		F9789B1F2517AB8B00B4C7A2 /* LoginInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9789B1E2517AB8B00B4C7A2 /* LoginInterceptor.swift */; };
 		F97A2C772509EDE5005E6EC8 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */; };
 		F97A2C79250A4167005E6EC8 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97A2C78250A4167005E6EC8 /* LoginManager.swift */; };
@@ -81,6 +82,7 @@
 		F9779FAF251ABB3800D2FB1B /* ReviewNaviVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNaviVC.swift; sourceTree = "<group>"; };
 		F9779FB1251AC3B200D2FB1B /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		F9779FB3251ACBAF00D2FB1B /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		F9779FB5251B664E00D2FB1B /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		F9789B1E2517AB8B00B4C7A2 /* LoginInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInterceptor.swift; sourceTree = "<group>"; };
 		F97A2C762509EDE5005E6EC8 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		F97A2C78250A4167005E6EC8 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				F9705B9024FCC0BA000B771A /* LaunchScreen.storyboard */,
 				F9705B9D24FCC101000B771A /* Home.storyboard */,
 				F9779FAB251A448A00D2FB1B /* Review.storyboard */,
+				F9779FB5251B664E00D2FB1B /* Profile.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				F9705B8F24FCC0BA000B771A /* Assets.xcassets in Resources */,
 				F97A2C7F250A5BA1005E6EC8 /* GoogleService-Info.plist in Resources */,
 				F9705B8D24FCC0B5000B771A /* Main.storyboard in Resources */,
+				F9779FB6251B664E00D2FB1B /* Profile.storyboard in Resources */,
 				F9705B9E24FCC101000B771A /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

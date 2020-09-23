@@ -20,8 +20,8 @@ class DetailReviewVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var reviewLabel: UILabel!
     @IBOutlet weak var commentTableView: UITableView!
     
-//    var review: Review!
-    var review: String!
+    var review: Review!
+//    var review: String!
     var comment = [Comment]()
     
     override func viewDidLoad() {
