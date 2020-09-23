@@ -24,6 +24,8 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var clickedBtn = ""
 //    var myReview = [Review]()
     var myReview = ["1","2","3"]
+//    var clickedReivew: Review!
+    var clickedReview: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +58,10 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                 follower.selectedIndex = 1
                 follower.selectedIdxPath = IndexPath(item: 1, section: 0)
             }
+        case SEGUE.DETAIL_REVIEW:
+            let navi = segue.destination as! ReviewNaviVC
+            let detailReview = navi.topViewController as! DetailReviewVC
+            detailReview.review  = clickedReview
         default:
             print("defualt")
         }
@@ -108,7 +114,9 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "seeDetail", sender: self)
+        //클릭한 review 정보 받아오기
+        clickedReview = myReview[indexPath.row]
+        self.performSegue(withIdentifier: SEGUE.DETAIL_REVIEW, sender: self)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

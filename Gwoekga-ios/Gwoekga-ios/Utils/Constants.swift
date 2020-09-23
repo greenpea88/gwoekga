@@ -32,4 +32,5 @@ enum SEGUE{
     static let CHECK_AUTH = "checkAuthSegue"
     static let EDIT_PROFILE = "editProfileSegue"
     static let FOLLOW = "followSegue"
+    static let DETAIL_REVIEW = "seeDetail"
 }
