@@ -140,6 +140,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return showReviews.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //정보 가져와서 detail 화면으로 넘어가기
+        timeLineTableView.deselectRow(at: indexPath, animated: false)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //row마다 표시될 cell
 //        print("HomeVC -> make tableViewCell")

@@ -426,7 +426,6 @@
                                             <constraint firstItem="get-SZ-0xD" firstAttribute="top" secondItem="6WH-Zq-NKH" secondAttribute="top" id="F20-eF-uGI"/>
                                             <constraint firstItem="mtd-yR-LLf" firstAttribute="leading" secondItem="6WH-Zq-NKH" secondAttribute="leading" constant="5" id="FsL-NI-u8l"/>
                                             <constraint firstAttribute="trailing" secondItem="zXk-ss-bzf" secondAttribute="trailing" id="Ise-Hv-rwN"/>
-                                            <constraint firstItem="XKl-Pc-UIF" firstAttribute="leading" secondItem="6WH-Zq-NKH" secondAttribute="leading" constant="102" id="J3E-QB-qJg"/>
                                             <constraint firstItem="zXk-ss-bzf" firstAttribute="top" secondItem="O5h-q0-J7I" secondAttribute="bottom" id="JgS-64-F8a"/>
                                             <constraint firstItem="get-SZ-0xD" firstAttribute="leading" secondItem="6WH-Zq-NKH" secondAttribute="leading" id="Jod-L6-TKl"/>
                                             <constraint firstAttribute="trailing" secondItem="get-SZ-0xD" secondAttribute="trailing" id="Kce-64-NvW"/>
@@ -611,7 +610,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLB-Uw-7W0" customClass="CosmosView" customModule="Cosmos">
                                                                             <rect key="frame" x="0.0" y="121" width="120" height="23"/>
-                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
                                                                                     <color key="value" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -823,7 +822,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zFo-ec-Ysq">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zFo-ec-Ysq">
                                 <rect key="frame" x="0.0" y="88" width="414" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>

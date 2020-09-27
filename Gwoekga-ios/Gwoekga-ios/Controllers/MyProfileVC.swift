@@ -22,13 +22,15 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var clickedBtn = ""
-//    var myReview = [Review]()
-    var myReview = ["1","2","3"]
+    var myReview = [Review]()
+//    var myReview = ["1","2","3"]
+    var clickedReivew: Review!
+//    var clickedReview: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        print("MyProfileVC -> viewDidLoad()")
         self.profileImgView.layer.cornerRadius = 10
         self.editProfileBtn.layer.borderWidth = 1
         self.editProfileBtn.layer.borderColor = #colorLiteral(red: 1, green: 0.7959558368, blue: 0, alpha: 1)
@@ -56,6 +58,10 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                 follower.selectedIndex = 1
                 follower.selectedIdxPath = IndexPath(item: 1, section: 0)
             }
+        case SEGUE.DETAIL_REVIEW:
+            let navi = segue.destination as! ReviewNaviVC
+            let detailReview = navi.topViewController as! DetailReviewVC
+            detailReview.review = clickedReivew
         default:
             print("defualt")
         }
@@ -108,7 +114,11 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "seeDetail", sender: self)
+        //클릭한 review 정보 받아오기
+        clickedReivew = myReview[indexPath.row]
+        //클린한 거 해제하기
+        reviewTableView.deselectRow(at: indexPath, animated: false)
+        self.performSegue(withIdentifier: SEGUE.DETAIL_REVIEW, sender: self)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
