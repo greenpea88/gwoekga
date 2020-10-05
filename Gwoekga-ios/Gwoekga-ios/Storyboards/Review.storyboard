@@ -32,10 +32,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7i5-UL-jEA">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="735"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ex-Uu-Ge2">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="735"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V1J-YS-x4K">
                                                 <rect key="frame" x="20" y="10" width="374" height="374"/>
@@ -145,7 +145,7 @@
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="i7u-IK-v3g">
-                                                <rect key="frame" x="20" y="573.5" width="374" height="200.5"/>
+                                                <rect key="frame" x="20" y="573.5" width="374" height="161.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="116" id="cqs-T4-y6g" customClass="CommentCell" customModule="Gwoekga_ios" customModuleProvider="target">
@@ -186,12 +186,38 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="1Na-xO-BCH"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="tk5-W5-Crf"/>
                             </scrollView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="0Lm-8J-AlC">
+                                <rect key="frame" x="20" y="828" width="374" height="34"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HKo-Ms-mtw">
+                                        <rect key="frame" x="0.0" y="0.0" width="326" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voq-5h-7C2">
+                                        <rect key="frame" x="344" y="0.0" width="30" height="34"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="게시">
+                                            <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.99740892650000001" green="0.92300323599475209" blue="0.434031978148122" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onCommentSubmitBtnClicked:" destination="fwi-Qc-Nbi" eventType="touchUpInside" id="6KM-vC-mil"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="7i5-UL-jEA" firstAttribute="top" secondItem="cj5-Ck-aVq" secondAttribute="top" id="8Zu-vQ-9mP"/>
                             <constraint firstItem="7i5-UL-jEA" firstAttribute="trailing" secondItem="cj5-Ck-aVq" secondAttribute="trailing" id="QoA-IZ-ojl"/>
-                            <constraint firstItem="cj5-Ck-aVq" firstAttribute="bottom" secondItem="7i5-UL-jEA" secondAttribute="bottom" id="c4a-4J-r0t"/>
+                            <constraint firstItem="cj5-Ck-aVq" firstAttribute="trailing" secondItem="0Lm-8J-AlC" secondAttribute="trailing" constant="20" id="Y6c-va-zEO"/>
+                            <constraint firstItem="0Lm-8J-AlC" firstAttribute="leading" secondItem="cj5-Ck-aVq" secondAttribute="leading" constant="20" id="Zlt-rY-gkh"/>
+                            <constraint firstItem="0Lm-8J-AlC" firstAttribute="top" secondItem="7i5-UL-jEA" secondAttribute="bottom" constant="5" id="c4a-4J-r0t"/>
+                            <constraint firstItem="cj5-Ck-aVq" firstAttribute="bottom" secondItem="0Lm-8J-AlC" secondAttribute="bottom" id="duT-yD-kWZ"/>
                             <constraint firstItem="7i5-UL-jEA" firstAttribute="leading" secondItem="cj5-Ck-aVq" secondAttribute="leading" id="eJ4-37-y8w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cj5-Ck-aVq"/>
@@ -206,7 +232,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="categoryGenreLabel" destination="3fD-xm-cnd" id="wQL-D0-ceb"/>
+                        <outlet property="commentSubmitBtn" destination="voq-5h-7C2" id="hWa-d7-4kr"/>
                         <outlet property="commentTableView" destination="i7u-IK-v3g" id="ezy-a1-LGt"/>
+                        <outlet property="commentTextField" destination="HKo-Ms-mtw" id="B98-2i-QpM"/>
+                        <outlet property="insertCommentStackView" destination="0Lm-8J-AlC" id="eUQ-vR-26U"/>
                         <outlet property="posterImgView" destination="V1J-YS-x4K" id="Sh0-8c-WEQ"/>
                         <outlet property="reviewLabel" destination="4hT-5o-XQ6" id="EOo-DV-V5N"/>
                         <outlet property="reviewerProfileImgView" destination="wUe-GV-cgA" id="Auf-DZ-xar"/>
